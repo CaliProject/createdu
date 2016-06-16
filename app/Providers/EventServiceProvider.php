@@ -13,9 +13,15 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'Createdu\Events\SomeEvent' => [
-            'Createdu\Listeners\EventListener',
+        'Createdu\Events\User\Auth\UserHasRegistered' => [
+            'Createdu\Listeners\User\EmailRegisterConfirmation',
         ],
+        'Createdu\Events\User\Auth\UserHasLoggedIn'     => [
+//            'Createdu\Listeners\User\EmailConfirmation@handleLoggedIn',
+        ],
+        'Createdu\Events\User\Auth\UserHasReset' => [
+            'Createdu\Listeners\User\EmailPasswordResetConfirmation',
+        ]
     ];
 
     /**

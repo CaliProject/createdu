@@ -23,6 +23,18 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->registerSiteSingleton();
+    }
+
+    /**
+     * Registers the site configuration singleton.
+     *
+     * @author Cali
+     */
+    private function registerSiteSingleton()
+    {
+        $this->app->singleton('Site', function () {
+            return new Site;
+        });
     }
 }

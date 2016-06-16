@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'PRC',
 
     /*
     |--------------------------------------------------------------------------
@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'zh',
 
     /*
     |--------------------------------------------------------------------------
@@ -155,6 +155,11 @@ return [
         Createdu\Providers\AuthServiceProvider::class,
         Createdu\Providers\EventServiceProvider::class,
         Createdu\Providers\RouteServiceProvider::class,
+        
+        /*
+         * Third-party Service Providers...
+         */
+        \Maknz\Slack\SlackServiceProvider::class
 
     ],
 
@@ -201,6 +206,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        
+        'Slack' => \Maknz\Slack\Facades\Slack::class
 
     ],
 

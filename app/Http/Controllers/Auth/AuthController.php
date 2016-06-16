@@ -2,11 +2,11 @@
 
 namespace Createdu\Http\Controllers\Auth;
 
-use Createdu\User;
 use Validator;
+use Createdu\User;
 use Createdu\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
-use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Createdu\Library\Traits\Auth\AuthenticatesAndRegistersUsers;
 
 class AuthController extends Controller
 {

@@ -6,6 +6,7 @@ use Createdu\Library\Traits\User\Sociable;
 use Createdu\Library\Traits\User\UserMetas;
 use Createdu\Library\Traits\Model\TimeSortable;
 use Createdu\Library\Traits\User\AvatarControls;
+use Createdu\Events\User\Auth\UserHasRegistered;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable

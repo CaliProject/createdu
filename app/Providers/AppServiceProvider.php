@@ -2,6 +2,7 @@
 
 namespace Createdu\Providers;
 
+use Createdu\SiteConfiguration;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -34,7 +35,7 @@ class AppServiceProvider extends ServiceProvider
     private function registerSiteSingleton()
     {
         $this->app->singleton('Site', function () {
-            return new Site;
+            return new SiteConfiguration;
         });
     }
 }

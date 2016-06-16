@@ -22,7 +22,8 @@
     "autoload": {
         "classmap": [
             "database",
-            "app/Models"
+            "app/Models",
+            "app/Http/Routes"
         ],
         "files": [
             "app/Library/helpers.php"

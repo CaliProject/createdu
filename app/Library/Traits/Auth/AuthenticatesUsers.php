@@ -65,6 +65,7 @@ trait AuthenticatesUsers {
      * @param  \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\Response
+     * @author Cali
      */
     public function login(Request $request)
     {
@@ -81,17 +82,14 @@ trait AuthenticatesUsers {
             return $this->sendLockoutResponse($request);
         }
 
-        $credentials = $this->getCredentials($request);
-
-        if (Auth::attempt($credentials, $request->has('remember_me'))) {
-            return $this->handleUserWasAuthenticated($request, $throttles);
-        } else {
-            if ($request->ajax()) {
-                return [
-                    "status" => "failed",
-                    "error"  => $this->getFailedLoginMessage()
-                ];
+        if (property_exists($this, 'multiFactors')) {
+            foreach ($this->multiFactors as $factor) {
+                if (Auth::attempt($this->getCredentials($request, $factor), $request->has('remember')))
+                    return $this->handleUserWasAuthenticated($request, $throttles);
             }
+        } else {
+            if (Auth::attempt($this->getCredentials($request), $request->has('remember')))
+                return $this->handleUserWasAuthenticated($request, $throttles);
         }
 
         // If the login attempt was unsuccessful we will increment the number of attempts
@@ -143,12 +141,15 @@ trait AuthenticatesUsers {
      * Get the needed authorization credentials from the request.
      *
      * @param  \Illuminate\Http\Request $request
-     *
+     * @param string                    $name
      * @return array
      */
-    protected function getCredentials(Request $request)
+    protected function getCredentials(Request $request, $name = 'email')
     {
-        return $request->only($this->loginUsername(), 'password');
+        return [
+            $name      => $request->input($this->loginUsername()),
+            'password' => $request->input('password')
+        ];
     }
 
     /**

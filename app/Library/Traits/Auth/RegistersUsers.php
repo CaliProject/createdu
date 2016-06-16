@@ -71,7 +71,7 @@ trait RegistersUsers {
             ];
         }
 
-        Auth::login(User::register($request->all()));
+        Auth::login(User::register($request->all()), true);
 
         return [
             'status' => 'succeeded',

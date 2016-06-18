@@ -22,9 +22,9 @@ class Router {
     public static function auth()
     {
         // Authentication Routes...
-        Route::get('login', 'Auth\AuthController@showLoginForm')->name('sign-in');
-        Route::post('login', 'Auth\AuthController@login');
-        Route::get('logout', 'Auth\AuthController@logout')->name('exit');
+        Route::get('signin', 'Auth\AuthController@showLoginForm')->name('sign-in');
+        Route::post('signin', 'Auth\AuthController@login');
+        Route::get('signout', 'Auth\AuthController@logout')->name('exit');
 
         // Password Reset Routes...
         Route::get('password/reset/{token?}', 'Auth\PasswordController@showResetForm')->name('reset');
@@ -57,7 +57,7 @@ class Router {
      */
     public static function language()
     {
-        Route::get('language/{language}', 'Dashboard\HomeController@changeLanguage');
+        Route::get('~{language}', 'Dashboard\HomeController@changeLanguage');
 
         return new static;
     }

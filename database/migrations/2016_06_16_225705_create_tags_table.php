@@ -13,8 +13,23 @@ class CreateTagsTable extends Migration
     public function up()
     {
         Schema::create('tags', function (Blueprint $table) {
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_general_ci';
+            
             $table->increments('id');
+            $table->string('name', 191)->index();
             $table->timestamps();
+        });
+
+        Schema::create('taggables', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('tag_id')->index();
+            $table->unsignedBigInteger('taggable_id')->index();
+            $table->string('taggable_type')->index();
+
+            $table->timestamps();
+
+            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
         });
     }
 
@@ -25,6 +40,7 @@ class CreateTagsTable extends Migration
      */
     public function down()
     {
+        Schema::drop('taggables');
         Schema::drop('tags');
     }
 }

@@ -13,8 +13,13 @@ class CreateUserMetasTable extends Migration
     public function up()
     {
         Schema::create('user_metas', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
+            $table->string('key')->index();
+            $table->longText('value');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

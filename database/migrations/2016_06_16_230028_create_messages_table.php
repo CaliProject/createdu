@@ -13,8 +13,15 @@ class CreateMessagesTable extends Migration
     public function up()
     {
         Schema::create('messages', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigncrements('id');
+            $table->unsignedBigInteger('from_user_id')->index();
+            $table->unsignedBigInteger('to_user_id')->index();
+            $table->longText('content');
+            $table->text('metas');
             $table->timestamps();
+
+            $table->foreign('from_user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('to_user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

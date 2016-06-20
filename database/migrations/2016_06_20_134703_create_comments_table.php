@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserMetasTable extends Migration
+class CreateCommentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,15 @@ class CreateUserMetasTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_metas', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->string('key')->index();
-            $table->longText('value');
+            $table->text('body');
+            $table->string('user_agent')->index();
+            $table->unsignedBigInteger('parent');
+            
+            $table->unsignedBigInteger('commentable_id')->index();
+            $table->string('commentable_type')->index();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
@@ -30,6 +34,6 @@ class CreateUserMetasTable extends Migration
      */
     public function down()
     {
-        Schema::drop('user_metas');
+        Schema::drop('comments');
     }
 }

@@ -16,7 +16,7 @@ class CreateTagsTable extends Migration
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_general_ci';
             
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('name', 191)->index();
             $table->timestamps();
         });

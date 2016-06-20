@@ -25,6 +25,27 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        Schema::create('user_metas', function (Blueprint $table) {
+            $table->unsignedBigInteger('user_id');
+            $table->string('key')->index();
+            $table->longText('value');
+            $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->primary(['user_id', 'key']);
+        });
+
+        Schema::create('user_avatars', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id')->index();
+            $table->string('src')->nullable()->index();
+            // 0: Local, 1: Remote
+            $table->unsignedTinyInteger('type');
+            $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+        });
     }
 
     /**
@@ -34,6 +55,8 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
+        Schema::drop('user_avatars');
+        Schema::drop('user_metas');
         Schema::drop('users');
     }
 }

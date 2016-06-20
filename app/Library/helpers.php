@@ -140,3 +140,19 @@ if (! function_exists('root_domain')) {
         return $url;
     }
 }
+
+if (! function_exists('request_is_route')) {
+    /**
+     * Detect if the request belongs to the given route.
+     *
+     * @param      $route
+     * @param bool $all
+     * @return bool
+     * 
+     * @author Cali
+     */
+    function request_is_route($route, $all = false)
+    {
+        return request()->is(substr(route($route, [], false), 1) . ($all ? '*' : ''));    
+    }
+}

@@ -221,13 +221,18 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
 
-        'Site'     => Createdu\Library\Facades\Site::class,
-        'Stat'     => Createdu\Library\Facades\Stat::class,
-        'Mailer'   => Createdu\Library\Facades\Mailer::class,
-        'Location' => Createdu\Library\Facades\Location::class,
+        /**
+         * Custom facades
+         */
+        'Site'      => Createdu\Library\Facades\Site::class,
+        'Stat'      => Createdu\Library\Facades\Stat::class,
+        'Mailer'    => Createdu\Library\Facades\Mailer::class,
+        'Location'  => Createdu\Library\Facades\Location::class,
 
-        'Slack' => Maknz\Slack\Facades\Slack::class,
-
+        /**
+         * Vendor facades
+         */
+        'Slack'     => Maknz\Slack\Facades\Slack::class,
         'Socialite' => Cali\Socialite\Facades\Socialite::class,
     ],
 

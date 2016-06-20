@@ -1,0 +1,21 @@
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+@import "../plugins/Simple-Line-Icons";
+
+/**
+ * Components
+ */
+@import "settings";
+@import "modern";
+
+/**
+ * Plugins
+ */
+@import "../plugins/pace";
+@import "../plugins/waves";
+@import "../plugins/toastr";
+@import "../plugins/select2";
+@import "../plugins/uniform";
+@import "../plugins/switchery";
+@import "../plugins/sweetalert";
+@import "../plugins/jquery.datatable";

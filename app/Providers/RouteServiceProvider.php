@@ -2,6 +2,9 @@
 
 namespace Createdu\Providers;
 
+use Site;
+use Crypt;
+use Carbon\Carbon;
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -24,7 +27,8 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(Router $router)
     {
-        //
+        $this->setTimeLocale();
+        $this->adjustLocale();
 
         parent::boot($router);
     }
@@ -57,5 +61,44 @@ class RouteServiceProvider extends ServiceProvider
         ], function ($router) {
             require app_path('Http/Routes/entry.php');
         });
+    }
+
+    /**
+     * Set the Carbon locale.
+     *
+     * @author Cali
+     */
+    protected function setTimeLocale()
+    {
+        Carbon::setLocale(substr($this->app->getLocale(), 0, 2));
+    }
+
+    /**
+     * Adjust the locale with different browser languages.
+     *
+     * @author Cali
+     */
+    private function adjustLocale()
+    {
+        if (request()->hasCookie('lang')) {
+            $this->setLocale(Crypt::decrypt(request()->cookie('lang')));
+        } else {
+            if (site('autoLocale') != '0') {
+                // TODO: Uncomment when we're ready
+//            request()->header('accept-language') ? $this->setLocale(substr(request()->header('accept-language'), 0, 2)) : null;
+            }
+        }
+    }
+
+    /**
+     * Switch locale
+     *
+     * @param $locale
+     */
+    private function setLocale($locale)
+    {
+        if (in_array($locale, Site::supportedLocales())) {
+            app()->setLocale($locale);
+        }
     }
 }

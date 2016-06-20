@@ -19,6 +19,20 @@ class SiteConfiguration extends Configuration {
     */
 
     /**
+     * If the app is in beta.
+     * 
+     * @var bool
+     */
+    protected $beta = true;
+
+    /**
+     * Current version number.
+     * 
+     * @var string
+     */
+    protected $version = "1.0";
+    
+    /**
      * The keys that need to prepend a prefix.
      *
      * @var array
@@ -67,6 +81,38 @@ class SiteConfiguration extends Configuration {
     public static function logo()
     {
         return url('assets/logo.png?ver=' . static::logoVersion() ?: '0');
+    }
+
+    /**
+     * Get the current supported locales.
+     * 
+     * @return array
+     */
+    public static function supportedLocales()
+    {
+        return [
+            'en', 'zh'
+        ];
+    }
+
+    /**
+     * Get current version.
+     * 
+     * @return string
+     */
+    public function getCurrentVersion()
+    {
+        return $this->version;
+    }
+
+    /**
+     * See if we're in beta.
+     * 
+     * @return bool
+     */
+    public function isBeta()
+    {
+        return $this->beta;
     }
 
     /**

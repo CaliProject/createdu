@@ -13,20 +13,20 @@
             </div>
         </div>
         <ul class="menu accordion-menu">
-            <li class="{{ request_is_route('admin.dashboard') ? 'active' : '' }}">
+            <li class="{{ request_is_route('admin.index') ? 'active' : '' }}">
                 <a href="@route('admin.dashboard', [], false)" class="waves-effect waves-button" data-pjax>
                     <span class="menu-icon icon-speedometer"></span>
                     <p>@lang('views.admin.titles.dashboard')</p>
                 </a>
             </li>
-            <li class="droplink{{ request_is_route('admin.users.index', true) ? ' active' : '' }}">
+            <li class="droplink{{ request_is_route('admin.index', ['section' => 'users'],true) ? ' active' : '' }}">
                 <a href="#" class="waves-effect waves-button">
                     <span class="menu-icon icon-user"></span><p>@lang('views.admin.titles.users.main')</p><span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
-                    <li><a href="@route('admin.users.index', [], false)" data-pjax>@lang('views.admin.titles.users.sub.index')</a></li>
-                    <li><a href="@route('admin.users.profile.index', [], false)" data-pjax>@lang('views.admin.titles.users.sub.profile')</a></li>
-                    <li><a href="@route('admin.users.invitations', [], false)" data-pjax>@lang('views.admin.titles.users.sub.invitations')</a></li>
+                    <li><a href="@route('admin.index', ['section' => 'user'], false)" data-pjax>@lang('views.admin.titles.users.sub.index')</a></li>
+{{--                    <li><a href="@route('admin.users.profile.index', [], false)" data-pjax>@lang('views.admin.titles.users.sub.profile')</a></li>--}}
+{{--                    <li><a href="@route('admin.users.invitations', [], false)" data-pjax>@lang('views.admin.titles.users.sub.invitations')</a></li>--}}
                 </ul>
             </li>
             {{--<li class="droplink">--}}
@@ -37,41 +37,41 @@
                     {{--</ul>--}}
                 {{--</a>--}}
             {{--</li>--}}
-            <li class="droplink{{ request_is_route('admin.center.index', true) ? ' active' : '' }}">
-                <a href="#" class="waves-effect waves-button">
-                    <span class="menu-icon icon-support"></span><p>@lang('views.admin.titles.data-center.main')</p><span class="arrow"></span>
-                </a>
-                <ul class="sub-menu">
-                    <li><a href="@route('admin.center.index', [], false)" data-pjax>@lang('views.admin.titles.data-center.sub.index')</a></li>
-                    <li><a href="@route('admin.center.factory', [], false)" data-pjax>@lang('views.admin.titles.data-center.sub.factory')</a></li>
-                </ul>
-            </li>
-            <li class="droplink{{ request_is_route('admin.settings.general', true) ? ' active' : '' }}">
+            {{--<li class="droplink{{ request_is_route('admin.center.index', true) ? ' active' : '' }}">--}}
+                {{--<a href="#" class="waves-effect waves-button">--}}
+                    {{--<span class="menu-icon icon-support"></span><p>@lang('views.admin.titles.data-center.main')</p><span class="arrow"></span>--}}
+                {{--</a>--}}
+                {{--<ul class="sub-menu">--}}
+                    {{--<li><a href="@route('admin.center.index', [], false)" data-pjax>@lang('views.admin.titles.data-center.sub.index')</a></li>--}}
+                    {{--<li><a href="@route('admin.center.factory', [], false)" data-pjax>@lang('views.admin.titles.data-center.sub.factory')</a></li>--}}
+                {{--</ul>--}}
+            {{--</li>--}}
+            <li class="droplink">
                 <a href="#" class="waves-effect waves-button">
                     <span class="menu-icon icon-equalizer"></span><p>@lang('views.admin.titles.settings.main')</p><span class="arrow"></span>
                 </a>
-                <ul class="sub-menu">
-                    <li><a href="@route('admin.settings.general')" data-pjax>@lang('views.admin.titles.settings.sub.general')</a></li>
-                    <li class="droplink">
-                        <a href="#" class="waves-effect waves-button">
-                            <p>@lang('views.admin.titles.settings.sub.advanced.main')</p>
-                            <span class="arrow"></span>
-                        </a>
-                        <ul class="sub-menu">
-                            <li><a href="@route('admin.settings.advanced.index', [], false)" data-pjax>@lang('views.admin.titles.settings.sub.advanced.develop')</a></li>
-                            <li><a href="@route('admin.settings.advanced.database', [], false)" data-pjax>@lang('views.admin.titles.settings.sub.advanced.database')</a></li>
-                            <li><a href="@route('admin.settings.advanced.cache', [], false)" data-pjax>@lang('views.admin.titles.settings.sub.advanced.cache')</a></li>
-                            <li><a href="@route('admin.settings.advanced.sub-domains', [], false)" data-pjax>@lang('views.admin.titles.settings.sub.advanced.sub-domains')</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="@route('admin.settings.display.index', [], false)" data-pjax>@lang('views.admin.titles.settings.sub.display')</a></li>
-                    <li><a href="@route('admin.settings.services', [], false)" data-pjax>@lang('views.admin.titles.settings.sub.services')</a></li>
-                    <li>
-                        <a href="@route('admin.settings.upgrade', [], false)" data-pjax>
-                            <i class="icon-present"></i>&nbsp;@lang('views.admin.titles.settings.sub.upgrade')
-                        </a>
-                    </li>
-                </ul>
+                {{--<ul class="sub-menu">--}}
+                    {{--<li><a href="@route('admin.settings.general')" data-pjax>@lang('views.admin.titles.settings.sub.general')</a></li>--}}
+                    {{--<li class="droplink">--}}
+                        {{--<a href="#" class="waves-effect waves-button">--}}
+                            {{--<p>@lang('views.admin.titles.settings.sub.advanced.main')</p>--}}
+                            {{--<span class="arrow"></span>--}}
+                        {{--</a>--}}
+                        {{--<ul class="sub-menu">--}}
+                            {{--<li><a href="@route('admin.settings.advanced.index', [], false)" data-pjax>@lang('views.admin.titles.settings.sub.advanced.develop')</a></li>--}}
+                            {{--<li><a href="@route('admin.settings.advanced.database', [], false)" data-pjax>@lang('views.admin.titles.settings.sub.advanced.database')</a></li>--}}
+                            {{--<li><a href="@route('admin.settings.advanced.cache', [], false)" data-pjax>@lang('views.admin.titles.settings.sub.advanced.cache')</a></li>--}}
+                            {{--<li><a href="@route('admin.settings.advanced.sub-domains', [], false)" data-pjax>@lang('views.admin.titles.settings.sub.advanced.sub-domains')</a></li>--}}
+                        {{--</ul>--}}
+                    {{--</li>--}}
+                    {{--<li><a href="@route('admin.settings.display.index', [], false)" data-pjax>@lang('views.admin.titles.settings.sub.display')</a></li>--}}
+                    {{--<li><a href="@route('admin.settings.services', [], false)" data-pjax>@lang('views.admin.titles.settings.sub.services')</a></li>--}}
+                    {{--<li>--}}
+                        {{--<a href="@route('admin.settings.upgrade', [], false)" data-pjax>--}}
+                            {{--<i class="icon-present"></i>&nbsp;@lang('views.admin.titles.settings.sub.upgrade')--}}
+                        {{--</a>--}}
+                    {{--</li>--}}
+                {{--</ul>--}}
             </li>
             @stack('sidebar-menu')
         </ul>

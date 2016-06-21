@@ -19,7 +19,7 @@ class MakeAdminCommand extends Command {
      *
      * @var string
      */
-    protected $description = 'Quickly create an admin account.';
+    protected $description = 'Create a new admin account.';
 
     /**
      * Create a new command instance.
@@ -45,7 +45,7 @@ class MakeAdminCommand extends Command {
         $user = User::createAdmin([
             'name'     => $name,
             'email'    => $email,
-            'password' => bcrypt($password)
+            'password' => $password
         ]);
         
         if ($user) {

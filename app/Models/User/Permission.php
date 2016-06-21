@@ -17,6 +17,33 @@ class Permission extends Model {
      |
      */
 
+    /**
+     * Fillable attributes.
+     * 
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'label'    
+    ];
+    
+    /**
+     * Get the default permissions.
+     * 
+     * @return array
+     */
+    public static function defaultPermissions()
+    {
+        return [
+            'view-dashboard'  => 'Visit admin dashboard page',
+            'manage-users'    => 'Manage registered users',
+            'change-settings' => '',
+            'publish-posts'   => '',
+            'publish-courses' => '',
+            'manage-posts'    => '',
+            'manage-courses'  => ''
+        ];
+    }
+
     /*
      * Relationship starts
      */

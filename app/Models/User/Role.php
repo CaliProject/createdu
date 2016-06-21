@@ -4,8 +4,8 @@ namespace Createdu;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
-{
+class Role extends Model {
+
     /*
      |------------------------------------------------------------
      | Role Model
@@ -28,7 +28,7 @@ class Role extends Model
     /**
      * Default role id.
      */
-    const DEFAULT_ROLE = 1;
+    const DEFAULT_ROLE = 'member';
 
     /**
      * Fillable attributes.
@@ -38,6 +38,37 @@ class Role extends Model
     protected $fillable = [
         self::name, 'label'
     ];
+
+    /**
+     * Get the default roles.
+     * 
+     * @return array
+     */
+    public static function defaultRoles()
+    {
+        return [
+            'member'        => '网站用户|Site Member',
+            'apprentice'    => '学生成员|Apprentice',
+            'tutor'         => '专业教师|Tutor',
+            'administrator' => '网站管理员|Site Admin'
+        ];
+    }
+
+    /**
+     * Assign the default permissions.
+     * 
+     * @author Cali
+     */
+    public static function assignPermissions()
+    {
+        $tutor = static::whereName('tutor')->first();
+        $tutor->givePermission(Permission::whereName('publish-courses')->first());
+
+        $admin = static::whereName('administrator')->first();
+        foreach (array_keys(Permission::defaultPermissions()) as $key) {
+            $admin->givePermission(Permission::whereName($key)->first());
+        }
+    }
 
     /*
      * Relationship starts
@@ -70,4 +101,9 @@ class Role extends Model
     /*
      * Relationships ends
      */
+
+    public function givePermission(Permission $permission)
+    {
+        return $this->permissions()->save($permission);
+    }
 }

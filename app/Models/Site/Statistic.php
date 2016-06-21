@@ -64,6 +64,32 @@ class Statistic extends Model {
     }
 
     /**
+     * Magically call the methods.
+     *
+     * @param $name
+     * @param $arguments
+     * @return mixed
+     * 
+     * @author Cali
+     */
+    public function __call($name, $arguments)
+    {
+        $class = strtoupper(substr($name, 0, 1)) . substr($name, 1);
+        
+        $class = __NAMESPACE__ . '\\' . str_singular($class);
+        
+        if (class_exists($class)) {
+            if (count($arguments)) {
+                return call_user_func_array([$class, camel_case($arguments[0])], [])->count();
+            } else {
+                return $class::count();
+            }
+        }
+
+        return parent::__call($name, $arguments);
+    }
+    
+    /**
      * Get new users count by the sorting method.
      *
      * @param       $method

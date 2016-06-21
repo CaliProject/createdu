@@ -10,11 +10,11 @@
     <title>@yield('title') @site('adminTitle')</title>
 
     {{-- Fonts --}}
-    <link href="/assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
     {{-- Styles --}}
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
-    <link rel="stylesheet" href="/assets/css/admin/app.css">
+    <link rel="stylesheet" href="/assets/css/pages/admin/app.css">
 
     @if($theme = Auth::user()->meta('admin.theme'))
         <link href="/assets/css/admin/themes/{{ $theme->theme }}.css" class="theme-color" rel="stylesheet">
@@ -40,9 +40,9 @@
     {{--<script src="/assets/js/admin/snap.svg-min.js"></script>--}}
 
     <script>
-                @if($theme)
+    @if($theme)
         var THEME_COLOR = "{{ $theme->color }}";
-                @endif
+    @endif
 
         var themeSettings = {
                     fixedHeader: '{{ Auth::user()->adminThemeSettingMeta('admin.theme.fixed-header', 'value', true) }}',

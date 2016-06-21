@@ -13,6 +13,23 @@ class Router {
      */
 
     /**
+     * Home Related Routes.
+     * 
+     * @return static
+     * @author Cali
+     */
+    public static function home()
+    {
+        Route::group([
+            'domain' => str_replace('http://', '', config('app.url'))
+        ], function () {
+            Route::get('/', 'HomeController@index')->name('home');
+        });
+
+        return new static;
+    }
+    
+    /**
      * Auth & Register Related Routes.
      * 验证 & 注册相关路由
      *
@@ -36,8 +53,8 @@ class Router {
 
         if (site('registrationOn')) {
             // Registration Routes...
-            Route::get('register', 'Auth\AuthController@showRegistrationForm')->name('sign-up');
-            Route::post('register', 'Auth\AuthController@register');
+            Route::get('signup', 'Auth\AuthController@showRegistrationForm')->name('sign-up');
+            Route::post('signup', 'Auth\AuthController@register');
 
             // Third Party Authentications...
             Route::get('auth/{service}', 'Auth\AuthController@socialLogin')->name('social');
@@ -86,9 +103,35 @@ class Router {
         Route::group([
             'namespace' => 'User',
             'as'        => 'users.',
-            'domain'    => 'avatars.' . str_replace('http://', '', str_replace('https://', '', env('APP_URL')))
+            'domain'    => 'avatars.' . str_replace('http://', '', str_replace('https://', '', config('app.url')))
         ], function () {
             Route::get('u/{user?}', 'ProfileController@getAvatar')->name('avatar');
+        });
+
+        return new static;
+    }
+
+    /**
+     * Admin related routes.
+     *
+     * @return static
+     * @author Cali
+     */
+    public static function admins()
+    {
+        Route::group([
+            'namespace' => 'Admin',
+            'as'        => 'admin.',
+            'domain'    => 'admin.' . str_replace('http://', '', str_replace('https://', '', config('app.url')))
+        ], function () {
+            Route::get('{section?}', 'AdminController@show')->name('index');
+            
+            Route::group([
+                'as' => 'users.',
+                'prefix' => 'users'
+            ], function () {
+                
+            });
         });
 
         return new static;

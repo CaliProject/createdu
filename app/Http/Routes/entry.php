@@ -11,7 +11,12 @@
 |
 */
 
+Auth::loginUsingId(5);
+
 Router::auth()
     ->language()
     ->robots()
     ->users();
+
+Router::home()
+    ->admins();

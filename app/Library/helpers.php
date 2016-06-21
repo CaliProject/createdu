@@ -145,14 +145,15 @@ if (! function_exists('request_is_route')) {
     /**
      * Detect if the request belongs to the given route.
      *
-     * @param      $route
-     * @param bool $all
+     * @param       $route
+     * @param array $attributes
+     * @param bool  $all
      * @return bool
      * 
      * @author Cali
      */
-    function request_is_route($route, $all = false)
+    function request_is_route($route, $attributes = [], $all = false)
     {
-        return request()->is(substr(route($route, [], false), 1) . ($all ? '*' : ''));    
+        return request()->is(substr(route($route, $attributes, false), 1) . ($all ? '*' : ''));    
     }
 }

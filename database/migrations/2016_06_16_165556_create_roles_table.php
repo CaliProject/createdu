@@ -3,8 +3,8 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRolesTable extends Migration
-{
+class CreateRolesTable extends Migration {
+
     /**
      * Run the migrations.
      *
@@ -46,19 +46,15 @@ class CreateRolesTable extends Migration
             $table->primary(['user_id', 'role_id']);
         });
 
-        Createdu\Role::create([
-            'name' => 'member',
-            'label' => 'Site Member/网站用户'
-        ])->create([
-            'name' => 'apprentice',
-            'label' => 'Apprentice/学生成员'
-        ])->create([
-            'name' => 'tutor',
-            'label' => 'Tutor/专业教师'
-        ])->create([
-            'name' => 'administrator',
-            'label' => 'Site Admin/网站管理员'
-        ]);
+        foreach (\Createdu\Role::defaultRoles() as $name => $label) {
+            \Createdu\Role::create(compact('name', 'label'));
+        }
+
+        foreach (\Createdu\Permission::defaultPermissions() as $name => $label) {
+            \Createdu\Permission::create(compact('name', 'label'));
+        }
+        
+        \Createdu\Role::assignPermissions();
     }
 
     /**

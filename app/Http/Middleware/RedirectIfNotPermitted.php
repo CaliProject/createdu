@@ -16,7 +16,7 @@ class RedirectIfNotPermitted {
     public function handle($request, Closure $next, $role)
     {
         if (! $request->user()->hasRole($role)) {
-            return redirect(route('dashboard', [], false));
+            return redirect(route('dashboard'));
         }
         
         return $next($request);

@@ -6,7 +6,7 @@
             </a>
         </div>
         <div class="logo-box">
-            <a href="@route('admin.dashboard')" class="logo-text"><span>@{{ Site.title }}</span></a>
+            <a href="@route('admin.index')" class="logo-text"><span>@{{ Site.title }}</span></a>
         </div><!-- Logo Box -->
         <div class="search-button">
             <a href="javascript:void(0);" class="waves-effect waves-button waves-classic show-search"><i class="fa fa-search"></i></a>
@@ -18,7 +18,7 @@
                         <a href="javascript:void(0);" class="waves-effect waves-button waves-classic sidebar-toggle"><i class="fa fa-bars"></i></a>
                     </li>
                     <li>
-                        <a href="@route('dashboard')" class="waves-effect waves-button waves-classic cd-nav-trigger" target="_blank"><i class="icon-layers"></i></a>
+                        <a href="@route('home')" class="waves-effect waves-button waves-classic cd-nav-trigger" target="_blank"><i class="icon-layers"></i></a>
                     </li>
                     <li>
                         <a href="javascript:void(0);" class="waves-effect waves-button waves-classic toggle-fullscreen"><i class="fa fa-expand"></i></a>
@@ -28,7 +28,7 @@
                             <i class="fa fa-cogs"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-md dropdown-list theme-settings" role="menu">
-                            <form action="@route('admin.change-settings')" id="setting-changer"></form>
+{{--                            <form action="@route('admin.change-settings')" id="setting-changer"></form>--}}
                             <li class="li-group">
                                 <ul class="list-unstyled">
                                     <li class="no-link" role="presentation">
@@ -89,7 +89,7 @@
                                             <a class="color-box color-pink" href="?theme=pink" title="Pink Theme" data-css="pink" data-color="#FB36AC"></a>
                                             <a class="color-box color-gray" href="?theme=gray" title="Gray Theme" data-css="gray" data-color="#d3d3d3"></a>
                                         </div>
-                                        <form action="@route('admin.change-theme-color')" id="color-changer" class="hidden"></form>
+                                        {{--<form action="@route('admin.change-theme-color')" id="color-changer" class="hidden"></form>--}}
                                     </li>
                                 </ul>
                             </li>
@@ -199,9 +199,9 @@
                         </a>
                         <ul class="dropdown-menu dropdown-list" role="menu">
                             <li role="presentation">
-                                <a href="@route('admin.users.profile.index')" data-pjax>
-                                    <i class="icon-user m-r-xs"></i>@lang('views.admin.titles.users.sub.profile')
-                                </a>
+                                {{--<a href="@route('admin.users.profile.index')" data-pjax>--}}
+                                    {{--<i class="icon-user m-r-xs"></i>@lang('views.admin.titles.users.sub.profile')--}}
+                                {{--</a>--}}
                             </li>
                             <li role="presentation">
                                 <a href="#">

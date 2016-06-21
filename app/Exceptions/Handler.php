@@ -45,6 +45,10 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
+        if ($e instanceof AuthorizationException) {
+            return redirect(route('home'));
+        }
+        
         return parent::render($request, $e);
     }
 }

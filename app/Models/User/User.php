@@ -2,6 +2,7 @@
 
 namespace Createdu;
 
+use Createdu\Library\Traits\User\HasRoles;
 use Createdu\Library\Traits\User\Sociable;
 use Createdu\Library\Traits\User\UserMetas;
 use Createdu\Library\Traits\Model\TimeSortable;
@@ -9,8 +10,8 @@ use Createdu\Library\Traits\User\AvatarControls;
 use Createdu\Events\User\Auth\UserHasRegistered;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
-{
+class User extends Authenticatable {
+
     /*
     |------------------------------------------------------------
     | User Model Class
@@ -20,8 +21,8 @@ class User extends Authenticatable
     | @author Cali
     |
     */
-    
-    use Sociable, TimeSortable, AvatarControls, UserMetas;
+
+    use Sociable, TimeSortable, AvatarControls, UserMetas, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -90,7 +91,7 @@ class User extends Authenticatable
 
         return $attributes;
     }
-    
+
     /**
      * Create an admin account.
      *
@@ -126,48 +127,6 @@ class User extends Authenticatable
     }
 
     /**
-     * Assign a role to a user.
-     *
-     * @param int $role
-     * @return $this
-     * @author Cali
-     */
-    public function assignRole($role = Role::DEFAULT_ROLE)
-    {
-        if ($role instanceof Role) {
-            $this->roles()->attach($role->id);
-        }
-        if (is_string($role)) {
-            $role = Role::where('name', $role)->first();
-            $this->roles()->attach($role->id);
-        } else {
-            $this->roles()->attach($role);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Check if has a role.
-     *
-     * @param $role
-     * @return bool
-     *
-     * @author Cali
-     */
-    public function hasRole($role)
-    {
-        if ($role instanceof Role) {
-            return ! ! $this->roles()
-                ->where($role->primaryKey, $role->id)
-                ->first();
-        }
-
-        // If a string given
-        return ! ! $this->roles()->where(Role::name, $role)->first();
-    }
-
-    /**
      * {@inheritdoc}
      * @author Cali
      */
@@ -200,6 +159,63 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return $this->hasRole('administrator');
+    }
+
+    /**
+     * User's metas.
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function metas()
+    {
+        return $this->hasMany(UserMeta::class);
+    }
+
+    /**
+     * Helper for admin theme setting metas.
+     *
+     * @param        $key
+     * @param string $property
+     * @param bool   $default
+     * @return bool
+     *
+     * @author Cali
+     */
+    public function adminThemeSettingMeta($key, $property = 'value', $default = false)
+    {
+        return $this->metaReader($key, $property, $default);
+    }
+
+    /**
+     * Change the admin theme setting.
+     *
+     * @param array $attribute
+     * @author Cali
+     */
+    public function changeAdminThemeSetting(array $attribute)
+    {
+        $value = json_encode([
+            'type'  => $attribute['type'],
+            'value' => $attribute['value']
+        ]);
+
+        $this->meta('admin.theme.' . $attribute['type'], $value);
+    }
+
+    /**
+     * Change the admin theme color.
+     *
+     * @param array $attribute
+     * @author Cali
+     */
+    public function changeAdminThemeColor(array $attribute)
+    {
+        $value = json_encode([
+            'theme' => $attribute['theme'],
+            'color' => $attribute['color']
+        ]);
+
+        $this->meta('admin.theme', $value);
     }
 
     /**

@@ -15,24 +15,24 @@ class Configuration extends Model {
 
     /**
      * The keys that need to prepend a prefix.
-     * 
+     *
      * @var array
      */
     protected $needPrefixKeys = [];
 
     /**
      * The prefix to be prepended on $needPrefixKeys.
-     * 
+     *
      * @var string
      */
     protected $prefix = '';
 
     /**
      * Get configuration value by the given key
-     * 根据制定键获取值
+     * 根据指定键获取值
      *
      * @param $key
-     * @return string
+     * @return string|null|bool
      *
      * @author Cali
      */
@@ -43,7 +43,7 @@ class Configuration extends Model {
         } catch (\Exception $e) {
             return false;
         }
-        
+
         return $conf ? $conf->value : null;
     }
 
@@ -84,7 +84,7 @@ class Configuration extends Model {
 
         $method = $this->filterKey($method);
 
-        return !!count($parameters) ?
+        return ! ! count($parameters) ?
             $this->updateOrCreate($method, $parameters) :
             $this->getConfiguration($method);
     }

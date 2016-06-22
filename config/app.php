@@ -121,7 +121,7 @@ return [
     |
     */
 
-    'providers' => [
+    'providers' => array(
 
         /*
          * Laravel Framework Service Providers...
@@ -152,9 +152,11 @@ return [
          * Application Service Providers...
          */
         Createdu\Providers\AppServiceProvider::class,
+        Createdu\Providers\BladeServiceProvider::class,
         Createdu\Providers\AuthServiceProvider::class,
         Createdu\Providers\EventServiceProvider::class,
         Createdu\Providers\RouteServiceProvider::class,
+        Createdu\Providers\ViewComposerServiceProvider::class,
 
         /*
          * Third-party Service Providers...
@@ -175,7 +177,7 @@ return [
          * User-Agent Providers...
          */
         Jenssegers\Agent\AgentServiceProvider::class,
-    ],
+    ),
 
     /*
     |--------------------------------------------------------------------------

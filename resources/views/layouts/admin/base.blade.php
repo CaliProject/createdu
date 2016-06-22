@@ -17,9 +17,9 @@
     <link rel="stylesheet" href="/assets/css/pages/admin/app.css">
 
     @if($theme = Auth::user()->meta('admin.theme'))
-        <link href="/assets/css/admin/themes/{{ $theme->theme }}.css" class="theme-color" rel="stylesheet">
+        <link href="/assets/css/pages/admin/themes/{{ $theme->theme }}.css" class="theme-color" rel="stylesheet">
     @else
-        <link href="/assets/css/admin/themes/dark.css" class="theme-color" rel="stylesheet">
+        <link href="/assets/css/pages/admin/themes/dark.css" class="theme-color" rel="stylesheet">
     @endif
 
     {{-- Styles Stack --}}

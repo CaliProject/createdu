@@ -14,7 +14,7 @@
         </div>
         <ul class="menu accordion-menu">
             <li class="{{ request_is_route('admin.index') ? 'active' : '' }}">
-                <a href="@route('admin.dashboard', [], false)" class="waves-effect waves-button" data-pjax>
+                <a href="@route('admin.index', [], false)" class="waves-effect waves-button" data-pjax>
                     <span class="menu-icon icon-speedometer"></span>
                     <p>@lang('views.admin.titles.dashboard')</p>
                 </a>
@@ -24,7 +24,7 @@
                     <span class="menu-icon icon-user"></span><p>@lang('views.admin.titles.users.main')</p><span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
-                    <li><a href="@route('admin.index', ['section' => 'user'], false)" data-pjax>@lang('views.admin.titles.users.sub.index')</a></li>
+                    <li><a href="@route('admin.index', ['section' => 'users'], false)" data-pjax>@lang('views.admin.titles.users.sub.index')</a></li>
 {{--                    <li><a href="@route('admin.users.profile.index', [], false)" data-pjax>@lang('views.admin.titles.users.sub.profile')</a></li>--}}
 {{--                    <li><a href="@route('admin.users.invitations', [], false)" data-pjax>@lang('views.admin.titles.users.sub.invitations')</a></li>--}}
                 </ul>

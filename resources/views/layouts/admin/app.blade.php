@@ -64,18 +64,6 @@
             </form>
         </div>
     </nav>
-    <div class="menu-wrap">
-        <nav class="profile-menu">
-            <div class="profile"><img :src="User.avatarUrl" width="60" alt="@{{ User.name }}"/><span>@{{ User.name }}</span></div>
-            <div class="profile-menu-list">
-                <a href="#"><i class="fa fa-star"></i><span>Favorites</span></a>
-                <a href="#"><i class="fa fa-bell"></i><span>Alerts</span></a>
-                <a href="#"><i class="fa fa-envelope"></i><span>Messages</span></a>
-                <a href="#"><i class="fa fa-comment"></i><span>Comments</span></a>
-            </div>
-        </nav>
-        <button class="close-button" id="close-button">Close Menu</button>
-    </div>
     <form class="search-form" action="#" method="GET">
         <div class="input-group">
             <input type="text" name="search" class="form-control search-input" placeholder="Search...">

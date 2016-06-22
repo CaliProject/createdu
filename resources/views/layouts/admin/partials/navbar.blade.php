@@ -28,7 +28,7 @@
                             <i class="fa fa-cogs"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-md dropdown-list theme-settings" role="menu">
-{{--                            <form action="@route('admin.change-settings')" id="setting-changer"></form>--}}
+                            <form action="@route('admin.change-settings')" id="setting-changer"></form>
                             <li class="li-group">
                                 <ul class="list-unstyled">
                                     <li class="no-link" role="presentation">
@@ -89,7 +89,7 @@
                                             <a class="color-box color-pink" href="?theme=pink" title="Pink Theme" data-css="pink" data-color="#FB36AC"></a>
                                             <a class="color-box color-gray" href="?theme=gray" title="Gray Theme" data-css="gray" data-color="#d3d3d3"></a>
                                         </div>
-                                        {{--<form action="@route('admin.change-theme-color')" id="color-changer" class="hidden"></form>--}}
+                                        <form action="@route('admin.change-theme-color')" id="color-changer" class="hidden"></form>
                                     </li>
                                 </ul>
                             </li>
@@ -216,7 +216,7 @@
                     <li>
                         <script>var logoutMessages = JSON.parse("{!! addslashes(json_encode(trans('views.logout'))) !!}");</script>
                         <a href="#" data-href="@route('exit')" class="log-out waves-effect waves-button waves-classic" @click="logout">
-                            <span style="pointer-events: none"><i class="glyphicon glyphicon-off m-r-xs"></i>@lang('views.admin.navbar.logout')</span>
+                            <span style="pointer-events: none"><i class="fa fa-power-off m-r-xs"></i>@lang('views.admin.navbar.logout')</span>
                         </a>
                     </li>
                     <li>

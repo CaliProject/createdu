@@ -2,8 +2,10 @@
 
 namespace Createdu\Library\Traits\User;
 
+use Createdu\UserMeta;
+
 trait UserMetas {
-    
+
     /**
      * Get or set the user's meta.
      *
@@ -15,15 +17,16 @@ trait UserMetas {
      */
     public function meta($key, $value = null)
     {
-        $meta = $this->metas()->where('key', $key)->first();
+        $meta = $this->metas()->whereKey($key)->first();
 
         if ($value) {
             if (! $meta) {
                 $meta = $this->metas()->create(compact('key', 'value'));
             } else {
-                $meta->update([
-                    'value' => $value
-                ]);
+                UserMeta::where([
+                    'key'     => $key,
+                    'user_id' => $this->id
+                ])->update(compact('value'));
             }
         }
 

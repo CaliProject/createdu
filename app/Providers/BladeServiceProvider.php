@@ -60,7 +60,7 @@ class BladeServiceProvider extends ServiceProvider
     /**
      * Register @site(...).
      *
-     * @see \Noah\Library\Facades\Site
+     * @see \Createdu\Library\Facades\Site
      * @author Cali
      */
     private function registerSiteDirective()

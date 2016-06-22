@@ -14,7 +14,14 @@ class UserMeta extends Model {
     protected $fillable = [
         'key', 'value'
     ];
-    
+
+    /**
+     * No incremental id.
+     *
+     * @var bool
+     */
+    public $incrementing = false;
+
     /**
      * The user it belongs to
      * 

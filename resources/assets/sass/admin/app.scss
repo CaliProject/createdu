@@ -5,8 +5,10 @@
 /**
  * Components
  */
-@import "settings";
+@import "../settings";
+@import "../mixins";
 @import "modern";
+@import "dashboard";
 
 /**
  * Plugins

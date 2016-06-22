@@ -125,6 +125,8 @@ class Router {
             'domain'    => 'admin.' . str_replace('http://', '', str_replace('https://', '', config('app.url')))
         ], function () {
             Route::get('{section?}', 'AdminController@show')->name('index');
+            Route::patch('save/settings', 'AdminController@changeSetting')->name('change-settings');
+            Route::patch('save/settings/color', 'AdminController@changeThemeColor')->name('change-theme-color');
             
             Route::group([
                 'as' => 'users.',

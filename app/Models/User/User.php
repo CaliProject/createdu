@@ -43,6 +43,13 @@ class User extends Authenticatable {
     ];
 
     /**
+     * How many items to display per page.
+     * 
+     * @var int
+     */
+    protected $perPage = 35;
+
+    /**
      * Registers the user.
      *
      * @param      $attributes

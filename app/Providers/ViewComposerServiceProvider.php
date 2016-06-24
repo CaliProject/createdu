@@ -2,6 +2,7 @@
 
 namespace Createdu\Providers;
 
+use Createdu\User;
 use Illuminate\Support\ServiceProvider;
 
 class ViewComposerServiceProvider extends ServiceProvider
@@ -13,7 +14,7 @@ class ViewComposerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->bindAdminUsers();
     }
 
     /**
@@ -24,5 +25,19 @@ class ViewComposerServiceProvider extends ServiceProvider
     public function register()
     {
         //
+    }
+
+    /**
+     * Bind variable to admin users page.
+     *
+     * @return array
+     */
+    public function bindAdminUsers()
+    {
+        return view()->composer('admin.users.index', function ($view) {
+            $users = User::paginate();
+
+            return $view->with(compact('users'));
+        });
     }
 }

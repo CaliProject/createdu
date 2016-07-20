@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Foundation\Auth\RedirectsUsers;
 
-
 trait AuthenticatesUsers {
 
     /*
@@ -20,7 +19,7 @@ trait AuthenticatesUsers {
     | @author  Cali
     |
     */
-    
+
     use RedirectsUsers;
 
     /**
@@ -110,7 +109,7 @@ trait AuthenticatesUsers {
      * Send the response after the user was authenticated.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  bool $throttles
+     * @param  bool                     $throttles
      *
      * @return \Illuminate\Http\Response
      */
@@ -121,11 +120,11 @@ trait AuthenticatesUsers {
         }
 
         User::loggedIn();
-        
+
         // Send back json if request is from ajax
         if ($request->ajax()) {
             return [
-                "status" => "succeeded",
+                "status"   => "succeeded",
                 "redirect" => $this->redirectPath()
             ];
         }
@@ -206,5 +205,25 @@ trait AuthenticatesUsers {
         return in_array(
             ThrottlesLogins::class, class_uses_recursive(get_class($this))
         );
+    }
+
+    /**
+     * Get the guest middleware for the application.
+     */
+    public function guestMiddleware()
+    {
+        $guard = $this->getGuard();
+
+        return $guard ? 'guest:' . $guard : 'guest';
+    }
+
+    /**
+     * Get the guard to be used during authentication.
+     *
+     * @return string|null
+     */
+    protected function getGuard()
+    {
+        return property_exists($this, 'guard') ? $this->guard : null;
     }
 }

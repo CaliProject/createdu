@@ -11,7 +11,8 @@
 |
 */
 
-Auth::loginUsingId(5);
+/* TODO: DELETE THIS! TEMPORARY */
+//Auth::loginUsingId(1);
 
 Router::auth()
     ->language()

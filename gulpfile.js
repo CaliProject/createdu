@@ -14,7 +14,22 @@ require('laravel-elixir-vueify');
  |
  */
 
+var assetsDir = 'resources/assets/',
+    publicDir = 'public/assets/';
+
 elixir(function (mix) {
+    /*
+     |------------------------------------------------------------
+     | Main App Assets
+     |------------------------------------------------------------
+     |
+     | @author Cali
+     |
+     */
+    mix.sass([
+        'app.scss'
+    ], publicDir + 'css/app.css');
+
     /*
      |------------------------------------------------------------
      | Social Auth Assets
@@ -23,11 +38,11 @@ elixir(function (mix) {
      | @author Cali
      |
      */
-    mix.sass(['pages/social.scss'], 'public/assets/css/pages/social.css')
+    mix.sass(['pages/social.scss'], publicDir + 'css/pages/social.css')
         .browserify([
             'plugins/stepsForm.js',
             'pages/social.js',
-        ], 'public/assets/js/pages/social.js');
+        ], publicDir + 'js/pages/social.js');
 
     /*
      |------------------------------------------------------------
@@ -39,12 +54,12 @@ elixir(function (mix) {
      */
     mix.sass([
         'admin/app.scss'
-    ], 'public/assets/css/pages/admin/app.css')
+    ], publicDir + 'css/pages/admin/app.css')
         .browserify([
             'admin/helpers.js',
             // 'admin/listeners.js',
             'admin/app.js'
-        ], 'resources/assets/js/builds/admin/app.js')
+        ], assetsDir + 'js/builds/admin/app.js')
         .scripts([
             'plugins/jquery/jquery.min.js',
             'plugins/jquery/jquery.pjax.js',
@@ -73,5 +88,23 @@ elixir(function (mix) {
             'plugins/cropper.min.js',
             'admin/modern.js',
             'builds/admin/app.js',
-        ], 'public/assets/js/admin/app.js');
+        ], publicDir + 'js/admin/app.js');
+
+    mix.browserify([
+        'admin/users/index.js'
+    ], assetsDir + 'js/builds/admin/users/index.js');
+
+    mix.copy(assetsDir + 'js/builds/admin/users', publicDir + 'js/admin/users');
+
+    /*
+     |------------------------------------------------------------
+     | Auth Assets
+     |------------------------------------------------------------
+     |
+     | @author Cali
+     |
+     */
+    mix.sass([
+        'pages/auth.scss'
+    ], publicDir + 'css/pages/auth.css');
 });

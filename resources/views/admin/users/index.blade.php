@@ -151,5 +151,5 @@
 @stop
 
 @push('scripts.footer')
-{{--<script src="/assets/js/admin/pages/index-users.js" pjax-script></script>--}}
+<script src="/assets/js/admin/users/index.js" pjax-script></script>
 @endpush

@@ -1,0 +1,120 @@
+.Input {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  margin: 1em;
+  max-width: 350px;
+  width: calc(100% - 2em);
+  vertical-align: top;
+}
+
+.Input__field {
+  position: relative;
+  display: block;
+  float: right;
+  padding: 0.8em;
+  width: 60%;
+  border: none;
+  border-radius: 0;
+  background: #f0f0f0;
+  color: #aaa;
+  font-weight: bold;
+  font-family: inherit;
+  -webkit-appearance: none; /* for box shadows to show on iOS */
+}
+
+.Input__field:focus {
+  outline: none;
+}
+
+.Input__label {
+  display: inline-block;
+  float: right;
+  padding: 0 1em;
+  width: 40%;
+  color: #6a7989;
+  font-weight: bold;
+  font-size: 70.25%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.Input__label-content {
+  position: relative;
+  display: block;
+  padding: 1.6em 0;
+  width: 100%;
+  font-size: 1.3em;
+}
+
+/* Styles */
+.Input--createdu {
+  margin: 4em 1em 1em;
+}
+
+.Input__field--createdu {
+  padding: 0.95em 0.3em;
+  width: 100%;
+  background: transparent;
+  color: #AFB5BB;
+  font-size: 1.3em;
+}
+
+.Input__label--createdu {
+  position: absolute;
+  width: 100%;
+  text-align: left;
+  pointer-events: none;
+}
+
+.Input__label-content--createdu {
+  -webkit-transition: -webkit-transform 0.3s;
+  transition: transform 0.3s;
+}
+
+.Input__label--createdu::before,
+.Input__label--createdu::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 0px;
+  background: #6a7989;
+  -webkit-transition: -webkit-transform 0.3s, height 0.25s;
+  transition: transform 0.3s, height 0.25s;
+}
+
+.Input__label--createdu::before {
+  top: 0;
+}
+
+.Input__label--createdu::after {
+  bottom: 0;
+}
+
+.Input__field--createdu:focus + .Input__label--createdu .Input__label-content--createdu,
+.Input--filled .Input__label-content--createdu {
+  -webkit-transform: translate3d(0, -90%, 0);
+  transform: translate3d(0, -90%, 0);
+}
+
+.Input__field--createdu:focus + .Input__label--createdu::before,
+.Input--filled .Input__label--createdu::before {
+  -webkit-transform: translate3d(0, -0.5em, 0);
+  transform: translate3d(0, -0.5em, 0);
+  height: 3px;
+}
+
+.Input__field--createdu:focus + .Input__label--createdu::after,
+.Input--filled .Input__label--createdu::after {
+  -webkit-transform: translate3d(0, 0.5em, 0);
+  transform: translate3d(0, 0.5em, 0);
+  height: 3px;
+}

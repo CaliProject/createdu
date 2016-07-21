@@ -1,0 +1,203 @@
+/*
+* Border radius mixin
+*/
+/*
+* Box shadow for panels
+*/
+/*
+* Flex box display
+*/
+/*
+* Translate Y mixin
+*/
+/*
+* Blur out the content
+*/
+/*
+* Full screen with fixed positioning
+*/
+/*
+* Transition mixin
+*/
+/*
+* Transform mixin
+*/
+/*
+* Animation mixin
+*/
+/*
+* Animation delay mixin
+*/
+/*
+* Separators
+*/
+/*
+* Color definition
+*/
+/*
+ * Pixels
+ */
+.Input {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  margin: 1em;
+  max-width: 350px;
+  width: calc(100% - 2em);
+  vertical-align: top; }
+
+.Input__field {
+  position: relative;
+  display: block;
+  float: right;
+  padding: 0.8em;
+  width: 60%;
+  border: none;
+  border-radius: 0;
+  background: #f0f0f0;
+  color: #aaa;
+  font-weight: bold;
+  font-family: inherit;
+  -webkit-appearance: none;
+  /* for box shadows to show on iOS */ }
+
+.Input__field:focus {
+  outline: none; }
+
+.Input__label {
+  display: inline-block;
+  float: right;
+  padding: 0 1em;
+  width: 40%;
+  color: #6a7989;
+  font-weight: bold;
+  font-size: 70.25%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+
+.Input__label-content {
+  position: relative;
+  display: block;
+  padding: 1.6em 0;
+  width: 100%;
+  font-size: 1.3em; }
+
+/* Styles */
+.Input--createdu {
+  margin: 4em 1em 1em; }
+
+.Input__field--createdu {
+  padding: 0.95em 0.3em;
+  width: 100%;
+  background: transparent;
+  color: #AFB5BB;
+  font-size: 1.3em; }
+
+.Input__label--createdu {
+  position: absolute;
+  width: 100%;
+  text-align: left;
+  pointer-events: none; }
+
+.Input__label-content--createdu {
+  transition: transform 0.3s; }
+
+.Input__label--createdu::before,
+.Input__label--createdu::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 0px;
+  background: #6a7989;
+  transition: transform 0.3s, height 0.25s; }
+
+.Input__label--createdu::before {
+  top: 0; }
+
+.Input__label--createdu::after {
+  bottom: 0; }
+
+.Input__field--createdu:focus + .Input__label--createdu .Input__label-content--createdu,
+.Input--filled .Input__label-content--createdu {
+  transform: translate3d(0, -90%, 0); }
+
+.Input__field--createdu:focus + .Input__label--createdu::before,
+.Input--filled .Input__label--createdu::before {
+  transform: translate3d(0, -0.5em, 0);
+  height: 3px; }
+
+.Input__field--createdu:focus + .Input__label--createdu::after,
+.Input--filled .Input__label--createdu::after {
+  transform: translate3d(0, 0.5em, 0);
+  height: 3px; }
+
+/* Global Styles */
+body {
+  position: relative;
+  height: 100% !important;
+  width: 100%;
+  font-family: "Alright Sans LP", "Avenir Next", "PingFang SC", "Helvetica Neue", Helvetica, Arial, "Source Han Sans SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi MicroHei", sans-serif;
+  font-size: 14px;
+  background: #fff;
+  color: #4E5E6A; }
+
+html {
+  height: 100% !important;
+  position: relative; }
+
+*:hover,
+*:active,
+*:focus {
+  outline: none !important; }
+
+/* Typography */
+p {
+  display: block;
+  font-size: 13px;
+  font-weight: normal;
+  letter-spacing: normal;
+  line-height: 22px;
+  margin: 0px 0px 10px 0px;
+  font-style: normal;
+  white-space: normal; }
+
+.Auth {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0; }
+  .Auth__wrapper {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    height: 100%; }
+  .Auth__box {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    align-items: center; }
+  .Auth__logo {
+    max-width: 150px;
+    max-height: 150px;
+    margin: 1em; }
+    .Auth__logo img {
+      width: 100%;
+      height: 100%; }

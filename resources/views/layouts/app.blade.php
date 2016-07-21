@@ -14,6 +14,10 @@
     <!-- Styles -->
     <link rel="stylesheet" href="/assets/css/app.css">
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
+    <link rel="icon" href="/assets/logo.png">
+    <link rel="shortcut icon" href="/assets/logo.png">
+    <link rel="apple-touch-icon" href="/assets/logo.png">
+    <link rel="apple-touch-icon-precomposed" href="/assets/logo.png">
 
     @stack('styles')
 
@@ -79,8 +83,7 @@
     @yield('content')
 
     <!-- JavaScripts -->
-    <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
-    <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="/assets/js/app.js"></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
 
     @stack('scripts.footer')

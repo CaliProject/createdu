@@ -28,7 +28,16 @@ elixir(function (mix) {
      */
     mix.sass([
         'app.scss'
-    ], publicDir + 'css/app.css');
+    ], publicDir + 'css/app.css')
+        .scripts([
+            'plugins/classie.js',
+            'plugins/jquery/jquery.min.js',
+            // 'plugins/jquery/jquery.pjax.js',
+            // 'plugins/pace.min.js',
+            'plugins/bootstrap.js',
+            'plugins/switchery.js',
+            'plugins/sweetalert.min.js'
+        ], publicDir + 'js/app.js');
 
     /*
      |------------------------------------------------------------
@@ -38,7 +47,9 @@ elixir(function (mix) {
      | @author Cali
      |
      */
-    mix.sass(['pages/social.scss'], publicDir + 'css/pages/social.css')
+    mix.sass([
+        'pages/social.scss'
+    ], publicDir + 'css/pages/social.css')
         .browserify([
             'plugins/stepsForm.js',
             'pages/social.js',
@@ -106,5 +117,8 @@ elixir(function (mix) {
      */
     mix.sass([
         'pages/auth.scss'
-    ], publicDir + 'css/pages/auth.css');
+    ], publicDir + 'css/pages/auth.css')
+        .browserify([
+            'pages/auth.js'
+        ], publicDir + 'js/pages/auth.js');
 });

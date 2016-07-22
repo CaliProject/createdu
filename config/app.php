@@ -159,24 +159,29 @@ return [
         Createdu\Providers\ViewComposerServiceProvider::class,
 
         /*
-         * Third-party Service Providers...
+         * Third-party Service Provider.
          */
         \Maknz\Slack\SlackServiceProvider::class,
 
         /*
-         * Socialite Providers... 
+         * Socialite Provider.
          */
         Cali\Socialite\SocialiteServiceProvider::class,
 
         /*
-         * Location Providers... 
+         * Location Provider.
          */
         Stevebauman\Location\LocationServiceProvider::class,
 
         /*
-         * User-Agent Providers...
+         * User-Agent Provider.
          */
         Jenssegers\Agent\AgentServiceProvider::class,
+
+        /*
+         * Yuntongxun SMS Provider.
+         */
+        Cali\YuntongxunSms\YuntongxunSmsServiceProvider::class
     ),
 
     /*
@@ -236,6 +241,7 @@ return [
          */
         'Slack'     => Maknz\Slack\Facades\Slack::class,
         'Socialite' => Cali\Socialite\Facades\Socialite::class,
+        'SMS'       => Cali\YuntongxunSms\Facade\YuntongxunSms::class
     ],
 
 ];

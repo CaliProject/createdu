@@ -10,7 +10,8 @@
         "cali/socialite": "^1.0",
         "maknz/slack": "^1.7",
         "stevebauman/location": "^1.3",
-        "jenssegers/agent": "^2.3"
+        "jenssegers/agent": "^2.3",
+        "cali/yuntongxun-sms": "^1.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -16,7 +16,7 @@
                     </a>
                 </div>
                 <div class="Auth__title">
-                    <h4>@lang('views.auth.login.header_title')到@site('siteTitle')</h4>
+                    <h4>@lang('views.auth.login.header_title')@lang('views.auth.login.in')@site('siteTitle')</h4>
                 </div>
                 <form class="Auth__form" action="" method="POST">
                     {!! csrf_field() !!}
@@ -24,13 +24,13 @@
                     <div class="Input Input--createdu">
                         <input class="Input__field Input__field--createdu" type="text" id="credential" name="credential" required>
                         <label class="Input__label Input__label--createdu" for="credential">
-                            <span class="Input__label-content Input__label-content--createdu">用户名/邮箱/手机</span>
+                            <span class="Input__label-content Input__label-content--createdu">@lang('views.auth.login.credential')</span>
                         </label>
                     </div>
                     <div class="Input Input--createdu">
                         <input class="Input__field Input__field--createdu" type="password" id="password" name="password" required>
                         <label class="Input__label Input__label--createdu" for="password">
-                            <span class="Input__label-content Input__label-content--createdu">密码</span>
+                            <span class="Input__label-content Input__label-content--createdu">@lang('views.auth.login.password')</span>
                         </label>
                         <span class="Input__eye"></span>
                     </div>
@@ -40,9 +40,9 @@
                 </form>
                 <div class="Auth__separator"></div>
                 <div class="Auth__extra">
-                    还没帐号?&nbsp;<a href="@route('sign-up')">注册</a>
+                    @lang('views.auth.login.no-account')&nbsp;<a href="@route('sign-up')">@lang('views.auth.login.register')</a>
                     <div class="pull-right">
-                        <a href="@route('reset')">忘记密码了?</a>
+                        <a href="@route('reset')">@lang('views.auth.login.forgot_password')</a>
                     </div>
                 </div>
             </div>

@@ -4,7 +4,6 @@ return [
     /*
      |------------------------------------------------------------
      | Views Language Lines
-     | 视图相关本地化语言文件
      |------------------------------------------------------------
      |
      | @author Cali
@@ -12,11 +11,8 @@ return [
      */
 
     // Authentication
-    // 用户验证
-    'auth'         => [
-        'title'    => 'Login or Register',
+    'auth'      => [
         // Login page
-        // 登录页面
         'login'    => [
             'header_title'    => 'Login',
             'username'        => 'Username',
@@ -24,10 +20,11 @@ return [
             'remember_me'     => 'Remember me!',
             'forgot_password' => 'Forgot your password?',
             'register'        => 'Register',
+            'no-account'      => 'No account yet?',
             'error'           => 'Error',
+            'in'              => 'in'
         ],
         // Registration page
-        // 注册页面
         'register' => [
             'header_title'     => 'Register',
             'username'         => 'Username',
@@ -71,14 +68,14 @@ return [
             ]
         ],
     ],
-    'dashboard'    => [
+    'dashboard' => [
         'home' => [
             'title' => 'Home'
         ]
     ],
-    
+
     // Admin pages.
-    'admin'        => [
+    'admin'     => [
         'main-title'            => 'Manage',
         'titles'                => [
             'dashboard'   => 'Dashboard',

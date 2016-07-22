@@ -11,17 +11,18 @@ return [
      */
 
     // 用户验证
-    'auth'         => [
-        'title'    => '登录或者注册',
+    'auth'      => [
         // 登录页面
         'login'    => [
             'header_title'    => '登录',
-            'username'        => '用户名',
+            'credential'      => '用户名/邮箱/手机',
             'password'        => '密码',
             'remember_me'     => '记住我, 下次免登录',
             'forgot_password' => '忘记密码?',
             'register'        => '注册',
+            'no-account'      => '还没有帐号?',
             'error'           => '填写错误',
+            'in'              => '到'
         ],
         // 注册页面
         'register' => [
@@ -65,18 +66,18 @@ return [
             ]
         ],
     ],
-    'dashboard'    => [
+    'dashboard' => [
         'home' => [
             'title' => '主页'
         ]
     ],
-    
+
     // 后台页面
-    'admin'        => [
+    'admin'     => [
         'main-title'            => '后台管理',
         'titles'                => [
-            'dashboard'   => '仪表盘',
-            'users'       => [
+            'dashboard' => '仪表盘',
+            'users'     => [
                 'main' => '用户',
                 'sub'  => [
                     'index'       => '用户管理',
@@ -84,7 +85,7 @@ return [
                     'invitations' => '邀请码管理'
                 ]
             ],
-            'settings'    => [
+            'settings'  => [
                 'main' => '站点设置',
                 'sub'  => [
                     'general'  => '常规设置',

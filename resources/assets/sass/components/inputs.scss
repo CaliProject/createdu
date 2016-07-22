@@ -1,11 +1,12 @@
 .Input {
   position: relative;
   z-index: 1;
-  display: inline-block;
+  display: block;
   margin: 1em;
   max-width: 350px;
   width: calc(100% - 2em);
   vertical-align: top;
+  height: 60px;
 }
 
 .Input__field {
@@ -17,7 +18,7 @@
   border: none;
   border-radius: 0;
   background: #f0f0f0;
-  color: #aaa;
+  color: $themedarkblue;
   font-weight: bold;
   font-family: inherit;
   -webkit-appearance: none; /* for box shadows to show on iOS */
@@ -25,6 +26,7 @@
 
 .Input__field:focus {
   outline: none;
+  border: 0 !important;
 }
 
 .Input__label {
@@ -32,7 +34,7 @@
   float: right;
   padding: 0 1em;
   width: 40%;
-  color: #6a7989;
+  color: $themedarkblue;
   font-weight: bold;
   font-size: 70.25%;
   -webkit-font-smoothing: antialiased;
@@ -51,19 +53,35 @@
   padding: 1.6em 0;
   width: 100%;
   font-size: 1.3em;
+  font-weight: bold;
 }
 
 /* Styles */
 .Input--createdu {
-  margin: 4em 1em 1em;
+  margin: 1.5em 1em 1em;
+  @include ts(margin ease-in-out .25s);
+  @include am(fadeInDown .45s backwards);
+}
+
+.Input--createdu.Input--filled {
+  margin-top: 3.5em !important;
 }
 
 .Input__field--createdu {
   padding: 0.95em 0.3em;
   width: 100%;
   background: transparent;
-  color: #AFB5BB;
+  color: $themedarkblue;
   font-size: 1.3em;
+  border-radius: 5px;
+  border: 1px solid rgba($themedarkblue, 0.2);
+  -webkit-transition: border ease-in .25s;
+  -moz-transition: border ease-in .25s;
+  transition: border ease-in .25s;
+
+  &#password {
+    padding-right: 2em !important;
+  }
 }
 
 .Input__label--createdu {
@@ -86,7 +104,7 @@
   z-index: -1;
   width: 100%;
   height: 0px;
-  background: #6a7989;
+  background: $themedarkblue;
   -webkit-transition: -webkit-transform 0.3s, height 0.25s;
   transition: transform 0.3s, height 0.25s;
 }
@@ -117,4 +135,54 @@
   -webkit-transform: translate3d(0, 0.5em, 0);
   transform: translate3d(0, 0.5em, 0);
   height: 3px;
+}
+
+.Input--filled .Input__field {
+  border: 0 !important;
+}
+
+.Input__eye {
+  display: flex;
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 1.1em;
+  padding: 0 .7em;
+  cursor: pointer;
+  width: 40px;
+  height: 100%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+
+  &:before {
+    display: inline;
+    content: "\f06e";
+    font-family: "FontAwesome";
+    font-style: normal;
+    font-size: 1.1em;
+    color: $light-red;
+  }
+
+  &.visible:before {
+    content: "\f070" !important;
+    color: $themedarkblue;
+  }
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-30px);
+    -moz-transform: translateY(-30px);
+    transform: translateY(-30px);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    transform: translateY(0);
+  }
 }

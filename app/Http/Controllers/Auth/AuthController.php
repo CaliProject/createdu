@@ -31,6 +31,22 @@ class AuthController extends Controller
     protected $redirectTo = '/';
 
     /**
+     * Multi factors for user authentication.
+     *
+     * @var array
+     */
+    protected $multiFactors = [
+        'name', 'email', 'tel'
+    ];
+
+    /**
+     * Credential name. (In html form presentation)
+     *
+     * @var string
+     */
+    protected $username = 'credential';
+
+    /**
      * Create a new authentication controller instance.
      *
      * @return void

@@ -98,11 +98,7 @@ trait AuthenticatesUsers {
             $this->incrementLoginAttempts($request);
         }
 
-        return redirect()->back()
-            ->withInput($request->only($this->loginUsername(), 'remember'))
-            ->withErrors([
-                $this->loginUsername() => $this->getFailedLoginMessage(),
-            ]);
+        return $this->handleInvalidCredentials($request);
     }
 
     /**
@@ -119,7 +115,7 @@ trait AuthenticatesUsers {
             $this->clearLoginAttempts($request);
         }
 
-        User::loggedIn();
+//        User::loggedIn();
 
         // Send back json if request is from ajax
         if ($request->ajax()) {
@@ -134,6 +130,22 @@ trait AuthenticatesUsers {
         }
 
         return redirect()->intended($this->redirectPath());
+    }
+
+    protected function handleInvalidCredentials(Request $request)
+    {
+        if ($request->ajax()) {
+            return [
+                "status"  => "error",
+                "message" => $this->getFailedLoginMessage()
+            ];
+        }
+
+        return redirect()->back()
+            ->withInput($request->only($this->loginUsername(), 'remember'))
+            ->withErrors([
+                $this->loginUsername() => $this->getFailedLoginMessage(),
+            ]);
     }
 
     /**

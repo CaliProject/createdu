@@ -9,7 +9,6 @@
 
     <!-- Fonts -->
     <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="http://fonts.useso.com/css?family=Lato:100,300,400,700">
 
     <!-- Styles -->
     <link rel="stylesheet" href="/assets/css/app.css">

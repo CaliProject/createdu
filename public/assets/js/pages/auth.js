@@ -32,6 +32,67 @@
             classie.remove(ev.target.parentNode, 'Input--filled');
         }
     }
+
+    $(".Input__eye").on('click', function (ev) {
+        var b = ev.target;
+
+        classie.toggle(b, 'visible');
+        changePasswordVisibility();
+    });
+
+    function changePasswordVisibility() {
+        var field = document.querySelector("input#password");
+
+        field.type = field.type == 'password' ? 'text' : 'password';
+    }
+
+    var isSubmitting = false;
+
+    $(".Auth__form").on('submit', function (ev) {
+        ev.preventDefault();
+
+        if (isSubmitting) return false;
+
+        isSubmitting = true;
+
+        var button = ev.target.querySelector(".Auth__submit");
+
+        classie.add(button, 'loading');
+
+        $.post({
+            url: '',
+            data: $(ev.target).serialize(),
+            success: function success(data) {
+                if (data.status != 'error') {
+                    classie.add(button, 'success');
+                    setTimeout(function () {
+                        return window.location.href = data.redirect;
+                    }, 700);
+                } else {
+                    classie.add(button, 'error');
+                    swal({
+                        type: 'error',
+                        showConfirmButton: false,
+                        timer: 1000,
+                        title: data.message
+                    });
+                    setTimeout(function () {
+                        return classie.remove(button, 'error');
+                    }, 2500);
+                }
+            },
+            error: function error(er) {
+                classie.add(button, 'error');
+                setTimeout(function () {
+                    return classie.remove(button, 'error');
+                }, 2500);
+            },
+            complete: function complete() {
+                classie.remove(button, 'loading');
+                isSubmitting = false;
+            }
+        });
+    });
 })();
 
 },{}]},{},[1]);

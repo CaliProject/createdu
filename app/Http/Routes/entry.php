@@ -11,13 +11,15 @@
 |
 */
 
-/* TODO: DELETE THIS! TEMPORARY */
-//Auth::loginUsingId(1);
+Route::group([
+    'domain' => str_replace('http://', '', config('app.url'))
+], function () {
+    Router::auth()
+        ->language()
+        ->robots()
+        ->users();
 
-Router::auth()
-    ->language()
-    ->robots()
-    ->users();
+    Router::home();
+});
 
-Router::home()
-    ->admins();
+Router::admins();

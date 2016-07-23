@@ -12,15 +12,19 @@
         })();
     }
 
-    [].slice.call(document.querySelectorAll('Input.Input__field')).forEach(function (InputEl) {
-        // In case the Input is already filled..
-        if (InputEl.value.trim() !== '') {
-            classie.add(InputEl.parentNode, 'Input--filled');
-        }
+    $(function () {
+        setTimeout(function () {
+            [].slice.call(document.querySelectorAll('.Input__field')).forEach(function (InputEl) {
+                // In case the Input is already filled..
+                if (InputEl.value.trim() !== '') {
+                    classie.add(InputEl.parentNode, 'Input--filled');
+                }
 
-        // Events:
-        InputEl.addEventListener('focus', onInputFocus);
-        InputEl.addEventListener('blur', onInputBlur);
+                // Events:
+                InputEl.addEventListener('focus', onInputFocus);
+                InputEl.addEventListener('blur', onInputBlur);
+            });
+        }, 300);
     });
 
     function onInputFocus(ev) {

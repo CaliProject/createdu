@@ -66,6 +66,10 @@
   outline: none;
   border: 0 !important; }
 
+.Input__field:-webkit-autofill {
+  background: white;
+  box-shadow: 0 0 0px 1000px white inset; }
+
 .Input__label {
   display: inline-block;
   float: right;
@@ -127,7 +131,8 @@
   pointer-events: none; }
 
 .Input__label-content--createdu {
-  transition: transform 0.3s; }
+  transition: transform 0.3s;
+  background: linear-gradient(to bottom, transparent, #fff, transparent); }
 
 .Input__label--createdu::before,
 .Input__label--createdu::after {
@@ -148,7 +153,8 @@
 
 .Input__field--createdu:focus + .Input__label--createdu .Input__label-content--createdu,
 .Input--filled .Input__label-content--createdu {
-  transform: translate3d(0, -90%, 0); }
+  transform: translate3d(0, -90%, 0);
+  background: transparent; }
 
 .Input__field--createdu:focus + .Input__label--createdu::before,
 .Input--filled .Input__label--createdu::before {

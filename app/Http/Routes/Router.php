@@ -20,11 +20,7 @@ class Router {
      */
     public static function home()
     {
-        Route::group([
-            'domain' => str_replace('http://', '', config('app.url'))
-        ], function () {
-            Route::get('/', 'HomeController@index')->name('home');
-        });
+        Route::get('/', 'HomeController@index')->name('home');
 
         return new static;
     }
@@ -74,7 +70,7 @@ class Router {
      */
     public static function language()
     {
-        Route::get('~{language}', 'Dashboard\HomeController@changeLanguage');
+        Route::get('~!{language}', 'Dashboard\HomeController@changeLanguage');
 
         return new static;
     }
@@ -129,33 +125,33 @@ class Router {
             Route::patch('save/settings/color', 'AdminController@changeThemeColor')->name('change-theme-color');
 
             // Users management.
-            Route::group([
-                'prefix' => 'users',
-                'as'     => 'users.'
-            ], function () {
-                Route::get('search/{keyword}', 'UsersController@searchUsers')->name('search');
-                Route::get('invitations', 'UsersController@showInvitations')->name('invitations');
-                Route::delete('{user?}', 'UsersController@deleteUser')->name('delete');
-                Route::patch('bulk', 'UsersController@bulkAction')->name('bulk');
-                Route::post('invitations', 'UsersController@generateInvitationCode');
-
-                Route::group(['prefix' => 'edit', 'as' => 'edit.'], function () {
-                    Route::get('{user}', 'UsersController@showUserProfile')->name('profile');
-                    Route::patch('{user}', 'UsersController@updateUserProfile')->name('update');
-                    Route::patch('{user}/password', 'UsersController@updateUserPassword')->name('password');
-                });
-
-                Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
-                    Route::get('/', 'UsersController@showProfile')->name('index');
-
-                    Route::patch('save', 'UsersController@saveProfile')->name('save');
-                    Route::patch('password', 'UsersController@updatePassword')->name('update-password');
-                    Route::post('oauth/{service}', 'UsersController@bindOrUnbindOAuth')->name('oauth');
-                    Route::get('oauth/{service}', 'UsersController@redirectToService');
-                    Route::post('avatar', 'UsersController@uploadAvatar')->name('upload-avatar');
-                    Route::post('resize', 'UsersController@resizeAvatar')->name('resize-avatar');
-                });
-            });
+//            Route::group([
+//                'prefix' => 'users',
+//                'as'     => 'users.'
+//            ], function () {
+//                Route::get('search/{keyword}', 'UsersController@searchUsers')->name('search');
+//                Route::get('invitations', 'UsersController@showInvitations')->name('invitations');
+//                Route::delete('{user?}', 'UsersController@deleteUser')->name('delete');
+//                Route::patch('bulk', 'UsersController@bulkAction')->name('bulk');
+//                Route::post('invitations', 'UsersController@generateInvitationCode');
+//
+//                Route::group(['prefix' => 'edit', 'as' => 'edit.'], function () {
+//                    Route::get('{user}', 'UsersController@showUserProfile')->name('profile');
+//                    Route::patch('{user}', 'UsersController@updateUserProfile')->name('update');
+//                    Route::patch('{user}/password', 'UsersController@updateUserPassword')->name('password');
+//                });
+//
+//                Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
+//                    Route::get('/', 'UsersController@showProfile')->name('index');
+//
+//                    Route::patch('save', 'UsersController@saveProfile')->name('save');
+//                    Route::patch('password', 'UsersController@updatePassword')->name('update-password');
+//                    Route::post('oauth/{service}', 'UsersController@bindOrUnbindOAuth')->name('oauth');
+//                    Route::get('oauth/{service}', 'UsersController@redirectToService');
+//                    Route::post('avatar', 'UsersController@uploadAvatar')->name('upload-avatar');
+//                    Route::post('resize', 'UsersController@resizeAvatar')->name('resize-avatar');
+//                });
+//            });
         });
 
         return new static;

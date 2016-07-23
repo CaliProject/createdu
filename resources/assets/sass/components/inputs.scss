@@ -29,6 +29,11 @@
   border: 0 !important;
 }
 
+.Input__field:-webkit-autofill {
+  background: white;
+  box-shadow: 0 0 0px 1000px white inset;
+}
+
 .Input__label {
   display: inline-block;
   float: right;
@@ -94,6 +99,7 @@
 .Input__label-content--createdu {
   -webkit-transition: -webkit-transform 0.3s;
   transition: transform 0.3s;
+  background: linear-gradient(to bottom, transparent, #fff, transparent)
 }
 
 .Input__label--createdu::before,
@@ -121,6 +127,7 @@
 .Input--filled .Input__label-content--createdu {
   -webkit-transform: translate3d(0, -90%, 0);
   transform: translate3d(0, -90%, 0);
+  background: transparent;
 }
 
 .Input__field--createdu:focus + .Input__label--createdu::before,

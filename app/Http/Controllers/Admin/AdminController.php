@@ -2,6 +2,7 @@
 
 namespace Createdu\Http\Controllers\Admin;
 
+use Gate;
 use Illuminate\Http\Request;
 use Createdu\Http\Controllers\Controller;
 
@@ -12,7 +13,8 @@ class AdminController extends Controller {
      */
     public function __construct()
     {
-        $this->authorize('view-dashboard');
+        $this->middleware('auth');
+//        Gate::allows('view-dashboard');
     }
 
     /**

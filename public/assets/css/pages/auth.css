@@ -205,6 +205,22 @@
     opacity: 1;
     transform: translateY(0); } }
 
+@keyframes zoom {
+  0% {
+    transform: scale3d(1, 1, 1); }
+  50% {
+    transform: scale3d(1.15, 1.15, 1); }
+  100% {
+    transform: scale3d(1, 1, 1); } }
+
+@keyframes fadeInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-50px); }
+  100% {
+    opacity: 1;
+    transform: scale3d(1, 1, 1) translateX(0); } }
+
 /* Global Styles */
 body {
   position: relative;
@@ -259,7 +275,8 @@ p {
     -ms-flex-pack: center;
     justify-content: center;
     -ms-flex-align: center;
-    align-items: center; }
+    align-items: center;
+    margin-top: -35px; }
   .Auth__logo {
     max-width: 130px;
     max-height: 130px;
@@ -293,6 +310,67 @@ p {
       animation-delay: 0.53s; }
     .Auth__form .Input:nth-of-type(3) {
       animation-delay: 0.72s; }
+    .Auth__form .Input:nth-of-type(4) {
+      animation-delay: 0.91s; }
+    .Auth__form .Input:nth-of-type(5) {
+      animation-delay: 1.1s; }
+  .Auth__oauth {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+    -ms-flex-align: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    height: 45px; }
+    .Auth__oauth__service {
+      -ms-flex: 1;
+      flex: 1;
+      display: block;
+      animation: fadeInLeft 0.4s ease-in-out backwards;
+      -webkit-animation: fadeInLeft 0.4s ease-in-out backwards;
+      -moz-animation: fadeInLeft 0.4s ease-in-out backwards;
+      -ms-animation: fadeInLeft 0.4s ease-in-out backwards;
+      -o-animation: fadeInLeft 0.4s ease-in-out backwards; }
+      .Auth__oauth__service:hover, .Auth__oauth__service:visited, .Auth__oauth__service:focus, .Auth__oauth__service:active {
+        text-decoration: none; }
+      .Auth__oauth__service:before {
+        content: '';
+        display: inline;
+        font-family: "FontAwesome";
+        font-style: normal;
+        font-size: 1.5em; }
+      .Auth__oauth__service:nth-of-type(1) {
+        animation-delay: 0.618s;
+        -webkit-animation-delay: 0.618s; }
+      .Auth__oauth__service:nth-of-type(2) {
+        animation-delay: 0.771s;
+        -webkit-animation-delay: 0.771s; }
+      .Auth__oauth__service:nth-of-type(3) {
+        animation-delay: 0.924s;
+        -webkit-animation-delay: 0.924s; }
+      .Auth__oauth__service:nth-of-type(4) {
+        animation-delay: 1.077s;
+        -webkit-animation-delay: 1.077s; }
+      .Auth__oauth__service:nth-of-type(5) {
+        animation-delay: 1.23s;
+        -webkit-animation-delay: 1.23s; }
+      .Auth__oauth__service.qq:before {
+        content: '\f1d6';
+        color: #07abdd; }
+      .Auth__oauth__service.weibo:before {
+        content: '\f18a';
+        color: #ef4e4e; }
+      .Auth__oauth__service.weixin:before {
+        content: '\f1d7';
+        color: #30aa1a; }
+      .Auth__oauth__service.google:before {
+        content: '\f1a0';
+        color: #ff2929; }
+      .Auth__oauth__service.facebook:before {
+        content: '\f09a';
+        color: #354e8e; }
   .Auth__submit {
     background: #0d3b62;
     color: #f9f7f6;
@@ -360,11 +438,3 @@ p {
     -moz-animation: fadeInDown 1.4s 0.4s backwards;
     -ms-animation: fadeInDown 1.4s 0.4s backwards;
     -o-animation: fadeInDown 1.4s 0.4s backwards; }
-
-@keyframes zoom {
-  0% {
-    transform: scale3d(1, 1, 1); }
-  50% {
-    transform: scale3d(1.15, 1.15, 1); }
-  100% {
-    transform: scale3d(1, 1, 1); } }

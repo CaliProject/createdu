@@ -15,6 +15,7 @@ class AdminController extends Controller {
     {
         $this->middleware('auth');
 //        Gate::allows('view-dashboard');
+        $this->authorize('view-dashboard');
     }
 
     /**

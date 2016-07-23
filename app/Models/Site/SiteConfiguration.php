@@ -159,5 +159,6 @@ class SiteConfiguration extends Configuration {
         static::smtpEmailOn("0");
         static::forceSsl("0");
         static::subDomainNameExclusions("avatars");
+        static::supportedOAuths("qq", "weibo", "weixin", "google", "facebook");
     }
 }

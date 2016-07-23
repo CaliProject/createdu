@@ -1,82 +1,66 @@
 @extends('layouts.app')
 
+@section('title', trans('views.auth.register.header_title'))
+
+@push('styles')
+<link rel="stylesheet" href="/assets/css/pages/auth.css">
+@endpush
+
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
-                        {{ csrf_field() }}
-
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Name</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}">
-
-                                @if ($errors->has('name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password">
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
-
-                                @if ($errors->has('password_confirmation'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-user"></i> Register
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+    <div class="Auth Auth--sign-up">
+        <div class="Auth__wrapper">
+            <div class="Auth__box">
+                <div class="Auth__logo">
+                    <a href="/">
+                        <img src="/assets/logo.png" alt="logo">
+                    </a>
+                </div>
+                <div class="Auth__title">
+                    <h4>@lang('views.auth.register.header_title')@lang('views.auth.register.in')@site('siteTitle')</h4>
+                </div>
+                <form class="Auth__form" action="" method="POST">
+                    {!! csrf_field() !!}
+                    <div class="Input Input--createdu">
+                        <input class="Input__field Input__field--createdu" type="text" id="name" name="name" required autocomplete="off">
+                        <label class="Input__label Input__label--createdu" for="name">
+                            <span class="Input__label-content Input__label-content--createdu">@lang('views.auth.register.username')</span>
+                        </label>
+                    </div>
+                    <div class="Input Input--createdu">
+                        <input class="Input__field Input__field--createdu" type="email" id="email" name="email" required autocomplete="off">
+                        <label class="Input__label Input__label--createdu" for="email">
+                            <span class="Input__label-content Input__label-content--createdu">@lang('views.auth.register.email')</span>
+                        </label>
+                    </div>
+                    <div class="Input Input--createdu">
+                        <input class="Input__field Input__field--createdu" type="password" id="password" name="password" required autocomplete="off">
+                        <label class="Input__label Input__label--createdu" for="password">
+                            <span class="Input__label-content Input__label-content--createdu">@lang('views.auth.register.password')</span>
+                        </label>
+                        <span class="Input__eye"></span>
+                    </div>
+                    {{--<div class="Input Input--createdu">--}}
+                        {{--<input class="Input__field Input__field--createdu" type="password" id="password_confirmation" name="password_confirmation" required>--}}
+                        {{--<label class="Input__label Input__label--createdu" for="password_confirmation">--}}
+                            {{--<span class="Input__label-content Input__label-content--createdu">@lang('views.auth.register.confirm_password')</span>--}}
+                        {{--</label>--}}
+                    {{--</div>--}}
+                    <div class="Input text-center">
+                        <button class="Auth__submit" type="submit"></button>
+                    </div>
+                </form>
+                <div class="Auth__separator"></div>
+                <div class="Auth__extra">
+                    @lang('views.auth.login.no-account')&nbsp;<a href="@route('sign-in')">@lang('views.auth.login.header_title')</a>
+                    <div class="pull-right">
+                        <a href="@route('reset')">@lang('views.auth.login.forgot_password')</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 @endsection
+
+@push('scripts.footer')
+<script src="/assets/js/pages/auth.js"></script>
+@endpush

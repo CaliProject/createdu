@@ -16,7 +16,7 @@ class CreateUsersTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('tel')->unique(); // Hashed telephone number
+            $table->string('tel')->nullable()->unique(); // Hashed telephone number
             $table->string('password');
             $table->text('social_info')->nullable();
             $table->unsignedInteger('experience');

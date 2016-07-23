@@ -38,6 +38,11 @@
                         <button class="Auth__submit" type="submit"></button>
                     </div>
                 </form>
+                <div class="Auth__oauth">
+                    @foreach(explode(",", Site::supportedOAuths()) as $service)
+                        <a class="Auth__oauth__service {{ $service }}" href="@route('social', compact('service'))"></a>
+                    @endforeach
+                </div>
                 <div class="Auth__separator"></div>
                 <div class="Auth__extra">
                     @lang('views.auth.login.no-account')&nbsp;<a href="@route('sign-up')">@lang('views.auth.login.register')</a>

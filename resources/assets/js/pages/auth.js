@@ -74,7 +74,7 @@
                         type: 'error',
                         showConfirmButton: false,
                         timer: 1000,
-                        title: data.message
+                        title: data.messages == undefined ? data.message : (data.messages.name == undefined) ? (data.messages.email == undefined) ? data.messages.password : data.messages.email : data.messages.name
                     });
                     setTimeout(() => classie.remove(button, 'error'), 2500);
                 }

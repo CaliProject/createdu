@@ -18,6 +18,8 @@
     <link rel="apple-touch-icon" href="/assets/logo.png">
     <link rel="apple-touch-icon-precomposed" href="/assets/logo.png">
 
+    <meta name="_token" content="{{ csrf_token() }}">
+
     @stack('styles')
 
     <style>
@@ -29,6 +31,8 @@
             margin-right: 6px;
         }
     </style>
+
+    <script src="/assets/js/modernizr.custom.js"></script>
     @stack('scripts.header')
 
 </head>

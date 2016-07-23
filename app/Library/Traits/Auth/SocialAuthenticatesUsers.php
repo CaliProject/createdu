@@ -2,6 +2,7 @@
 
 namespace Createdu\Library\Traits\Auth;
 
+use Site;
 use Auth;
 use Validator;
 use Socialite;
@@ -37,7 +38,7 @@ trait SocialAuthenticatesUsers {
      */
     public function socialLogin($service)
     {
-        if (site($service . 'On') != '1')
+        if (! in_array($service, explode(",", Site::supportedOAuths())))
             return redirect('/');
         
         return Socialite::with($service)->redirect();
@@ -114,7 +115,7 @@ trait SocialAuthenticatesUsers {
     protected function socialValidated(Request $request)
     {
         $this->validator = Validator::make($request->all(), [
-            'username' => 'required|max:191|min:3|unique:users',
+            'name' => 'required|max:191|min:3|unique:users',
             'email'    => 'required|email|max:191|unique:users'
         ]);
 

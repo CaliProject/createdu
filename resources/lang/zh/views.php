@@ -15,7 +15,7 @@ return [
         // 登录页面
         'login'    => [
             'header_title'    => '登录',
-            'credential'      => '用户名/邮箱/手机',
+            'credential'      => '邮箱/手机',
             'password'        => '密码',
             'remember_me'     => '记住我, 下次免登录',
             'forgot_password' => '忘记密码?',
@@ -27,10 +27,11 @@ return [
         // 注册页面
         'register' => [
             'header_title'     => '注册',
-            'username'         => '用户名',
+            'username'         => '昵称',
             'password'         => '密码',
             'email'            => '邮箱地址',
             'confirm_password' => '确认密码',
+            'in'               => '在'
         ],
         // 密码重置页面
         'reset'    => [

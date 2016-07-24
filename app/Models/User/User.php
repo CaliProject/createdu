@@ -239,4 +239,29 @@ class User extends Authenticatable {
         return $query->where('name', 'like', "%{$keyword}%")
             ->orWhere('email', 'like', "%{$keyword}%");
     }
+
+    /**
+     * See if the user has checked in today.
+     *
+     * @return boolean
+     */
+    public function checkedIn()
+    {
+        /** @var null|UserMeta $latestCheck */
+        $latestCheck =  $this->metas()->whereKey('check_in')->latest()->first();
+
+        return is_null($latestCheck) ? false : $latestCheck->created_at->isToday();
+    }
+
+    /**
+     * Check in the user.
+     *
+     * @return bool|object|string|null
+     */
+    public function checkIn()
+    {
+        if (! $this->checkedIn()) {
+            return $this->meta('check_in', 'checked');
+        }
+    }
 }

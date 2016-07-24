@@ -27,13 +27,12 @@ class CreateUsersTable extends Migration
         });
 
         Schema::create('user_metas', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->index();
             $table->string('key')->index();
             $table->longText('value');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->primary(['user_id', 'key']);
         });
 
         Schema::create('user_avatars', function (Blueprint $table) {

@@ -41,7 +41,8 @@ return [
             'placeholder'  => '邮箱地址',
             'success'      => '成功发送',
             'error'        => '出错了',
-            'new_password' => '新密码'
+            'new_password' => '新密码',
+            'back'         => '返回主页'
         ],
         // 社交平台绑定页面
         'social'   => [

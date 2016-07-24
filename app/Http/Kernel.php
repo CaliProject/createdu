@@ -29,6 +29,8 @@ class Kernel extends HttpKernel {
             \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \Createdu\Http\Middleware\VerifyCsrfToken::class,
+            \Createdu\Http\Middleware\PjaxMiddleware::class,
+//            \Createdu\Http\Middleware\RecordStatistics::class,
         ],
 
         'api' => [

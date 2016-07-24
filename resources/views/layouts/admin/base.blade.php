@@ -67,7 +67,7 @@
     {{-- Scripts Stack --}}
     @stack('scripts.header')
 </head>
-<body class="page-header-fixed">
+<body class="page-header-fixed" id="app">
 
     @yield('content')
 

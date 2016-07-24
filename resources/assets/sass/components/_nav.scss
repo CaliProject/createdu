@@ -1,0 +1,115 @@
+.Nav {
+  height: $nav-height;
+  background: $primary-dark;
+  background-color: rgba($primary-dark, .8);
+  background-image: linear-gradient(to bottom, $primary-dark, rgba($primary-dark, .4));
+  color: $primary-light;
+  padding: 0 3em;
+
+  > div {
+    margin-top: 5px;
+  }
+
+  a {
+    color: $primary-light;
+    font-weight: bold;
+    @include ts(color .25s ease-in);
+
+    &:hover {
+      color: $primary-light-hover;
+      background: transparent !important;
+    }
+  }
+
+  .navbar-header {
+    margin-right: 20px;
+  }
+
+  .navbar-brand {
+    padding: 8px 20px;
+
+    img {
+      max-height: 100%;
+    }
+  }
+
+  .navbar-toggle {
+    border-color: #fee;
+
+    .icon-bar {
+      background: #fee;
+    }
+  }
+
+  .search-bar {
+    line-height: 50px;
+    position: relative;
+    margin: 0 15px 0 10px;
+
+    input[type=text] {
+      vertical-align: middle;
+      height: 30px;
+      border-radius: 15px;
+      border: none;
+      outline: none;
+      color: #999;
+      background: rgba(255,255,255,.125);
+      padding-right: 12px;
+      padding-left: 30px;
+      font-weight: 600;
+      width: $search-bar-width;
+      @include ts();
+
+      &:focus,&:hover {
+        background: rgba(255,255,255, .95);
+        + i.fa-search {
+          color: #111;
+        }
+      }
+    }
+
+    i.fa-search {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      margin-top: -7px;
+      color: #999;
+      @include ts();
+    }
+  }
+
+  .user-info {
+    padding-top: 10px !important;
+  }
+
+  .avatar {
+    display: inline-block;
+    width: 33px;
+    height: 33px;
+    border-radius: 50%;
+    margin: 0 .5em;
+  }
+}
+
+.dropdown-menu > li > a {
+  padding: .8em 20px;
+}
+
+.nav .open > a, .nav a:active, .nav a:focus {
+  background: transparent !important;
+  color: $primary-light-hover;
+}
+
+li.on:after {
+  position: absolute;
+  content: '';
+  bottom: -10px;
+  width: 0;
+  height: 0;
+  border-color: rgba($primary-dark, .95) transparent transparent;
+  border-width: 6px 6px 0;
+  border-style: solid;
+  display: block;
+  left: 50%;
+  margin-left: -6px;
+}

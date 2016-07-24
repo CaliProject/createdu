@@ -29,6 +29,9 @@ elixir(function (mix) {
     mix.sass([
         'app.scss'
     ], publicDir + 'css/app.css')
+        .browserify([
+            'app.js'
+        ], assetsDir + 'js/builds/app.js')
         .scripts([
             'plugins/classie.js',
             'plugins/jquery/jquery.min.js',
@@ -36,7 +39,8 @@ elixir(function (mix) {
             // 'plugins/pace.min.js',
             'plugins/bootstrap.js',
             'plugins/switchery.js',
-            'plugins/sweetalert.min.js'
+            'plugins/sweetalert.min.js',
+            'builds/app.js'
         ], publicDir + 'js/app.js');
 
     /*
@@ -98,6 +102,7 @@ elixir(function (mix) {
             'plugins/sweetalert.min.js',
             'plugins/cropper.min.js',
             'admin/modern.js',
+            'pusher.min.js',
             'builds/admin/app.js',
         ], publicDir + 'js/admin/app.js');
 

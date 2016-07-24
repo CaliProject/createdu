@@ -2,8 +2,6 @@
 
 namespace Createdu\Library\Traits\User;
 
-use Createdu\UserMeta;
-
 trait UserMetas {
 
     /**
@@ -23,10 +21,7 @@ trait UserMetas {
             if (! $meta) {
                 $meta = $this->metas()->create(compact('key', 'value'));
             } else {
-                UserMeta::where([
-                    'key'     => $key,
-                    'user_id' => $this->id
-                ])->update(compact('value'));
+                $this->metas()->whereKey($key)->update(compact('value'));
             }
         }
 

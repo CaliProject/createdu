@@ -31,6 +31,9 @@
                     </div>
                 </form>
                 <div class="Auth__separator"></div>
+                <div class="Auth__extra text-center">
+                    <a href="/">@lang('views.auth.reset.back')</a>
+                </div>
             </div>
         </div>
     </div>

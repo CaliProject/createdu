@@ -1,70 +1,52 @@
 @extends('layouts.app')
 
+@section('title', trans('views.auth.reset.title'))
+
+@push('styles')
+<link rel="stylesheet" href="/assets/css/pages/auth.css">
+@endpush
+
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Reset Password</div>
-
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/password/reset') }}">
-                        {{ csrf_field() }}
-
-                        <input type="hidden" name="token" value="{{ $token }}">
-
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ $email or old('email') }}">
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password">
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
-
-                                @if ($errors->has('password_confirmation'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-refresh"></i> Reset Password
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+    <div class="Auth Auth--sign-up">
+        <div class="Auth__wrapper">
+            <div class="Auth__box">
+                <div class="Auth__logo">
+                    <a href="/">
+                        <img src="/assets/logo.png" alt="logo">
+                    </a>
                 </div>
+                <div class="Auth__title">
+                    <h4>@lang('views.auth.reset.title')</h4>
+                </div>
+                <form class="Auth__form" role="form" method="POST" action="@route('reset')">
+                    {{ csrf_field() }}
+
+                    <input type="hidden" name="token" value="{{ $token }}">
+
+                    <div class="Input Input--createdu">
+                        <input class="Input__field Input__field--createdu" type="email" id="email" name="email" value="{{ $email or old('email') }}" required autocomplete="off">
+                        <label class="Input__label Input__label--createdu" for="email">
+                            <span class="Input__label-content Input__label-content--createdu">@lang('views.auth.register.email')</span>
+                        </label>
+                    </div>
+
+                    <div class="Input Input--createdu">
+                        <input class="Input__field Input__field--createdu" type="password" id="password" name="password" required autocomplete="off">
+                        <label class="Input__label Input__label--createdu" for="password">
+                            <span class="Input__label-content Input__label-content--createdu">@lang('views.auth.reset.new_password')</span>
+                        </label>
+                        <span class="Input__eye"></span>
+                    </div>
+
+                    <div class="Input text-center">
+                        <button class="Auth__submit" type="submit"></button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-</div>
 @endsection
+
+@push('scripts.footer')
+<script src="/assets/js/pages/auth.js"></script>
+@endpush

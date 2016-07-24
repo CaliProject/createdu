@@ -18,7 +18,7 @@
                 <div class="Auth__title">
                     <h4>@lang('views.auth.login.header_title')@lang('views.auth.login.in')@site('siteTitle')</h4>
                 </div>
-                <form class="Auth__form" action="" method="POST">
+                <form class="Auth__form" method="POST">
                     {!! csrf_field() !!}
                     <input type="hidden" name="remember" value="on">
                     <div class="Input Input--createdu">
@@ -45,7 +45,7 @@
                 </div>
                 <div class="Auth__separator"></div>
                 <div class="Auth__extra">
-                    @lang('views.auth.login.no-account')&nbsp;<a href="@route('sign-up')">@lang('views.auth.login.register')</a>
+                    @lang('views.auth.login.no_account')&nbsp;<a href="@route('sign-up')">@lang('views.auth.login.register')</a>
                     <div class="pull-right">
                         <a href="@route('reset')">@lang('views.auth.login.forgot_password')</a>
                     </div>

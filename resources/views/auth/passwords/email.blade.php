@@ -1,47 +1,41 @@
 @extends('layouts.app')
 
-<!-- Main Content -->
+@section('title', trans('views.auth.reset.title'))
+
+@push('styles')
+<link rel="stylesheet" href="/assets/css/pages/auth.css">
+@endpush
+
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Reset Password</div>
-                <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/password/email') }}">
-                        {{ csrf_field() }}
-
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-envelope"></i> Send Password Reset Link
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+    <div class="Auth Auth--sign-up">
+        <div class="Auth__wrapper">
+            <div class="Auth__box">
+                <div class="Auth__logo">
+                    <a href="/">
+                        <img src="/assets/logo.png" alt="logo">
+                    </a>
                 </div>
+                <div class="Auth__title">
+                    <h4>@lang('views.auth.reset.title')</h4>
+                </div>
+                <form class="Auth__form" role="form" action="@route('reset-password')" method="POST">
+                    {!! csrf_field() !!}
+                    <div class="Input Input--createdu">
+                        <input class="Input__field Input__field--createdu" type="email" id="email" name="email" required>
+                        <label class="Input__label Input__label--createdu" for="email">
+                            <span class="Input__label-content Input__label-content--createdu">@lang('views.auth.reset.placeholder')</span>
+                        </label>
+                    </div>
+                    <div class="Input text-center">
+                        <button class="Auth__submit" type="submit"></button>
+                    </div>
+                </form>
+                <div class="Auth__separator"></div>
             </div>
         </div>
     </div>
-</div>
 @endsection
+
+@push('scripts.footer')
+<script src="/assets/js/pages/auth.js"></script>
+@endpush

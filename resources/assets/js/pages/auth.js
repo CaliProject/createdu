@@ -62,12 +62,30 @@
         classie.add(button, 'loading');
 
         $.post({
-            url: '',
+            url: ev.target.action == undefined ? '' : ev.target.action,
             data: $(ev.target).serialize(),
             success(data) {
                 if (data.status != 'error') {
                     classie.add(button, 'success');
-                    setTimeout(() => window.location.href = data.redirect, 700);
+
+                    if (data.redirect != undefined && data.message == undefined) {
+                        setTimeout(() => window.location.href = data.redirect, 700);
+                    } else if (data.redirect != undefined && data.message != undefined) {
+                        swal({
+                            type: 'success',
+                            showConfirmButton: false,
+                            timer: 1500,
+                            title: data.message
+                        });
+                        setTimeout(() => window.location.href = data.redirect, 1350);
+                    } else {
+                        swal({
+                            type: 'success',
+                            showConfirmButton: false,
+                            timer: 1500,
+                            title: data.message
+                        });
+                    }
                 } else {
                     classie.add(button, 'error');
                     swal({

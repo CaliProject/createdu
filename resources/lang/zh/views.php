@@ -20,7 +20,7 @@ return [
             'remember_me'     => '记住我, 下次免登录',
             'forgot_password' => '忘记密码?',
             'register'        => '注册',
-            'no-account'      => '还没有帐号?',
+            'no_account'      => '还没有帐号?',
             'error'           => '填写错误',
             'in'              => '到'
         ],
@@ -31,15 +31,17 @@ return [
             'password'         => '密码',
             'email'            => '邮箱地址',
             'confirm_password' => '确认密码',
-            'in'               => '在'
+            'in'               => '在',
+            'have_account'     => '已经有帐号了?'
         ],
         // 密码重置页面
         'reset'    => [
-            'title'       => '重置密码',
-            'button'      => '重置',
-            'placeholder' => '要重置密码的邮箱地址...',
-            'success'     => '成功发送',
-            'error'       => '出错了',
+            'title'        => '重置密码',
+            'button'       => '重置',
+            'placeholder'  => '邮箱地址',
+            'success'      => '成功发送',
+            'error'        => '出错了',
+            'new_password' => '新密码'
         ],
         // 社交平台绑定页面
         'social'   => [

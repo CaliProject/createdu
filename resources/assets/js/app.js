@@ -11,11 +11,48 @@ let vm = new Vue({
         },
         uploadAvatar() {
             $("#avatar-uploader").click();
+        },
+        checkIn() {
+            if (! this.User.checkedIn) {
+                this.request(
+                    'post',
+                    '/checkin',
+                    {_token: this.token},
+                    (data) => {
+                        this.User.checkedIn = true;
+                        toastr.success(data.message);
+                    },
+                    (er) => {
+
+                    },
+                    (ev) => {
+
+                    }
+                );
+            }
+        },
+        request(type, url, data, success, error, complete) {
+            $.ajax({
+                type: type,
+                url: url,
+                data: data,
+                success(data) {
+                    success(data);
+                },
+                error(er) {
+                    error(er);
+                },
+                complete(ev) {
+                    complete(ev);
+                }
+            });
         }
     },
     data: {
         displayBackTop: false,
-        searchText: ''
+        searchText: '',
+        User: CurrentUser,
+        token: _TOKEN
     }
 });
 
@@ -30,20 +67,20 @@ $(() => {
     });
 });
 
-// toastr.options = {
-//     "closeButton": false,
-//     "debug": false,
-//     "newestOnTop": true,
-//     "progressBar": true,
-//     "positionClass": "toast-bottom-right",
-//     "preventDuplicates": false,
-//     "onclick": null,
-//     "showDuration": "300",
-//     "hideDuration": "1000",
-//     "timeOut": "5000",
-//     "extendedTimeOut": "1000",
-//     "showEasing": "swing",
-//     "hideEasing": "linear",
-//     "showMethod": "fadeIn",
-//     "hideMethod": "fadeOut"
-// }
+toastr.options = {
+    "closeButton": false,
+    "debug": false,
+    "newestOnTop": true,
+    "progressBar": true,
+    "positionClass": "toast-top-right",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+}

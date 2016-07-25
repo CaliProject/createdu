@@ -14,7 +14,7 @@ class Router {
 
     /**
      * Home Related Routes.
-     * 
+     *
      * @return static
      * @author Cali
      */
@@ -24,7 +24,7 @@ class Router {
 
         return new static;
     }
-    
+
     /**
      * Auth & Register Related Routes.
      * 验证 & 注册相关路由
@@ -96,6 +96,13 @@ class Router {
      */
     public static function users()
     {
+        Route::group([
+            'namespace' => "User",
+            'as'        => 'users'
+        ], function () {
+            Route::post('checkin', 'ProfileController@checkIn');
+        });
+
         Route::group([
             'namespace' => 'User',
             'as'        => 'users.',

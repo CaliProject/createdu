@@ -1,5 +1,6 @@
 @import "../mixins";
 @import "../settings";
+@import "../components/animations";
 @import "../components/inputs";
 
 /* Global Styles */
@@ -12,6 +13,8 @@ body {
   font-size: 14px;
   background: #fff;
   color: #4E5E6A;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
 }
 
 html {

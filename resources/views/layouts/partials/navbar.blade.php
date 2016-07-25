@@ -34,15 +34,35 @@
             </li>
             <!-- Authentication Links -->
             @if (Auth::guest())
-                <li><a href="@route('sign-in')">登录</a></li>
-                <li><a href="@route('sign-up')">注册</a></li>
+                <li><a href="@route('sign-in')">@lang('views.auth.login.header_title')</a></li>
+                <li><a href="@route('sign-up')">@lang('views.auth.register.header_title')</a></li>
             @else
-                <li class="dropdown">
+                <li>
                     <a href="#" class="user-info" data-toggle="dropdown" role="button" aria-expanded="false">
-                        <img src="{{ Auth::user()->avatarUrl }}" alt="{{ Auth::user()->name }}的头像" class="avatar">
+                        <img :src="User.avatarUrl" :alt="User.name" class="avatar">
                     </a>
                     <div class="Card Card--profile">
+                        <div class="Card__wrapper">
+                            <div class="Card__header">
+                                <div class="Card__avatar">
+                                    <img :src="User.avatarUrl" :alt="User.name">
+                                </div>
+                                <div class="Card__info">
+                                    <a class="user-name" href="#">@{{ User.name }}</a>
+                                    <a class="user-credit" href="#"><i class="fa fa-gift"></i>&nbsp;积分@{{ User.credit }}</a>
+                                    <a class="user-exp" href="#"><i class="fa fa-battery-3"></i>&nbsp;经验@{{ User.experience }}</a>
+                                </div>
+                                <div class="Card__checkin">
+                                    <button class="checkin-button" :class="{'checked': User.checkedIn}" @click="checkIn">
+                                        <i class="fa fa-calendar-check-o" v-if="User.checkedIn"></i>
+                                        <span v-else>签到</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="Card__body">
 
+                            </div>
+                        </div>
                     </div>
                 </li>
             @endif

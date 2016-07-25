@@ -13,7 +13,7 @@ trait UserMetas {
      *
      * @author Cali
      */
-    public function meta($key, $value = null)
+    public function meta($key, $value = null, $new = false)
     {
         $meta = $this->metas()->whereKey($key)->first();
 
@@ -21,7 +21,11 @@ trait UserMetas {
             if (! $meta) {
                 $meta = $this->metas()->create(compact('key', 'value'));
             } else {
-                $this->metas()->whereKey($key)->update(compact('value'));
+                if ($new) {
+                    $this->metas()->create(compact('key', 'value'));
+                } else {
+                    $this->metas()->whereKey($key)->update(compact('value'));
+                }
             }
         }
 

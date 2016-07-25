@@ -80,6 +80,10 @@
 
   .user-info {
     padding-top: 10px !important;
+    
+    &:hover + .Card {
+      display: block;
+    }
   }
 
   .avatar {

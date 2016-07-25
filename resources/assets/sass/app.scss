@@ -4,9 +4,12 @@
 
 @import "mixins";
 
+@import "plugins/toastr";
 @import "plugins/switchery";
 @import "plugins/sweetalert";
 
 @import "settings";
+@import "components/animations";
 @import "components/base";
 @import "components/nav";
+@import "components/card";

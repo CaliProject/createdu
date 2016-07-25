@@ -11839,7 +11839,9 @@ a.waves-effect .waves-ripple {
 
 .toast-message {
   -ms-word-wrap: break-word;
-  word-wrap: break-word; }
+  word-wrap: break-word;
+  font-size: 1.1em;
+  font-weight: 500; }
 
 .toast-message a, .toast-message label {
   color: #fff; }

@@ -153,7 +153,8 @@ class User extends Authenticatable {
     protected function extraSerializeAttributes()
     {
         return [
-            'avatarUrl' => $this->avatarUrl
+            'avatarUrl' => $this->avatarUrl,
+            'checkedIn' => $this->checkedIn()
         ];
     }
 
@@ -261,7 +262,7 @@ class User extends Authenticatable {
     public function checkIn()
     {
         if (! $this->checkedIn()) {
-            return $this->meta('check_in', 'checked');
+            return $this->meta('check_in', 'checked', true);
         }
     }
 }

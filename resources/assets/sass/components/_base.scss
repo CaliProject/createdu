@@ -39,3 +39,7 @@ body {
 a:hover {
   text-decoration: none;
 }
+
+button, input, textarea {
+  outline: none;
+}

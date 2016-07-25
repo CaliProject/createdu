@@ -10168,11 +10168,39 @@ var vm = new Vue({
         },
         uploadAvatar: function uploadAvatar() {
             $("#avatar-uploader").click();
+        },
+        checkIn: function checkIn() {
+            var _this = this;
+
+            if (!this.User.checkedIn) {
+                this.request('post', '/checkin', { _token: this.token }, function (data) {
+                    _this.User.checkedIn = true;
+                    toastr.success(data.message);
+                }, function (er) {}, function (ev) {});
+            }
+        },
+        request: function request(type, url, data, _success, _error, _complete) {
+            $.ajax({
+                type: type,
+                url: url,
+                data: data,
+                success: function success(data) {
+                    _success(data);
+                },
+                error: function error(er) {
+                    _error(er);
+                },
+                complete: function complete(ev) {
+                    _complete(ev);
+                }
+            });
         }
     },
     data: {
         displayBackTop: false,
-        searchText: ''
+        searchText: '',
+        User: CurrentUser,
+        token: _TOKEN
     }
 });
 
@@ -10187,22 +10215,22 @@ $(function () {
     });
 });
 
-// toastr.options = {
-//     "closeButton": false,
-//     "debug": false,
-//     "newestOnTop": true,
-//     "progressBar": true,
-//     "positionClass": "toast-bottom-right",
-//     "preventDuplicates": false,
-//     "onclick": null,
-//     "showDuration": "300",
-//     "hideDuration": "1000",
-//     "timeOut": "5000",
-//     "extendedTimeOut": "1000",
-//     "showEasing": "swing",
-//     "hideEasing": "linear",
-//     "showMethod": "fadeIn",
-//     "hideMethod": "fadeOut"
-// }
+toastr.options = {
+    "closeButton": false,
+    "debug": false,
+    "newestOnTop": true,
+    "progressBar": true,
+    "positionClass": "toast-top-right",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+};
 
 },{"vue":2}]},{},[3]);

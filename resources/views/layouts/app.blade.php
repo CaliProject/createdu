@@ -18,11 +18,17 @@
     <link rel="apple-touch-icon" href="/assets/logo.png">
     <link rel="apple-touch-icon-precomposed" href="/assets/logo.png">
 
-    <meta name="_token" content="{{ csrf_token() }}">
-
     @stack('styles')
 
     <script src="/assets/js/modernizr.custom.js"></script>
+
+    <script>
+        @if(Auth::check())
+            var CurrentUser = JSON.parse('{!! addslashes(Auth::user()) !!}');
+        @endif
+        var _TOKEN = "{{ csrf_token() }}";
+    </script>
+
     @stack('scripts.header')
 
 </head>

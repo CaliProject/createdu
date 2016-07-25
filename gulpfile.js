@@ -37,6 +37,7 @@ elixir(function (mix) {
             'plugins/jquery/jquery.min.js',
             // 'plugins/jquery/jquery.pjax.js',
             // 'plugins/pace.min.js',
+            'plugins/toastr.min.js',
             'plugins/bootstrap.js',
             'plugins/switchery.js',
             'plugins/sweetalert.min.js',

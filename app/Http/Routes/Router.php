@@ -84,6 +84,9 @@ class Router {
     public static function robots()
     {
         Route::get('robots.txt', 'Dashboard\HomeController@generateRobotsTxt');
+        Route::get('test', function () {
+            dd(Auth::viaRemember());
+        });
 
         return new static;
     }

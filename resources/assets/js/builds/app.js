@@ -10219,7 +10219,7 @@ var vm = new Vue({
     data: {
         displayBackTop: false,
         searchText: '',
-        User: CurrentUser,
+        User: CurrentUser == undefined ? undefined : CurrentUser,
         token: _TOKEN
     }
 });

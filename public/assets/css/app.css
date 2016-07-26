@@ -6781,6 +6781,9 @@ a:hover {
 button, input, textarea {
   outline: none; }
 
+input, textarea {
+  line-height: normal; }
+
 .Nav {
   height: 60px;
   background: #161616;

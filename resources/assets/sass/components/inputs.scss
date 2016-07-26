@@ -99,7 +99,8 @@
 .Input__label-content--createdu {
   -webkit-transition: -webkit-transform 0.3s;
   transition: transform 0.3s;
-  background: linear-gradient(to bottom, transparent, #fff, transparent)
+  background: linear-gradient(to bottom, rgba(255,255,255,0), #fff, rgba(255,255,255,0));
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, from(rgba(255,255,255,0)), to(rgba(255,255,255,0)), color-stop(0.5, #fff));
 }
 
 .Input__label--createdu::before,

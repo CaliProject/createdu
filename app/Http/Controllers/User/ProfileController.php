@@ -19,6 +19,11 @@ class ProfileController extends Controller {
      */
     protected $request;
 
+    /**
+     * ProfileController constructor.
+     *
+     * @param Request $request
+     */
     public function __construct(Request $request)
     {
         $this->request = $request;
@@ -29,7 +34,6 @@ class ProfileController extends Controller {
      * Fetch user's avatar.
      * 
      * @param User    $user
-     * @param Request $request
      * @return mixed
      * 
      * @author Cali

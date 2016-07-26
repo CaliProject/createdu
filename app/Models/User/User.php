@@ -262,7 +262,25 @@ class User extends Authenticatable {
     public function checkIn()
     {
         if (! $this->checkedIn()) {
+            /* TODO: Change to settable dynamic amount */
+            $this->credit(20);
+
             return $this->meta('check_in', 'checked', true);
+        }
+    }
+
+    /**
+     * Set or get the user's credit.
+     *
+     * @param null $amount
+     * @return mixed|int
+     */
+    public function credit($amount = null)
+    {
+        if (is_null($amount)) {
+            return $this->getAttribute('credit');
+        } else {
+            return $this->increment('credit', intval($amount));
         }
     }
 }

@@ -83,11 +83,11 @@ trait AuthenticatesUsers {
 
         if (property_exists($this, 'multiFactors')) {
             foreach ($this->multiFactors as $factor) {
-                if (Auth::attempt($this->getCredentials($request, $factor), $request->has('remember')))
+                if (Auth::attempt($this->getCredentials($request, $factor), true))
                     return $this->handleUserWasAuthenticated($request, $throttles);
             }
         } else {
-            if (Auth::attempt($this->getCredentials($request), $request->has('remember')))
+            if (Auth::attempt($this->getCredentials($request), true))
                 return $this->handleUserWasAuthenticated($request, $throttles);
         }
 

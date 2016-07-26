@@ -14,36 +14,45 @@ let vm = new Vue({
         },
         checkIn() {
             if (! this.User.checkedIn) {
-                this.request(
-                    'post',
-                    '/checkin',
-                    {_token: this.token},
-                    (data) => {
-                        this.User.checkedIn = true;
-                        toastr.success(data.message);
-                    },
-                    (er) => {
+                const _this = this;
 
-                    },
-                    (ev) => {
-
+                this.request({
+                    url: '/checkin',
+                    type: 'post',
+                    callback(success) {
+                        if (success)
+                            _this.User.checkedIn = true;
                     }
-                );
+                });
             }
         },
-        request(type, url, data, success, error, complete) {
+        request(param) {
+            if (param.data == undefined) {
+                param.data = {_token: this.token};
+            } else {
+                param.data._token = this.token;
+            }
+
             $.ajax({
-                type: type,
-                url: url,
-                data: data,
+                type: param.type,
+                url: param.url,
+                data: param.data,
                 success(data) {
-                    success(data);
+                    if (data.status != undefined) {
+                        if (data.message != undefined)
+                            toastr[data.status](data.message);
+
+                        param.callback((data.status != 'error'), data);
+                    }
                 },
                 error(er) {
-                    error(er);
+                    toastr.error(er.responseText);
+                    param.callback(false);
                 },
                 complete(ev) {
-                    complete(ev);
+                    if (param.complete != undefined) {
+                        param.complete(ev);
+                    }
                 }
             });
         }

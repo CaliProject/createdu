@@ -13948,28 +13948,48 @@ var vm = new Vue({
             $("#avatar-uploader").click();
         },
         checkIn: function checkIn() {
-            var _this = this;
+            var _this2 = this;
 
             if (!this.User.checkedIn) {
-                this.request('post', '/checkin', { _token: this.token }, function (data) {
-                    _this.User.checkedIn = true;
-                    toastr.success(data.message);
-                }, function (er) {}, function (ev) {});
+                (function () {
+                    var _this = _this2;
+
+                    _this2.request({
+                        url: '/checkin',
+                        type: 'post',
+                        callback: function callback(success) {
+                            if (success) _this.User.checkedIn = true;
+                        }
+                    });
+                })();
             }
         },
-        request: function request(type, url, data, _success, _error, _complete) {
+        request: function request(param) {
+            if (param.data == undefined) {
+                param.data = { _token: this.token };
+            } else {
+                param.data._token = this.token;
+            }
+
             $.ajax({
-                type: type,
-                url: url,
-                data: data,
+                type: param.type,
+                url: param.url,
+                data: param.data,
                 success: function success(data) {
-                    _success(data);
+                    if (data.status != undefined) {
+                        if (data.message != undefined) toastr[data.status](data.message);
+
+                        param.callback(data.status != 'error', data);
+                    }
                 },
                 error: function error(er) {
-                    _error(er);
+                    toastr.error(er.responseText);
+                    param.callback(false);
                 },
                 complete: function complete(ev) {
-                    _complete(ev);
+                    if (param.complete != undefined) {
+                        param.complete(ev);
+                    }
                 }
             });
         }

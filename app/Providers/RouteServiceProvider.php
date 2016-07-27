@@ -2,6 +2,7 @@
 
 namespace Createdu\Providers;
 
+use Createdu\User;
 use Site;
 use Crypt;
 use Carbon\Carbon;
@@ -31,6 +32,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->adjustLocale();
 
         parent::boot($router);
+
+        $this->bindModels($router);
     }
 
     /**
@@ -100,5 +103,17 @@ class RouteServiceProvider extends ServiceProvider
         if (in_array($locale, Site::supportedLocales())) {
             app()->setLocale($locale);
         }
+    }
+
+    /**
+     * Route models binding.
+     *
+     * @param $router
+     */
+    protected function bindModels($router)
+    {
+        $router->bind('user', function ($value) {
+            return User::whereName($value)->firstOrFail();
+        });
     }
 }

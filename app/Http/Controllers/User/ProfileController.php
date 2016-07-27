@@ -27,7 +27,7 @@ class ProfileController extends Controller {
     public function __construct(Request $request)
     {
         $this->request = $request;
-        $this->middleware('auth', ['except' => 'getAvatar']);
+        $this->middleware('auth', ['except' => ['getAvatar', 'showProfile']]);
     }
 
     /**
@@ -49,6 +49,17 @@ class ProfileController extends Controller {
     }
 
     /**
+     * Display one's profile page.
+     *
+     * @param User $user
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showProfile(User $user)
+    {
+        return view('user.profile', compact('user'));
+    }
+
+    /**
      * Check in the user.
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|array
@@ -62,5 +73,15 @@ class ProfileController extends Controller {
         } else {
             return redirect('/');
         }
+    }
+
+    /**
+     * Show my profile for settings.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function myProfile()
+    {
+        return view();
     }
 }

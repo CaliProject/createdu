@@ -5,6 +5,7 @@
   background-image: linear-gradient(to bottom, $primary-dark, rgba($primary-dark, .4));
   color: $primary-light;
   padding: 0 3em;
+  margin: 0 !important;
 
   > div {
     margin-top: 5px;
@@ -13,7 +14,7 @@
   a {
     color: $primary-light;
     font-weight: bold;
-    @include ts(color .25s ease-in);
+    @include ts(all .25s ease-in);
 
     &:hover {
       color: $primary-light-hover;
@@ -22,11 +23,11 @@
   }
 
   .navbar-header {
-    margin-right: 20px;
+    margin-right: 50px;
   }
 
   .navbar-brand {
-    padding: 8px 20px;
+    padding: 2px 20px;
 
     img {
       max-height: 100%;

@@ -134,4 +134,21 @@
   @include has(body) {
     height: 60px;
   }
+
+  @include has(footer) {
+    color: #333;
+    height: 35px;
+    padding: 5px 12px;
+    line-height: 25px;
+    font-size: .9em;
+
+    a {
+      color: inherit;
+    }
+
+    .sign-out {
+      color: $youtube-color;
+      font-weight: 500;
+    }
+  }
 }

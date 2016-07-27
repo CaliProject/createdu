@@ -4,6 +4,10 @@
 
     @include('layouts.partials.navbar')
 
-    @yield('app.content')
+    <main class="Stage">
+        @yield('app.content')
+    </main>
+
+    @include('layouts.partials.footer')
 
 @stop

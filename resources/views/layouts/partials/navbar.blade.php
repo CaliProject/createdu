@@ -15,6 +15,8 @@
         </a>
     </div>
 
+    @include('layouts.partials.menu')
+
     <div class="collapse navbar-collapse" id="app-navbar-collapse">
         <!-- Left Side Of Navbar -->
         <ul class="nav navbar-nav">
@@ -48,19 +50,25 @@
                                     <img :src="User.avatarUrl" :alt="User.name">
                                 </div>
                                 <div class="Card__info">
-                                    <a class="user-name" href="#">@{{ User.name }}</a>
-                                    <a class="user-credit" href="#"><i class="fa fa-gift"></i>&nbsp;积分@{{ User.credit }}</a>
-                                    <a class="user-exp" href="#"><i class="fa fa-battery-3"></i>&nbsp;经验@{{ User.experience }}</a>
+                                    <a class="user-name" href="{{ Auth::user()->profileLink() }}">@{{ User.name }}</a>
+                                    <a class="user-credit" href="#"><i class="fa fa-gift"></i>&nbsp;@lang('views.global.user.credit')@{{ User.credit }}</a>
+                                    <a class="user-exp" href="#"><i class="fa fa-battery-3"></i>&nbsp;@lang('views.global.user.exp')@{{ User.experience }}</a>
                                 </div>
                                 <div class="Card__checkin">
                                     <button class="checkin-button" :class="{'checked': User.checkedIn}" @click="checkIn">
                                         <i class="fa fa-calendar-check-o" v-if="User.checkedIn"></i>
-                                        <span v-else>签到</span>
+                                        <span v-else>@lang('views.global.user.check_in')</span>
                                     </button>
                                 </div>
                             </div>
                             <div class="Card__body">
-
+                                {{-- TODO: Add history or stars or something... --}}
+                            </div>
+                            <div class="Card__footer">
+                                <a href="#">@lang('views.global.user.settings')&nbsp;<i class="fa fa-cogs"></i></a>
+                                <div class="pull-right">
+                                    <a href="#" class="sign-out"><i class="fa fa-power-off"></i>&nbsp;@lang('views.global.user.sign-out')</a>
+                                </div>
                             </div>
                         </div>
                     </div>

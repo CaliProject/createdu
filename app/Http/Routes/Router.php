@@ -84,9 +84,6 @@ class Router {
     public static function robots()
     {
         Route::get('robots.txt', 'Dashboard\HomeController@generateRobotsTxt');
-        Route::get('test', function () {
-            dd(Auth::viaRemember());
-        });
 
         return new static;
     }
@@ -101,17 +98,23 @@ class Router {
     {
         Route::group([
             'namespace' => "User",
-            'as'        => 'users'
+            'as'        => 'users.'
         ], function () {
-            Route::post('checkin', 'ProfileController@checkIn');
-        });
+            Route::get('@{user}', 'ProfileController@showProfile')->name('profile');
+            Route::post('checkin', 'ProfileController@checkIn')->name('check-in');
 
-        Route::group([
-            'namespace' => 'User',
-            'as'        => 'users.',
-            'domain'    => 'avatars.' . str_replace('http://', '', str_replace('https://', '', config('app.url')))
-        ], function () {
-            Route::get('u/{user?}', 'ProfileController@getAvatar')->name('avatar');
+            Route::group([
+                'prefix' => 'profile',
+                'as' => 'profile.'
+            ], function () {
+                Route::get('/', 'ProfileController@myProfile');
+            });
+
+            Route::group([
+                'domain'    => 'avatars.' . str_replace('http://', '', str_replace('https://', '', config('app.url')))
+            ], function () {
+                Route::get('u/{user?}', 'ProfileController@getAvatar')->name('avatar');
+            });
         });
 
         return new static;

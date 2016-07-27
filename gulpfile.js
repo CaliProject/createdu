@@ -41,6 +41,7 @@ elixir(function (mix) {
             'plugins/bootstrap.js',
             'plugins/switchery.js',
             'plugins/sweetalert.min.js',
+            'plugins/borderMenu.js',
             'builds/app.js'
         ], publicDir + 'js/app.js');
 

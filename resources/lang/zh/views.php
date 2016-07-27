@@ -416,6 +416,21 @@ return [
         ]
     ],
 
+    'global' => [
+        'user'   => [
+            'credit'   => '积分',
+            'exp'      => '经验',
+            'check_in' => '签到',
+            'settings' => '设置',
+            'sign-out' => '注销'
+        ],
+        'footer' => [
+            'policy'    => '隐私政策',
+            'terms'     => '使用条款',
+            'copyright' => '版权所有'
+        ]
+    ],
+
     'datatable' => [
         'info'          => "从_START_ 到 _END_的显示结果 , 一共 _TOTAL_ 条记录",
         'infoEmpty'     => '无结果',

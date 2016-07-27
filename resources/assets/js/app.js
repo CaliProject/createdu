@@ -69,6 +69,22 @@ $(window).scroll(() => {
     vm.displayBackTop = $(window).scrollTop() >= 500;
 });
 
+const stageAndContentHeight = function () {
+    let content = $('.Stage'),
+        body = $('body'),
+        nav = $(".Nav"),
+        height,
+        footerHeight = $('.Footer').outerHeight();
+
+    height = $(window).height() - nav.height() - footerHeight;
+
+    content.attr('style', 'min-height:' + height + 'px !important');
+};
+
+stageAndContentHeight();
+
+window.onresize = stageAndContentHeight;
+
 $(() => {
     $("#avatar-uploader").on('change', (ev) => {
         const input = ev.target;

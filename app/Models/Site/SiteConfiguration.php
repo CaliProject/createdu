@@ -150,6 +150,7 @@ class SiteConfiguration extends Configuration {
     {
         static::siteTitle("创学");
         static::description(".");
+        static::siteMotto("一家集众人之智的民间学堂.");
         static::separator("::");
         static::keywords("创学");
         static::siteRobotIgnores("admin");
@@ -160,5 +161,6 @@ class SiteConfiguration extends Configuration {
         static::forceSsl("0");
         static::subDomainNameExclusions("avatars");
         static::supportedOAuths("qq", "weibo", "weixin", "google", "facebook");
+        static::company("创学教育有限公司");
     }
 }

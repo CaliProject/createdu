@@ -4,6 +4,8 @@
 
 @import "mixins";
 
+@import "plugins/Simple-Line-Icons";
+
 @import "plugins/toastr";
 @import "plugins/switchery";
 @import "plugins/sweetalert";
@@ -12,4 +14,7 @@
 @import "components/animations";
 @import "components/base";
 @import "components/nav";
+@import "components/menu";
+@import "components/stage";
+@import "components/footer";
 @import "components/card";

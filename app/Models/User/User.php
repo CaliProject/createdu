@@ -283,4 +283,14 @@ class User extends Authenticatable {
             return $this->increment('credit', intval($amount));
         }
     }
+
+    /**
+     * Get user's profile link.
+     *
+     * @return string
+     */
+    public function profileLink()
+    {
+        return route('users.profile', ['user' => $this->name], false);
+    }
 }

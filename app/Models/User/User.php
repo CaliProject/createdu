@@ -293,4 +293,24 @@ class User extends Authenticatable {
     {
         return route('users.profile', ['user' => $this->name], false);
     }
+
+    /**
+     * Get the readable formatted credit.
+     *
+     * @return string
+     */
+    public function readableCredit()
+    {
+        return number_format($this->credit());
+    }
+
+    /**
+     * Get the readable formatted experience.
+     *
+     * @return string
+     */
+    public function readableExp()
+    {
+        return number_format($this->experience);
+    }
 }

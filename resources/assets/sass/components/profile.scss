@@ -1,0 +1,146 @@
+.Profile {
+  @include mod(settings) {
+    display: flex;
+    box-shadow: 0 1px 12px 2px rgba(0,0,0,0.12);
+
+    .sidebar {
+      @extend .col-sm-3;
+      height: inherit;
+      background: url("/assets/images/light_texture.png") #eee repeat;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+
+      a {
+        color: inherit;
+      }
+      
+      &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        height: 100%;
+        width: 70px;
+        right: 0;
+        top: 0;
+        background: linear-gradient(to right, rgba(255, 255, 255, 0), #f8f8f8);
+      }
+
+      .user-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin-bottom: 1em;
+        
+        img {
+          width: 75px;
+          height: 75px;
+          border-radius: 50%;
+          display: block;
+          margin: 1.5em 0;
+          box-shadow: 0 1px 15px 1px rgba(0, 0, 0, 0.25);
+        }
+
+        .name {
+          font-size: 1.3em;
+          font-weight: 500;
+          color: #111;
+        }
+
+        .email {
+          color: #5f5f5f;
+        }
+
+        .name, .email {
+          display: block;
+          width: 100%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+
+      .Tab {
+        margin: 0 -15px;
+
+        li {
+          position: relative;
+          border: 1px solid rgba(0, 0, 0, .06);
+          border-left: none;
+          border-right: none;
+
+          &:before {
+            content: '';
+            display: block;
+            left: 0;
+            height: 100%;
+            width: 0;
+            background: rgba(#000, .75);
+            @include ts();
+            position: absolute;
+          }
+
+          a {
+            display: block;
+            padding: 15px 15px 15px 75px;
+            color: rgba(#111, .5);
+            font-size: 1.15em;
+            line-height: 1.5;
+            @include ts();
+            
+            i {
+              font-size: 1.25em;
+              display: inline-block;
+              margin-right: 30px;
+              position: absolute;
+              left: 33px;
+              top: 14px;
+            }
+          }
+          
+          &.active, &:hover {
+            &:before {
+              width: 5px;
+            }
+
+            a {
+              color: #111;
+              font-weight: 600;
+            }
+          }
+        }
+      }
+    }
+
+    .Pane {
+      @extend .col-sm-9;
+      background: #f8f8f8;
+      padding: 60px;
+
+      .Pane-heading {
+        margin-bottom: 25px;
+        border-bottom: 1px solid #efefef;
+
+        h2 {
+          font-size: 26px;
+          margin: .5em 0;
+          color: $facebook-color;
+          font-weight: 500;
+        }
+      }
+
+      .Pane-body {
+
+      }
+    }
+
+    .Well {
+      @extend .well;
+      padding: 30px;
+      background: #fff;
+      border: 0;
+    }
+  }
+}

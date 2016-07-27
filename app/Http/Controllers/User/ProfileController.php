@@ -80,8 +80,8 @@ class ProfileController extends Controller {
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function myProfile()
+    public function showSettings()
     {
-        return view();
+        return view('user.settings.index');
     }
 }

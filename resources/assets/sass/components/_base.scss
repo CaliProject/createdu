@@ -26,6 +26,10 @@ body {
   box-sizing: border-box;
 }
 
+*:focus, *:active, *:visited {
+  outline: none;
+}
+
 ::selection {
   background: rgba($primary-dark, .95);
   color: $primary-light-hover;
@@ -56,4 +60,27 @@ input, textarea {
 
 .List--inline li {
   display: inline-block;
+}
+
+.btn-round {
+  border-radius: 500px;
+}
+
+.btn-well {
+  font-size: 14px;
+  line-height: 1.5;
+  padding: 7px 35px 7px;
+  font-weight: 500;
+  opacity: 1;
+  border: none;
+  @include ts();
+
+  &:hover {
+    opacity: .6;
+  }
+}
+
+.btn-blue {
+  background: $qq-color !important;
+  color: #fff;
 }

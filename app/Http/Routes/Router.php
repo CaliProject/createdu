@@ -107,7 +107,7 @@ class Router {
                 'prefix' => 'profile',
                 'as' => 'profile.'
             ], function () {
-                Route::get('/', 'ProfileController@myProfile');
+                Route::get('/', 'ProfileController@showSettings')->name('settings');
             });
 
             Route::group([

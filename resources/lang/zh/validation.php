@@ -146,6 +146,7 @@ return [
         'description'           => '描述',
         'excerpt'               => '摘要',
         'date'                  => '日期',
+        'tel'                   => '手机号码',
     ],
 
 ];

@@ -23,10 +23,8 @@
     <script src="/assets/js/modernizr.custom.js"></script>
 
     <script>
-        @if(Auth::check())
-            var CurrentUser = JSON.parse('{!! addslashes(Auth::user()) !!}');
-        @endif
-        var _TOKEN = "{{ csrf_token() }}";
+        var CurrentUser = JSON.parse('{!! Auth::check() ? addslashes(Auth::user()) : '{}' !!}'),
+            _TOKEN = "{{ csrf_token() }}";
     </script>
 
     @stack('scripts.header')

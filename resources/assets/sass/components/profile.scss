@@ -144,3 +144,22 @@
     }
   }
 }
+
+.Form {
+  margin: 1.5em 0;
+
+  input[type=text], input[type=tel], input[type=email], input[type=number] {
+    border-radius: 500px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    margin: .5em 0;
+
+    &:focus {
+      border-color: $wechat-color;
+      box-shadow: 0 1px 15px 1px rgba(0, 0, 0, .1);
+    }
+  }
+
+  .control-label {
+    margin: .1em 0 0 .5em;
+  }
+}

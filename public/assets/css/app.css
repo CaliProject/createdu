@@ -7286,7 +7286,7 @@ body {
   box-sizing: border-box; }
 
 *:focus, *:active, *:visited {
-  outline: none; }
+  outline: none !important; }
 
 ::-moz-selection {
   background: rgba(22, 22, 22, 0.95);
@@ -7304,7 +7304,7 @@ a:hover {
   text-decoration: none; }
 
 button, input, textarea {
-  outline: none; }
+  outline: none !important; }
 
 input, textarea {
   line-height: normal; }
@@ -7338,6 +7338,39 @@ input, textarea {
 .btn-blue {
   background: #07abdd !important;
   color: #fff; }
+
+.loading {
+  opacity: .25;
+  pointer-events: none;
+  transition: opacity ease-in-out 0.35s;
+  -webkit-transition: opacity ease-in-out 0.35s;
+  -moz-transition: opacity ease-in-out 0.35s;
+  -ms-transition: opacity ease-in-out 0.35s;
+  -o-transition: opacity ease-in-out 0.35s; }
+
+.done-loaded {
+  opacity: 1;
+  pointer-events: all;
+  transition: opacity ease-in-out 0.25s;
+  -webkit-transition: opacity ease-in-out 0.25s;
+  -moz-transition: opacity ease-in-out 0.25s;
+  -ms-transition: opacity ease-in-out 0.25s;
+  -o-transition: opacity ease-in-out 0.25s; }
+
+.shaky {
+  animation: shake ease-in-out 0.7s backwards;
+  -webkit-animation: shake ease-in-out 0.7s backwards;
+  -moz-animation: shake ease-in-out 0.7s backwards;
+  -ms-animation: shake ease-in-out 0.7s backwards;
+  -o-animation: shake ease-in-out 0.7s backwards; }
+
+@keyframes shake {
+  from, to {
+    transform: translate3d(0, 0, 0); }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translate3d(-12px, 0, 0); }
+  20%, 40%, 60%, 80% {
+    transform: translate3d(12px, 0, 0); } }
 
 .Nav {
   height: 60px;
@@ -7650,6 +7683,9 @@ li.on:after {
       line-height: 43px; }
       .Footer__brand ul li {
         padding-right: 15px; }
+  .Footer__icp {
+    text-align: right;
+    padding: 0 15px 15px; }
 
 .Card {
   position: absolute;
@@ -7779,6 +7815,9 @@ li.on:after {
     .Card__footer .sign-out {
       color: #ff2929;
       font-weight: 500; }
+    .Card__footer .dashboard {
+      color: #354e8e;
+      font-weight: 500; }
 
 .Profile--settings {
   display: -ms-flexbox;
@@ -7891,3 +7930,15 @@ li.on:after {
     padding: 30px;
     background: #fff;
     border: 0; }
+
+.Form {
+  margin: 1.5em 0; }
+  .Form input[type=text], .Form input[type=tel], .Form input[type=email], .Form input[type=number] {
+    border-radius: 500px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    margin: .5em 0; }
+    .Form input[type=text]:focus, .Form input[type=tel]:focus, .Form input[type=email]:focus, .Form input[type=number]:focus {
+      border-color: #30aa1a;
+      box-shadow: 0 1px 15px 1px rgba(0, 0, 0, 0.1); }
+  .Form .control-label {
+    margin: .1em 0 0 .5em; }

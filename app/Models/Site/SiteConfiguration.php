@@ -162,5 +162,6 @@ class SiteConfiguration extends Configuration {
         static::subDomainNameExclusions("avatars");
         static::supportedOAuths("qq", "weibo", "weixin", "google", "facebook");
         static::company("创学教育有限公司");
+        static::icp("粤ICP备16047320号-1");
     }
 }

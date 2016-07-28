@@ -1,6 +1,6 @@
 const Vue = require('vue');
 
-let vm = new Vue({
+const vm = new Vue({
     el: '#app',
     methods: {
         backToTop() {
@@ -13,7 +13,7 @@ let vm = new Vue({
             $("#avatar-uploader").click();
         },
         checkIn() {
-            if (! this.User.checkedIn) {
+            if (!this.User.checkedIn) {
                 const _this = this;
 
                 this.request({
@@ -25,6 +25,39 @@ let vm = new Vue({
                     }
                 });
             }
+        },
+        autoCloseAlert(param) {
+            swal({
+                title: param.title,
+                text: param.text,
+                type: param.type == undefined ? "success" : param.type,
+                showConfirmButton: false,
+                timer: param.timer == undefined ? 1500 : param.timer
+            });
+        },
+        popupPrompt(param, callback) {
+            swal({
+                title: param.title,
+                text: param.text,
+                type: "input",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                animation: "pop",
+                inputPlaceholder: param.inputPlaceholder,
+                showLoaderOnConfirm: param.ajax,
+                confirmButtonText: param.confirmButtonText,
+                cancelButtonText: param.cancelButtonText,
+                html: true
+            }, function (inputValue) {
+                if (inputValue === false) return false;
+
+                if (inputValue === "") {
+                    swal.showInputError(param.inputEmptyText);
+                    return false;
+                }
+
+                callback(inputValue);
+            });
         },
         request(param) {
             if (param.data == undefined) {
@@ -60,7 +93,7 @@ let vm = new Vue({
     data: {
         displayBackTop: false,
         searchText: '',
-        User: CurrentUser == undefined ? undefined : CurrentUser,
+        User: CurrentUser,
         token: _TOKEN
     }
 });
@@ -83,9 +116,73 @@ const stageAndContentHeight = function () {
 
 stageAndContentHeight();
 
+window.vm = vm;
 window.onresize = stageAndContentHeight;
 
 $(() => {
+    $("form.ajax").each(function () {
+        const form = this;
+        $(this).on('submit', function (e) {
+            e.preventDefault();
+
+            $(form).addClass('loading');
+
+            let button = $(form).find("button[type=submit]")[0];
+
+            if (button) {
+                var originText = button.innerHTML;
+                $(button).html(`${loadingIcon}&nbsp;${originText}`);
+            }
+
+            $.ajax({
+                url: form.action,
+                type: form.method,
+                data: $(form).serialize(),
+                timeout: 0,
+                error(error) {
+                    if (error.status === 422) {
+                        let errors = JSON.parse(error.responseText);
+                        for (let er in errors) {
+                            const sel = `[name=${er}]`,
+                                groupEl = $($(form).find(sel)[0]).parents('.form-group')[0];
+                            // Add error class to the form-group
+                            $(groupEl).addClass('has-error shaky');
+                            setTimeout(() => $(groupEl).removeClass('has-error shaky'), 8000);
+
+                            toastr.error(`<h4>${errors[er][0]}</h4>`);
+                        }
+                    }
+                },
+                success(data) {
+                    if (data.status !== 'error') {
+                        if (typeof(data.redirectUrl) != 'undefined') {
+                            window.location.href = data.redirectUrl;
+                        } else if (typeof(data.newWindowUrl) != 'undefined') {
+                            window.open(data.newWindowUrl, "_blank");
+                        } else if (typeof(data.reload) != 'undefined') {
+                            toastr.success(`<h4>${data.message}</h4>`);
+                            $.pjax.reload(pjaxContainer);
+                        } else {
+                            toastr.success(`<h4>${data.message}</h4>`);
+                        }
+                    } else {
+                        toastr.error(`<h4>${data.message}</h4>`);
+                    }
+                },
+                complete() {
+                    if (button) {
+                        $(button).html(originText);
+                        $(form).removeClass('loading');
+                        $(form).addClass('done-loaded');
+                        setTimeout(function () {
+                            $(form).removeClass('done-loaded');
+                        }, 300);
+                    }
+                }
+            });
+        });
+    });
+
     $("#avatar-uploader").on('change', (ev) => {
         const input = ev.target;
         $($(input).parents("form")[0]).submit();

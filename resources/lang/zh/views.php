@@ -431,6 +431,53 @@ return [
         ]
     ],
 
+    'profile' => [
+        'settings' => [
+            'titles'   => [
+                'overview'   => '帐号总览',
+                'edit'       => '编辑资料',
+                'password'   => '更改密码',
+                'membership' => '我的会员',
+                'credits'    => '我的积分',
+                'history'    => '学习记录',
+                'privacy'    => '隐私信息',
+            ],
+            'overview' => [
+                'joined-since'       => '我在:when加入的:where',
+                'invalid-membership' => '您还未开通会员',
+                'go-join'            => '前往开通',
+                'go-pay'             => '前往充值',
+                'go-check'           => '查看记录',
+                'tel-unbound'        => '您还未绑定手机号',
+                'go-bind'            => '立即绑定',
+                'email-unconfirmed'  => '您还未确认邮箱',
+                'go-confirm'         => '前往确认'
+            ],
+            'privacy'  => [
+                'bind-tel'        => '绑定手机',
+                'unbind-tel'      => '取消绑定',
+                'bound-tel'       => '已成功绑定手机',
+                'confirm-email'   => '激活邮箱',
+                'confirmed-email' => '已激活邮箱',
+                'send-code'       => '发送验证码',
+                'tel-verify'      => '手机验证',
+                'input-message'   => '验证您的手机, 请在10分钟内输入:',
+                'code'            => '验证码',
+                'submit'          => '提交验证',
+                'verified'        => '恭喜您, 验证成功!',
+                'invalid'         => '验证码错误, 请重试!',
+                'unbound-tel'     => '已取消手机绑定'
+            ]
+        ]
+    ],
+
+    'alert' => [
+        'confirm' => '确定',
+        'cancel'  => '取消',
+        'empty'   => '起码输入点什么吧!',
+        'retry'   => '请求出错, 请重试!'
+    ],
+
     'datatable' => [
         'info'          => "从_START_ 到 _END_的显示结果 , 一共 _TOTAL_ 条记录",
         'infoEmpty'     => '无结果',

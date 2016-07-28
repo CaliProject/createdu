@@ -19,5 +19,8 @@
                 </ul>
             </div>
         </div>
+        <div class="Footer__icp">
+            <small>@site('icp')</small>
+        </div>
     </div>
 </footer>

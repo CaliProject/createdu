@@ -31,4 +31,8 @@
     }
   }
 
+  @include has(icp) {
+    text-align: right;
+    padding: 0 15px 15px;
+  }
 }

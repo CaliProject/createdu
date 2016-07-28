@@ -13,6 +13,9 @@ class CreateMessagesTable extends Migration
     public function up()
     {
         Schema::create('messages', function (Blueprint $table) {
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_general_ci';
+
             $table->bigIncrements('id');
             $table->unsignedBigInteger('from_user_id')->index();
             $table->unsignedBigInteger('to_user_id')->index();

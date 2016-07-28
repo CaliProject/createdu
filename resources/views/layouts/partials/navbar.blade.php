@@ -67,7 +67,7 @@
                             <div class="Card__footer">
                                 <a href="@route('users.profile.settings')">@lang('views.global.user.settings')&nbsp;<i class="fa fa-cogs"></i></a>
                                 @can('view-dashboard')
-                                    <a href="@route('admin.index')" target="_blank" style="margin-left: 5px">后台管理 <i class="fa fa-user-secret"></i></a>
+                                    <a href="@route('admin.index')" class="dashboard" target="_blank" style="margin-left: 5px">后台管理 <i class="fa fa-user-secret"></i></a>
                                 @endcan
                                 <div class="pull-right">
                                     <a href="#" class="sign-out"><i class="fa fa-power-off"></i>&nbsp;@lang('views.global.user.sign-out')</a>

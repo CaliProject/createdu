@@ -28,8 +28,11 @@ class CreateUsersTable extends Migration
         });
 
         Schema::create('user_metas', function (Blueprint $table) {
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_general_ci';
+
             $table->unsignedBigInteger('user_id')->index();
-            $table->string('key')->index();
+            $table->string('key', 191)->index();
             $table->longText('value');
             $table->timestamps();
 

@@ -13,9 +13,12 @@ class CreatePostsTable extends Migration
     public function up()
     {
         Schema::create('posts', function (Blueprint $table) {
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_general_ci';
+
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->string('title');
+            $table->string('title', 191)->index();
             $table->longText('body');
             // 0: draft, 1: to be reviewed, 2: published
             $table->unsignedTinyInteger('status');

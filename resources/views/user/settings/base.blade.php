@@ -11,26 +11,26 @@
                     <span class="email">@{{ User.email }}</span>
                 </div>
                 <ul class="List--naked Tab">
-                    <li class="active">
-                        <a href="#"><i class="icon-home"></i> 帐号总览</a>
+                    <li{{ request_is_route('users.profile.settings') ? ' class=active' : '' }}>
+                        <a href="@route('users.profile.settings')"><i class="icon-home"></i> @lang('views.profile.settings.titles.overview')</a>
                     </li>
-                    <li>
-                        <a href="#"><i class="icon-pencil"></i> 编辑资料</a>
+                    <li{{ request_is_route('users.profile.settings', ['section' => 'edit']) ? ' class=active' : '' }}>
+                        <a href="@route('users.profile.settings', ['section' => 'edit'], false)"><i class="icon-pencil"></i> @lang('views.profile.settings.titles.edit')</a>
                     </li>
-                    <li>
-                        <a href="#"><i class="icon-lock"></i> 更改密码</a>
+                    <li{{ request_is_route('users.profile.settings', ['section' => 'password']) ? ' class=active' : '' }}>
+                        <a href="@route('users.profile.settings', ['section' => 'password'], false)"><i class="icon-lock"></i> @lang('views.profile.settings.titles.password')</a>
                     </li>
-                    <li>
-                        <a href="#"><i class="icon-badge"></i> 我的会员</a>
+                    <li{{ request_is_route('users.profile.settings', ['section' => 'membership']) ? ' class=active' : '' }}>
+                        <a href="@route('users.profile.settings', ['section' => 'membership'], false)"><i class="icon-badge"></i> @lang('views.profile.settings.titles.membership')</a>
                     </li>
-                    <li>
-                        <a href="#"><i class="icon-wallet"></i> 我的积分</a>
+                    <li{{ request_is_route('users.profile.settings', ['section' => 'credits']) ? ' class=active' : '' }}>
+                        <a href="@route('users.profile.settings', ['section' => 'credits'], false)"><i class="icon-wallet"></i> @lang('views.profile.settings.titles.credits')</a>
                     </li>
-                    <li>
-                        <a href="#"><i class="icon-graph"></i> 学习记录</a>
+                    <li{{ request_is_route('users.profile.settings', ['section' => 'history']) ? ' class=active' : '' }}>
+                        <a href="@route('users.profile.settings', ['section' => 'history'], false)"><i class="icon-graph"></i> @lang('views.profile.settings.titles.history')</a>
                     </li>
-                    <li>
-                        <a href="#"><i class="icon-key"></i> 隐私信息</a>
+                    <li{{ request_is_route('users.profile.settings', ['section' => 'privacy']) ? ' class=active' : '' }}>
+                        <a href="@route('users.profile.settings', ['section' => 'privacy'], false)"><i class="icon-key"></i> @lang('views.profile.settings.titles.privacy')</a>
                     </li>
                 </ul>
             </div>

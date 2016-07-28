@@ -10230,6 +10230,39 @@ var vm = new Vue({
                 })();
             }
         },
+        autoCloseAlert: function autoCloseAlert(param) {
+            swal({
+                title: param.title,
+                text: param.text,
+                type: param.type == undefined ? "success" : param.type,
+                showConfirmButton: false,
+                timer: param.timer == undefined ? 1500 : param.timer
+            });
+        },
+        popupPrompt: function popupPrompt(param, callback) {
+            swal({
+                title: param.title,
+                text: param.text,
+                type: "input",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                animation: "pop",
+                inputPlaceholder: param.inputPlaceholder,
+                showLoaderOnConfirm: param.ajax,
+                confirmButtonText: param.confirmButtonText,
+                cancelButtonText: param.cancelButtonText,
+                html: true
+            }, function (inputValue) {
+                if (inputValue === false) return false;
+
+                if (inputValue === "") {
+                    swal.showInputError(param.inputEmptyText);
+                    return false;
+                }
+
+                callback(inputValue);
+            });
+        },
         request: function request(param) {
             if (param.data == undefined) {
                 param.data = { _token: this.token };
@@ -10263,7 +10296,7 @@ var vm = new Vue({
     data: {
         displayBackTop: false,
         searchText: '',
-        User: CurrentUser == undefined ? undefined : CurrentUser,
+        User: CurrentUser,
         token: _TOKEN
     }
 });
@@ -10286,9 +10319,80 @@ var stageAndContentHeight = function stageAndContentHeight() {
 
 stageAndContentHeight();
 
+window.vm = vm;
 window.onresize = stageAndContentHeight;
 
 $(function () {
+    $("form.ajax").each(function () {
+        var form = this;
+        $(this).on('submit', function (e) {
+            e.preventDefault();
+
+            $(form).addClass('loading');
+
+            var button = $(form).find("button[type=submit]")[0];
+
+            if (button) {
+                var originText = button.innerHTML;
+                $(button).html(loadingIcon + '&nbsp;' + originText);
+            }
+
+            $.ajax({
+                url: form.action,
+                type: form.method,
+                data: $(form).serialize(),
+                timeout: 0,
+                error: function error(_error) {
+                    if (_error.status === 422) {
+                        var errors = JSON.parse(_error.responseText);
+
+                        var _loop = function _loop(er) {
+                            var sel = '[name=' + er + ']',
+                                groupEl = $($(form).find(sel)[0]).parents('.form-group')[0];
+                            // Add error class to the form-group
+                            $(groupEl).addClass('has-error shaky');
+                            setTimeout(function () {
+                                return $(groupEl).removeClass('has-error shaky');
+                            }, 8000);
+
+                            toastr.error('<h4>' + errors[er][0] + '</h4>');
+                        };
+
+                        for (var er in errors) {
+                            _loop(er);
+                        }
+                    }
+                },
+                success: function success(data) {
+                    if (data.status !== 'error') {
+                        if (typeof data.redirectUrl != 'undefined') {
+                            window.location.href = data.redirectUrl;
+                        } else if (typeof data.newWindowUrl != 'undefined') {
+                            window.open(data.newWindowUrl, "_blank");
+                        } else if (typeof data.reload != 'undefined') {
+                            toastr.success('<h4>' + data.message + '</h4>');
+                            $.pjax.reload(pjaxContainer);
+                        } else {
+                            toastr.success('<h4>' + data.message + '</h4>');
+                        }
+                    } else {
+                        toastr.error('<h4>' + data.message + '</h4>');
+                    }
+                },
+                complete: function complete() {
+                    if (button) {
+                        $(button).html(originText);
+                        $(form).removeClass('loading');
+                        $(form).addClass('done-loaded');
+                        setTimeout(function () {
+                            $(form).removeClass('done-loaded');
+                        }, 300);
+                    }
+                }
+            });
+        });
+    });
+
     $("#avatar-uploader").on('change', function (ev) {
         var input = ev.target;
         $($(input).parents("form")[0]).submit();

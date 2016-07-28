@@ -2,6 +2,7 @@
 
 namespace Createdu;
 
+use Crypt;
 use Createdu\Library\Traits\User\HasRoles;
 use Createdu\Library\Traits\User\Sociable;
 use Createdu\Library\Traits\User\UserMetas;
@@ -39,12 +40,12 @@ class User extends Authenticatable {
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'tel', 'email'
     ];
 
     /**
      * How many items to display per page.
-     * 
+     *
      * @var int
      */
     protected $perPage = 35;
@@ -141,6 +142,10 @@ class User extends Authenticatable {
     {
         $attributes = $this->attributesToArray();
 
+        if (auth()->check() && auth()->user()->id === $this->id) {
+            return array_merge($attributes, $this->profileSerializeAttributes());
+        }
+
         return array_merge($attributes, $this->extraSerializeAttributes());
     }
 
@@ -153,8 +158,22 @@ class User extends Authenticatable {
     protected function extraSerializeAttributes()
     {
         return [
+            'avatarUrl' => $this->avatarUrl
+        ];
+    }
+
+    /**
+     * Get the extra profile serialize attributes.
+     *
+     * @return array
+     */
+    protected function profileSerializeAttributes()
+    {
+        return [
             'avatarUrl' => $this->avatarUrl,
-            'checkedIn' => $this->checkedIn()
+            'checkedIn' => $this->checkedIn(),
+            'email'     => $this->email,
+            'tel'       => $this->tel
         ];
     }
 
@@ -171,7 +190,7 @@ class User extends Authenticatable {
 
     /**
      * User's metas.
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function metas()
@@ -249,7 +268,7 @@ class User extends Authenticatable {
     public function checkedIn()
     {
         /** @var null|UserMeta $latestCheck */
-        $latestCheck =  $this->metas()->whereKey('check_in')->latest()->first();
+        $latestCheck = $this->metas()->whereKey('check_in')->latest()->first();
 
         return is_null($latestCheck) ? false : $latestCheck->created_at->isToday();
     }
@@ -312,5 +331,43 @@ class User extends Authenticatable {
     public function readableExp()
     {
         return number_format($this->experience);
+    }
+
+    /**
+     * Verified tel number.
+     *
+     * @param $tel
+     */
+    public function telVerified($tel)
+    {
+        if ($this->tel) {
+            $this->attributes['tel'] = null;
+        } else {
+            /* Encrypt user's privacy, tel number never touches our database. */
+            $this->tel = $tel;
+        }
+        $this->save();
+    }
+
+    /**
+     * Get the phone number. (Decrypted)
+     *
+     * @return null|string
+     */
+    public function getTelAttribute()
+    {
+        $tel = $this->attributes['tel'];
+
+        return empty($tel) ? null : Crypt::decrypt($tel);
+    }
+
+    /**
+     * Set the phone number. (Auto-encrypted)
+     *
+     * @param $value
+     */
+    public function setTelAttribute($value)
+    {
+        $this->attributes['tel'] = Crypt::encrypt($value);
     }
 }

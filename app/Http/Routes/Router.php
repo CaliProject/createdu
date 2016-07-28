@@ -107,7 +107,9 @@ class Router {
                 'prefix' => 'profile',
                 'as' => 'profile.'
             ], function () {
-                Route::get('/', 'ProfileController@showSettings')->name('settings');
+                Route::get('{section?}', 'ProfileController@showSettings')->name('settings');
+                Route::patch('privacy/tel', 'ProfileController@sendVerification')->name('tel');
+                Route::post('privacy/tel/verify', 'ProfileController@verifyTel')->name('verify-tel');
             });
 
             Route::group([

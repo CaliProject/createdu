@@ -36,7 +36,7 @@ class AuthController extends Controller {
      * @var array
      */
     protected $multiFactors = [
-        'email', 'tel'
+        'email', 'tel', 'name'
     ];
 
     /**

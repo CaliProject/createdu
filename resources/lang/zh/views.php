@@ -15,7 +15,7 @@ return [
         // 登录页面
         'login'    => [
             'header_title'    => '登录',
-            'credential'      => '邮箱/手机',
+            'credential'      => '邮箱/手机/昵称',
             'password'        => '密码',
             'remember_me'     => '记住我, 下次免登录',
             'forgot_password' => '忘记密码?',
@@ -411,6 +411,7 @@ return [
                 ],
                 'update-button' => '保存设置',
                 'updated'       => ':setting 设置已更新',
+                'updated-error' => ':setting 设置更新失败,请重试',
                 'new-version'   => '新'
             ]
         ]

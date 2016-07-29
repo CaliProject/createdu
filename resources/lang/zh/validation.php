@@ -127,6 +127,7 @@ return [
         'username'              => '用户名',
         'email'                 => '邮箱',
         'password'              => '密码',
+        'password_old'          => '原密码',
         'password_confirmation' => '确认密码',
         'city'                  => '城市',
         'country'               => '国家',
@@ -147,6 +148,8 @@ return [
         'excerpt'               => '摘要',
         'date'                  => '日期',
         'tel'                   => '手机号码',
+        'experience'            => '经验',
+        'credit'                => '积分',
     ],
 
 ];

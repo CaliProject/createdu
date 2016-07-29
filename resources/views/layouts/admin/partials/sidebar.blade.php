@@ -25,7 +25,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li><a href="@route('admin.index', ['section' => 'users'], false)" data-pjax>@lang('views.admin.titles.users.sub.index')</a></li>
-{{--                    <li><a href="@route('admin.users.profile.index', [], false)" data-pjax>@lang('views.admin.titles.users.sub.profile')</a></li>--}}
+                    <li><a href="@route('admin.users.profile.index', [], false)" data-pjax>@lang('views.admin.titles.users.sub.profile')</a></li>
 {{--                    <li><a href="@route('admin.users.invitations', [], false)" data-pjax>@lang('views.admin.titles.users.sub.invitations')</a></li>--}}
                 </ul>
             </li>

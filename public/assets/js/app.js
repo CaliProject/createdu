@@ -14072,9 +14072,9 @@ var vm = new Vue({
             swal({
                 title: param.title,
                 text: param.text,
-                type: param.type == undefined ? "success" : param.type,
+                type: param.type || "success",
                 showConfirmButton: false,
-                timer: param.timer == undefined ? 1500 : param.timer
+                timer: param.timer || 1500
             });
         },
         popupPrompt: function popupPrompt(param, callback) {

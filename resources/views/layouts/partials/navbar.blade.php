@@ -70,7 +70,7 @@
                                     <a href="@route('admin.index')" class="dashboard" target="_blank" style="margin-left: 5px">后台管理 <i class="fa fa-user-secret"></i></a>
                                 @endcan
                                 <div class="pull-right">
-                                    <a href="#" class="sign-out"><i class="fa fa-power-off"></i>&nbsp;@lang('views.global.user.sign-out')</a>
+                                    <a href="#" class="sign-out" data-href="@route('exit')" @click="signOut"><i class="fa fa-power-off"></i>&nbsp;@lang('views.global.user.sign-out')</a>
                                 </div>
                             </div>
                         </div>

@@ -10,7 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-Auth::loginUsingId(1);
+
 Route::group([
     'domain' => str_replace('http://', '', config('app.url'))
 ], function () {

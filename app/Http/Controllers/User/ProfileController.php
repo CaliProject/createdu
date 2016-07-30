@@ -4,10 +4,12 @@ namespace Createdu\Http\Controllers\User;
 
 use SMS;
 use Cache;
+use Crypt;
 use Createdu\User;
 use Createdu\Avatar;
 use Illuminate\Http\Request;
 use Createdu\Http\Controllers\Controller;
+use Createdu\Events\User\Auth\UserHasRegistered;
 use Createdu\Library\Traits\Controller\ImageResponse;
 
 class ProfileController extends Controller {
@@ -123,7 +125,7 @@ class ProfileController extends Controller {
 
         Cache::put(sprintf($this->cacheKey, $this->request->user()->id), $code, $this->verificationExpireMinutes);
 
-        SMS::sendTemplateMessage(1, [$code, $this->verificationExpireMinutes], $this->request->tel ?: $this->request->input('tel'));
+        SMS::sendTemplateMessage(1, [$code, $this->verificationExpireMinutes], $this->request->user()->tel ?: $this->request->input('tel'));
 
         return $this->successResponse();
     }
@@ -136,7 +138,7 @@ class ProfileController extends Controller {
     public function verifyTel()
     {
         $this->validate($this->request, [
-            'tel'          => 'required_unless:unbind,yes|numeric|digits_between:9,12',
+            'tel'          => 'required_unless:unbind,yes',
             'verification' => 'required|numeric|digits:4'
         ]);
 
@@ -148,5 +150,37 @@ class ProfileController extends Controller {
         }
 
         return $this->successResponse();
+    }
+
+    /**
+     * Send the link to user's email again.
+     *
+     * @return array
+     */
+    public function resendLink()
+    {
+        event(new UserHasRegistered($this->request->user()));
+
+        return $this->successResponse(trans('views.profile.settings.privacy.resend-success'));
+    }
+
+    /**
+     * Confirm the registration through email.
+     *
+     * @param Request $request
+     * @return mixed
+     *
+     * @author Cali
+     */
+    public function confirmRegistration(Request $request)
+    {
+        $email = Crypt::decrypt($request->input('token'));
+
+        // TODO: Flash message
+        if ($email == $request->user()->email) {
+            $request->user()->activated();
+        }
+
+        return redirect(route('users.profile.settings', ['section' => 'privacy']));
     }
 }

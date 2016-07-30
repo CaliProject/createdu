@@ -26,6 +26,27 @@ const vm = new Vue({
                 });
             }
         },
+        signOut(e) {
+            this.warningAlert(signOutMessages, function () {
+                window.location.href = $(e.target).attr('data-href');
+            });
+        },
+        warningAlert: (messages, callback) => {
+            swal({
+                title: messages.title,
+                text: messages.text,
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: messages.confirm,
+                cancelButtonText: messages.cancel,
+                closeOnConfirm: false,
+                showLoaderOnConfirm: true
+            }, function (isConfirm) {
+                if (isConfirm)
+                    callback();
+            });
+        },
         autoCloseAlert(param) {
             swal({
                 title: param.title,
@@ -111,7 +132,7 @@ const stageAndContentHeight = function () {
 
     height = $(window).height() - nav.height() - footerHeight;
 
-    content.attr('style', 'min-height:' + height + 'px !important');
+    content.attr('style', `min-height:${height}px !important`);
 };
 
 stageAndContentHeight();
@@ -120,6 +141,8 @@ window.vm = vm;
 window.onresize = stageAndContentHeight;
 
 $(() => {
+    const loadingIcon = '<i class="fa fa-circle-o-notch fa-spin"></i>&nbsp;';
+
     $("form.ajax").each(function () {
         const form = this;
         $(this).on('submit', function (e) {
@@ -149,7 +172,7 @@ $(() => {
                             $(groupEl).addClass('has-error shaky');
                             setTimeout(() => $(groupEl).removeClass('has-error shaky'), 8000);
 
-                            toastr.error(`<h4>${errors[er][0]}</h4>`);
+                            toastr.error(errors[er][0]);
                         }
                     }
                 },
@@ -160,13 +183,13 @@ $(() => {
                         } else if (typeof(data.newWindowUrl) != 'undefined') {
                             window.open(data.newWindowUrl, "_blank");
                         } else if (typeof(data.reload) != 'undefined') {
-                            toastr.success(`<h4>${data.message}</h4>`);
+                            toastr.success(data.message);
                             $.pjax.reload(pjaxContainer);
                         } else {
-                            toastr.success(`<h4>${data.message}</h4>`);
+                            toastr.success(data.message);
                         }
                     } else {
-                        toastr.error(`<h4>${data.message}</h4>`);
+                        toastr.error(data.message);
                     }
                 },
                 complete() {

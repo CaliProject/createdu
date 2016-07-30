@@ -51,6 +51,21 @@
                         @endif
                     </span>
                 </h4>
+                <form action="@route('users.profile.email')" class="Form activate-email ajax" method="POST">
+                    {!! csrf_field() !!}
+                    <div class="form-group">
+                        @if(Auth::user()->active)
+                            <p>@lang('views.profile.settings.privacy.email-help', ['email' => Auth::user()->email])</p>
+                        @else
+                            <p>@lang('views.profile.settings.privacy.email-resend-help', ['email' => Auth::user()->email])</p>
+                        @endif
+                    </div>
+                    @unless(Auth::user()->active)
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-round btn-well center-block">@lang('views.profile.settings.privacy.send-link')</button>
+                        </div>
+                    @endunless
+                </form>
             </div>
         </div>
     </div>
@@ -61,6 +76,9 @@
         {!! csrf_field() !!}
         <input type="hidden" v-model="User.tel" name="tel">
         <input type="hidden" value="" name="verification">
+        @if(Auth::user()->tel)
+            <input type="hidden" value="yes" name="unbind">
+        @endif
     </form>
 @stop
 

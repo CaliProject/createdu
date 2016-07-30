@@ -101,6 +101,10 @@ input, textarea {
   @include am(shake ease-in-out .7s backwards);
 }
 
+input, textarea {
+  @include ts();
+}
+
 @keyframes shake {
   from, to {
     transform: translate3d(0, 0, 0);

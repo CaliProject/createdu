@@ -10230,6 +10230,27 @@ var vm = new Vue({
                 })();
             }
         },
+        signOut: function signOut(e) {
+            this.warningAlert(signOutMessages, function () {
+                window.location.href = $(e.target).attr('data-href');
+            });
+        },
+
+        warningAlert: function warningAlert(messages, callback) {
+            swal({
+                title: messages.title,
+                text: messages.text,
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: messages.confirm,
+                cancelButtonText: messages.cancel,
+                closeOnConfirm: false,
+                showLoaderOnConfirm: true
+            }, function (isConfirm) {
+                if (isConfirm) callback();
+            });
+        },
         autoCloseAlert: function autoCloseAlert(param) {
             swal({
                 title: param.title,
@@ -10323,6 +10344,8 @@ window.vm = vm;
 window.onresize = stageAndContentHeight;
 
 $(function () {
+    var loadingIcon = '<i class="fa fa-circle-o-notch fa-spin"></i>&nbsp;';
+
     $("form.ajax").each(function () {
         var form = this;
         $(this).on('submit', function (e) {
@@ -10355,7 +10378,7 @@ $(function () {
                                 return $(groupEl).removeClass('has-error shaky');
                             }, 8000);
 
-                            toastr.error('<h4>' + errors[er][0] + '</h4>');
+                            toastr.error(errors[er][0]);
                         };
 
                         for (var er in errors) {
@@ -10370,13 +10393,13 @@ $(function () {
                         } else if (typeof data.newWindowUrl != 'undefined') {
                             window.open(data.newWindowUrl, "_blank");
                         } else if (typeof data.reload != 'undefined') {
-                            toastr.success('<h4>' + data.message + '</h4>');
+                            toastr.success(data.message);
                             $.pjax.reload(pjaxContainer);
                         } else {
-                            toastr.success('<h4>' + data.message + '</h4>');
+                            toastr.success(data.message);
                         }
                     } else {
-                        toastr.error('<h4>' + data.message + '</h4>');
+                        toastr.error(data.message);
                     }
                 },
                 complete: function complete() {

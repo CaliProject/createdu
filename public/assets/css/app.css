@@ -7364,6 +7364,13 @@ input, textarea {
   -ms-animation: shake ease-in-out 0.7s backwards;
   -o-animation: shake ease-in-out 0.7s backwards; }
 
+input, textarea {
+  transition: all ease-in-out 0.3s;
+  -webkit-transition: all ease-in-out 0.3s;
+  -moz-transition: all ease-in-out 0.3s;
+  -ms-transition: all ease-in-out 0.3s;
+  -o-transition: all ease-in-out 0.3s; }
+
 @keyframes shake {
   from, to {
     transform: translate3d(0, 0, 0); }

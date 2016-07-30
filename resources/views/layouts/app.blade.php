@@ -24,7 +24,9 @@
 
     <script>
         var CurrentUser = JSON.parse('{!! Auth::check() ? addslashes(Auth::user()) : '{}' !!}'),
-            _TOKEN = "{{ csrf_token() }}";
+            _TOKEN = "{{ csrf_token() }}",
+            signOutMessages = JSON.parse("{!! addslashes(json_encode(trans('views.logout'))) !!}");
+
     </script>
 
     @stack('scripts.header')

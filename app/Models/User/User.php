@@ -31,7 +31,7 @@ class User extends Authenticatable {
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','credit','experience',
+        'name', 'email', 'password', 'credit', 'experience',
     ];
 
     /**
@@ -173,7 +173,7 @@ class User extends Authenticatable {
             'avatarUrl' => $this->avatarUrl,
             'checkedIn' => $this->checkedIn(),
             'email'     => $this->email,
-            'tel'       => $this->tel
+            'tel'       => $this->asteriskedTel()
         ];
     }
 
@@ -340,7 +340,7 @@ class User extends Authenticatable {
      */
     public function telVerified($tel)
     {
-        if ($this->tel) {
+        if (! is_null($this->tel)) {
             $this->attributes['tel'] = null;
         } else {
             /* Encrypt user's privacy, tel number never touches our database. */
@@ -369,5 +369,18 @@ class User extends Authenticatable {
     public function setTelAttribute($value)
     {
         $this->attributes['tel'] = Crypt::encrypt($value);
+    }
+
+    /**
+     * Get the asterisked tel number.
+     *
+     * @return string
+     */
+    public function asteriskedTel()
+    {
+        if (! $this->tel)
+            return null;
+
+        return sprintf("%s****%s", substr($this->tel, 0, 3), substr($this->tel, strlen($this->tel) - 3, 3));
     }
 }

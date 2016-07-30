@@ -2,9 +2,11 @@
 
 namespace Createdu\Listeners\User;
 
-use Createdu\Events\User\Auth\UserHasRegistered;
+use Crypt;
+use Mailer;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Createdu\Events\User\Auth\UserHasRegistered;
 
 class EmailRegisterConfirmation
 {
@@ -26,6 +28,19 @@ class EmailRegisterConfirmation
      */
     public function handle(UserHasRegistered $event)
     {
-        //
+        // Create the token
+        $token = Crypt::encrypt($event->user->email);
+
+        try {
+            // Send it to the user
+            Mailer::subject(trans('emails.confirmation.subject'))
+                ->to($event->user->email)
+                ->user($event->user)
+                ->load('auth.emails.confirm')
+                ->with(compact('token'))
+                ->send();
+        } catch (\Exception $e) {
+            /* TODO: Error handler */
+        }
     }
 }

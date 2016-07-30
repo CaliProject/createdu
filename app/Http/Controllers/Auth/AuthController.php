@@ -4,6 +4,7 @@ namespace Createdu\Http\Controllers\Auth;
 
 use Validator;
 use Createdu\User;
+use Illuminate\Http\Request;
 use Createdu\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Createdu\Library\Traits\Auth\AuthenticatesAndRegistersUsers;

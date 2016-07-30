@@ -120,10 +120,13 @@ class Mailer {
      */
     public function send($callback = null)
     {
-        if (! ! site('smtpEmailOn')) {
-            $this->mailer->send($this->content(), $this->messageData(), is_null($callback) ?
-                $this->messageBuilder() : $callback);
+        if (! view()->exists($this->content())) {
+            $this->mailer->raw($this->content(), $callback ?: $this->messageBuilder());
+
+            return $this;
         }
+
+        $this->mailer->send($this->content(), $this->messageData(), $callback ?: $this->messageBuilder());
 
         return $this;
     }
@@ -165,11 +168,11 @@ class Mailer {
         return function (Message $message) {
             if (! is_null($this->address)) {
                 $message->to($this->address)
-                    ->from(Site::adminEmail(), Site::siteTitle())
-                    ->subject($this->subject);;
+                    ->from(config('mail.username'), Site::siteTitle())
+                    ->subject($this->subject);
             } else {
                 $message->to($this->getUser()->email)
-                    ->from(Site::adminEmail(), Site::siteTitle())
+                    ->from(config('mail.username'), Site::siteTitle())
                     ->subject($this->subject);
             }
         };

@@ -51,9 +51,12 @@
         <div class="col-md-6">
             <div class="Well text-center">
                 <h1 class="text-primary"><i class="icon-envelope-open"></i></h1>
-                {{-- TODO: Conditional --}}
-                <h4 class="text-primary">@lang('views.profile.settings.overview.email-unconfirmed')</h4>
-                <a href="@route('users.profile.settings', ['section' => 'privacy'], false)" class="btn btn-blue btn-sm btn-block btn-round btn-well center-block">@lang('views.profile.settings.overview.go-confirm')</a>
+                @if(Auth::user()->active)
+                    <h4 class="text-primary">@lang('views.profile.settings.overview.email-confirmed')</h4>
+                @else
+                    <h4 class="text-primary">@lang('views.profile.settings.overview.email-unconfirmed')</h4>
+                    <a href="@route('users.profile.settings', ['section' => 'privacy'], false)" class="btn btn-blue btn-sm btn-block btn-round btn-well center-block">@lang('views.profile.settings.overview.go-confirm')</a>
+                @endif
             </div>
         </div>
     </div>

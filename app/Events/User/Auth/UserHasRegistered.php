@@ -2,6 +2,7 @@
 
 namespace Createdu\Events\User\Auth;
 
+use Createdu\User;
 use Createdu\Events\Event;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
@@ -11,13 +12,20 @@ class UserHasRegistered extends Event
     use SerializesModels;
 
     /**
+     * User dependency.
+     *
+     * @var User
+     */
+    public $user;
+
+    /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(User $user)
     {
-        //
+        $this->user = $user;
     }
 
     /**

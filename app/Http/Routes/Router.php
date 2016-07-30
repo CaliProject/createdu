@@ -45,7 +45,7 @@ class Router {
         Route::post('password/reset', 'Auth\PasswordController@reset');
 
         // Email Confirmation...
-        Route::get('auth/confirm', 'Auth\AuthController@confirmRegistration')->name('confirm-email');
+        Route::get('auth/confirm', 'User\ProfileController@confirmRegistration')->name('confirm-email');
 
         if (site('registrationOn')) {
             // Registration Routes...
@@ -110,6 +110,8 @@ class Router {
                 Route::get('{section?}', 'ProfileController@showSettings')->name('settings');
                 Route::patch('privacy/tel', 'ProfileController@sendVerification')->name('tel');
                 Route::post('privacy/tel/verify', 'ProfileController@verifyTel')->name('verify-tel');
+                Route::post('privacy/email', 'ProfileController@resendLink')->name('email');
+                Route::post('privacy/email/verify', 'ProfileController@verifyEmail')->name('verify-email');
             });
 
             Route::group([

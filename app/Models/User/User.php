@@ -3,11 +3,15 @@
 namespace Createdu;
 
 use Crypt;
+use Createdu\Events\User\CreditHasChanged;
 use Createdu\Library\Traits\User\HasRoles;
 use Createdu\Library\Traits\User\Sociable;
 use Createdu\Library\Traits\User\UserMetas;
+use Createdu\Library\Traits\User\Notifiable;
+use Createdu\Events\User\ExperienceHasChanged;
 use Createdu\Library\Traits\Model\TimeSortable;
 use Createdu\Library\Traits\User\AvatarControls;
+use Createdu\Events\User\Auth\PasswordHasChanged;
 use Createdu\Events\User\Auth\UserHasRegistered;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -23,7 +27,7 @@ class User extends Authenticatable {
     |
     */
 
-    use Sociable, TimeSortable, AvatarControls, UserMetas, HasRoles;
+    use Sociable, TimeSortable, AvatarControls, UserMetas, HasRoles, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -127,6 +131,10 @@ class User extends Authenticatable {
         if (! $this->active) {
             $this->active = true;
             $this->save();
+
+            /* TODO: Dynamic amount */
+            $exp = 10;
+            event(new ExperienceHasChanged($this, $exp, trans('notifications.content.exp.email-verified')));
 
             return $this;
         }
@@ -283,7 +291,7 @@ class User extends Authenticatable {
     {
         if (! $this->checkedIn()) {
             /* TODO: Change to settable dynamic amount */
-            $this->credit(20);
+            $this->credit(20, trans('notifications.content.credit.check-in'));
 
             return $this->meta('check_in', 'checked', true);
         }
@@ -295,13 +303,29 @@ class User extends Authenticatable {
      * @param null $amount
      * @return mixed|int
      */
-    public function credit($amount = null)
+    public function credit($amount = null, $message = null)
     {
         if (is_null($amount)) {
             return $this->getAttribute('credit');
         } else {
-            return $this->increment('credit', intval($amount));
+            $this->increment('credit', intval($amount));
+
+            return event(new CreditHasChanged($this, $amount, $message));
         }
+    }
+
+    /**
+     * Change the user's experience.
+     *
+     * @param      $experience
+     * @param null $message
+     * @return array|null
+     */
+    public function exp($experience, $message = null)
+    {
+        $this->increment('experience', intval($experience));
+
+        return event(new ExperienceHasChanged($this, $experience, $message));
     }
 
     /**
@@ -346,6 +370,10 @@ class User extends Authenticatable {
         } else {
             /* Encrypt user's privacy, tel number never touches our database. */
             $this->tel = $tel;
+
+            /* TODO: Dynamic amount */
+            $exp = 10;
+            event(new ExperienceHasChanged($this, $exp, trans('notifications.content.exp.tel-verified')));
         }
         $this->save();
     }
@@ -396,46 +424,8 @@ class User extends Authenticatable {
         $this->password = bcrypt($new_password);
         $this->save();
 
+        event(new PasswordHasChanged($this));
+
         return $this;
-    }
-
-    /**
-     * Get all the notifications.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function notifications()
-    {
-        return $this->hasMany(Notification::class);
-    }
-
-    /**
-     * Get all the unread notifications.
-     *
-     * @return mixed
-     */
-    public function unreadNotifications()
-    {
-        return $this->notifications()->whereRead(false)->latest();
-    }
-
-    /**
-     * Get the inbox only notifications.
-     *
-     * @return mixed
-     */
-    public function inboxNotifications()
-    {
-        return $this->unreadNotifications()->take(10)->get();
-    }
-
-    /**
-     * Quick getter for unread count.
-     *
-     * @return mixed
-     */
-    public function getUnreadAttribute()
-    {
-        return $this->unreadNotifications()->count() >= 100 ? '99+' : $this->unreadNotifications()->count();
     }
 }

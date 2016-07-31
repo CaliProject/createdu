@@ -10,7 +10,7 @@
     function init() {
 
         var menu = document.getElementById( 'Menu' ),
-            trigger = menu.querySelector( 'a.Menu-trigger' ),
+            trigger = menu ? menu.querySelector( 'a.Menu-trigger' ) : null,
             // triggerPlay only for demo 6
             triggerPlay = document.querySelector( 'a.Menu-trigger-out' ),
             // event type (if mobile use touch events)
@@ -26,21 +26,24 @@
 
         var overlay = document.createElement('div');
         overlay.className = 'Menu__overlay';
-        menu.appendChild( overlay );
+        if (menu)
+            menu.appendChild( overlay );
 
-        trigger.addEventListener( eventtype, function( ev ) {
-            ev.stopPropagation();
-            ev.preventDefault();
+        if (trigger) {
+            trigger.addEventListener(eventtype, function (ev) {
+                ev.stopPropagation();
+                ev.preventDefault();
 
-            if( classie.has( menu, 'Menu--open' ) ) {
-                resetMenu();
-            }
-            else {
-                classie.remove( menu, 'Menu--close' );
-                classie.add( menu, 'Menu--open' );
-                overlay.addEventListener( eventtype, closeClickFn );
-            }
-        });
+                if (classie.has(menu, 'Menu--open')) {
+                    resetMenu();
+                }
+                else {
+                    classie.remove(menu, 'Menu--close');
+                    classie.add(menu, 'Menu--open');
+                    overlay.addEventListener(eventtype, closeClickFn);
+                }
+            });
+        }
 
         if( triggerPlay ) {
             triggerPlay.addEventListener( eventtype, function( ev ) {

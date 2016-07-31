@@ -7,7 +7,7 @@
             <li class="Inbox__item">
                 {{-- TODO: Add href link --}}
                 <a href="#">
-                    <div class="badge badge-success"><i class="icon-user"></i></div>
+                    <div class="badge badge-success" :class="'inbox-type-' + Inbox.type"></div>
                     <time class="time">@{{ Inbox.time }}</time>
                     <p class="details">@{{ Inbox.content }}</p>
                 </a>

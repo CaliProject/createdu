@@ -25,6 +25,7 @@
     <script>
         var CurrentUser = JSON.parse('{!! Auth::check() ? addslashes(Auth::user()) : '{}' !!}'),
             _TOKEN = "{{ csrf_token() }}",
+            PUSHER_KEY = "{{ config('broadcasting.connections.pusher.key') }}",
             signOutMessages = JSON.parse("{!! addslashes(json_encode(trans('views.logout'))) !!}");
 
     </script>
@@ -36,22 +37,13 @@
 
     @yield('content')
 
+    <audio src="/assets/audio/NewMessage.mp3" preload="auto" id="new-message-sound"></audio>
+    <audio src="/assets/audio/Notification.mp3" preload="auto" id="notification-sound"></audio>
+
     <!-- JavaScripts -->
     <script src="/assets/js/app.js"></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
-    <script>
-        // Enable pusher logging - don't include this in production
-//        Pusher.logToConsole = true;
-//
-//        var pusher = new Pusher('619a49d4f147e6f3751f', {
-//            encrypted: true   
-//        });
-//
-//        var channel = pusher.subscribe('test_channel');
-//        channel.bind('', function(data) {
-//            alert(data.message);
-//        });
-    </script>
+    @include('layouts.scripts.pusher')
     @stack('scripts.footer')
 
 </body>

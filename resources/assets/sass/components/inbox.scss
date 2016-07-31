@@ -55,6 +55,7 @@
     width: auto;
     height: 100%;
     border-bottom: 1px solid rgba($themewhite, .15);
+    max-height: 350px;
   }
 
   @include has(list) {
@@ -78,11 +79,15 @@
         position: relative;
         padding-top: 6px;
         margin-right: 5px;
+        display: block;
 
-        i {
+        &:before {
           text-align: center;
-          font-size: 12px;
+          font-size: 15px;
           margin-right: 10px;
+          font-family: "FontAwesome";
+          font-style: normal;
+          position: relative;
         }
       }
 
@@ -113,5 +118,41 @@
         color: #fff;
       }
     }
+  }
+}
+
+.inbox-type-user {
+  background-color: $youtube-color !important;
+
+  &:before {
+    content: '\f007';
+  }
+}
+
+.inbox-type-credit {
+  background-color: $facebook-color !important;
+
+  &:before {
+    content: '\f06b';
+  }
+}
+
+.inbox-type-experience {
+  background-color: $wechat-color !important;
+
+  &:before {
+    content: '\f241';
+    left: -3px;
+    top: 1px;
+  }
+}
+
+.inbox-type-normal {
+  background: $themedarkblue !important;
+  
+  &:before {
+    content: '\f0a2';
+    left: -1px;
+    top: 0;
   }
 }

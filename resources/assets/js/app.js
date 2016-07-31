@@ -13,8 +13,11 @@ const vm = new Vue({
             $("#avatar-uploader").click();
         },
         checkIn() {
-            if (!this.User.checkedIn) {
-                const _this = this;
+            if (! this.User.checkedIn) {
+                const _this = this,
+                    button = $(".checkin-button");
+
+                button.addClass("checked");
 
                 this.request({
                     url: '/checkin',
@@ -22,6 +25,8 @@ const vm = new Vue({
                     callback(success) {
                         if (success)
                             _this.User.checkedIn = true;
+                        else
+                            button.removeClass("checked");
                     }
                 });
             }
@@ -109,18 +114,22 @@ const vm = new Vue({
                     }
                 }
             });
+        },
+        playNotificationSound() {
+            document.getElementById("notification-sound").play();
+        },
+        playMessageSound() {
+            document.getElementById("new-message-sound").play();
         }
     },
     data: {
         displayBackTop: false,
         searchText: '',
         User: CurrentUser,
-        token: _TOKEN
+        token: _TOKEN,
+        Inboxes: JSON.parse($(".Inbox").attr('data-inbox'))
     },
     computed: {
-        Inboxes() {
-            return JSON.parse($(".Inbox").attr('data-inbox'));
-        }
     }
 });
 

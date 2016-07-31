@@ -7769,7 +7769,8 @@ li.on:after {
     overflow: hidden;
     width: auto;
     height: 100%;
-    border-bottom: 1px solid rgba(249, 247, 246, 0.15); }
+    border-bottom: 1px solid rgba(249, 247, 246, 0.15);
+    max-height: 350px; }
   .Inbox__list {
     padding: 0; }
   .Inbox__item {
@@ -7786,11 +7787,15 @@ li.on:after {
         float: left;
         position: relative;
         padding-top: 6px;
-        margin-right: 5px; }
-        .Inbox__item > a > .badge i {
+        margin-right: 5px;
+        display: block; }
+        .Inbox__item > a > .badge:before {
           text-align: center;
-          font-size: 12px;
-          margin-right: 10px; }
+          font-size: 15px;
+          margin-right: 10px;
+          font-family: "FontAwesome";
+          font-style: normal;
+          position: relative; }
       .Inbox__item > a time {
         margin: 0;
         margin-right: 5px;
@@ -7810,6 +7815,30 @@ li.on:after {
       color: #b2b2b2; }
       .Inbox__footer > a:hover {
         color: #fff; }
+
+.inbox-type-user {
+  background-color: #ff2929 !important; }
+  .inbox-type-user:before {
+    content: '\f007'; }
+
+.inbox-type-credit {
+  background-color: #354e8e !important; }
+  .inbox-type-credit:before {
+    content: '\f06b'; }
+
+.inbox-type-experience {
+  background-color: #30aa1a !important; }
+  .inbox-type-experience:before {
+    content: '\f241';
+    left: -3px;
+    top: 1px; }
+
+.inbox-type-normal {
+  background: #0d3b62 !important; }
+  .inbox-type-normal:before {
+    content: '\f0a2';
+    left: -1px;
+    top: 0; }
 
 .Stage {
   padding: 30px 0 50px 0; }

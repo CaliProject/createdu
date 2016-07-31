@@ -3,21 +3,26 @@
 namespace Createdu\Events\User\Auth;
 
 use Createdu\User;
+use Createdu\Notification;
 use Createdu\Events\Event;
-use Createdu\Events\ShouldNotifySlack;
+use Createdu\Events\ShouldNotify;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class UserHasRegistered extends Event implements ShouldBroadcast, ShouldNotifySlack
+class PasswordHasChanged extends Event implements ShouldBroadcast, ShouldNotify
 {
+
     use SerializesModels;
 
     /**
-     * User dependency.
-     *
      * @var User
      */
     public $user;
+
+    /**
+     * @var Notification
+     */
+    public $notification;
 
     /**
      * Create a new event instance.
@@ -27,6 +32,7 @@ class UserHasRegistered extends Event implements ShouldBroadcast, ShouldNotifySl
     public function __construct(User $user)
     {
         $this->user = $user;
+        $this->notification = $this->getNotification();
     }
 
     /**
@@ -36,26 +42,29 @@ class UserHasRegistered extends Event implements ShouldBroadcast, ShouldNotifySl
      */
     public function broadcastOn()
     {
-        return ['administrator'];
+        return ['user-' . $this->user->id];
     }
 
     /**
      * {@inheritdoc}
      *
-     * @return string
+     * @return Notification
      */
-    public function getSlackMessage()
+    public function getNotification()
     {
-        return sprintf('【%s】网站有新用户注册, 昵称: * %s *', site('siteTitle'), $this->user->name);
+        return $this->user->notifications()->create([
+            'content' => trans('notifications.content.user.password-updated'),
+            'type'    => Notification::USER_TYPE
+        ]);
     }
 
     /**
      * {@inheritdoc}
      *
-     * @return bool
+     * @return User
      */
-    public function shouldAttach()
+    public function user()
     {
-        return false;
+        return $this->user;
     }
 }

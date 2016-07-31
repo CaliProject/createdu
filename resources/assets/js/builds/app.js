@@ -10218,13 +10218,16 @@ var vm = new Vue({
 
             if (!this.User.checkedIn) {
                 (function () {
-                    var _this = _this2;
+                    var _this = _this2,
+                        button = $(".checkin-button");
+
+                    button.addClass("checked");
 
                     _this2.request({
                         url: '/checkin',
                         type: 'post',
                         callback: function callback(success) {
-                            if (success) _this.User.checkedIn = true;
+                            if (success) _this.User.checkedIn = true;else button.removeClass("checked");
                         }
                     });
                 })();
@@ -10312,19 +10315,22 @@ var vm = new Vue({
                     }
                 }
             });
+        },
+        playNotificationSound: function playNotificationSound() {
+            document.getElementById("notification-sound").play();
+        },
+        playMessageSound: function playMessageSound() {
+            document.getElementById("new-message-sound").play();
         }
     },
     data: {
         displayBackTop: false,
         searchText: '',
         User: CurrentUser,
-        token: _TOKEN
+        token: _TOKEN,
+        Inboxes: JSON.parse($(".Inbox").attr('data-inbox'))
     },
-    computed: {
-        Inboxes: function Inboxes() {
-            return JSON.parse($(".Inbox").attr('data-inbox'));
-        }
-    }
+    computed: {}
 });
 
 $(window).scroll(function () {

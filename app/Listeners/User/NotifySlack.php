@@ -3,7 +3,7 @@
 namespace Createdu\Listeners\User;
 
 use Slack;
-use Createdu\Events\User\Auth\UserHasRegistered;
+use Createdu\Events\ShouldNotifySlack;
 
 class NotifySlack
 {
@@ -20,13 +20,13 @@ class NotifySlack
     /**
      * Handle the event.
      *
-     * @param  UserHasRegistered  $event
-     * @return void
+     * @param ShouldNotifySlack $event
      */
-    public function handle(UserHasRegistered $event)
+    public function handle(ShouldNotifySlack $event)
     {
-        $message = sprintf('【%s】网站有新用户注册, 昵称: %s', site('siteTitle'), $event->user->name);
+        if ($attachment = $event->shouldAttach())
+            return Slack::attach($attachment)->send($event->getSlackMessage());
 
-        Slack::send($message);
+        Slack::send($event->getSlackMessage());
     }
 }

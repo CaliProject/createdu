@@ -56,7 +56,6 @@
                             </div>
                         </th>
                         <th>@lang('validation.attributes.name')</th>
-                        <th>@lang('validation.attributes.username')</th>
                         <th>@lang('validation.attributes.email')</th>
                         <th>@lang('views.admin.pages.users.index.table.registered_at')</th>
                         <th>&nbsp;</th>
@@ -71,7 +70,6 @@
                             </div>
                         </th>
                         <th>@lang('validation.attributes.name')</th>
-                        <th>@lang('validation.attributes.username')</th>
                         <th>@lang('validation.attributes.email')</th>
                         <th>@lang('views.admin.pages.users.index.table.registered_at')</th>
                         <th>&nbsp;</th>
@@ -97,7 +95,6 @@
                                     <span>{{ $user->name }}</span>
                                 </a>
                             </td>
-                            <td>{{ $user->username }}</td>
                             <td>{{ $user->email }}</td>
                             <td>
                                 <time datetime="{{ $user->created_at->format('Y-m-d H:i:s') }}">

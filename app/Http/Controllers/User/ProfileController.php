@@ -24,20 +24,6 @@ class ProfileController extends Controller {
     protected $request;
 
     /**
-     * The minutes for verification to be expired.
-     *
-     * @var int
-     */
-    protected $verificationExpireMinutes = 10;
-
-    /**
-     * Verification cache key.
-     *
-     * @var string
-     */
-    protected $cacheKey = "user-%s-tel-verify";
-
-    /**
      * ProfileController constructor.
      *
      * @param Request $request
@@ -121,11 +107,7 @@ class ProfileController extends Controller {
             'tel' => 'required_unless:unbind,yes|numeric|digits_between:9,12'
         ]);
 
-        $code = random_int(1000, 9999);
-
-        Cache::put(sprintf($this->cacheKey, $this->request->user()->id), $code, $this->verificationExpireMinutes);
-
-        SMS::sendTemplateMessage(1, [$code, $this->verificationExpireMinutes], $this->request->user()->tel ?: $this->request->input('tel'));
+        sms($this->request->user()->tel ?: $this->request->input('tel'));
 
         return $this->successResponse();
     }
@@ -142,11 +124,8 @@ class ProfileController extends Controller {
             'verification' => 'required|numeric|digits:4'
         ]);
 
-        $key = sprintf($this->cacheKey, $this->request->user()->id);
-
-        if ($this->request->input('verification') == Cache::get($key)) {
+        if (sms_validate($this->request->input('verification'))) {
             $this->request->user()->telVerified($this->request->input('tel'));
-            Cache::forget($key);
         }
 
         return $this->successResponse();
@@ -176,11 +155,41 @@ class ProfileController extends Controller {
     {
         $email = Crypt::decrypt($request->input('token'));
 
-        // TODO: Flash message
+        // TODO: Push into notification stack
         if ($email == $request->user()->email) {
             $request->user()->activated();
         }
 
         return redirect(route('users.profile.settings', ['section' => 'privacy']));
+    }
+
+    /**
+     * Update user's password.
+     *
+     * @return array
+     */
+    public function updatePassword()
+    {
+        $this->validate($this->request, [
+            'password_old' => 'required_unless:social,yes|different:password',
+            'password'     => 'required|confirmed|min:6'
+        ]);
+
+        $user = $this->request->user();
+
+        if (! $this->request->has('social')) {
+            if (! auth()->attempt(['id' => $user->id, 'password' => $this->request->input('password_old')], false, false)) {
+                return $this->errorResponse(trans('views.profile.settings.password.invalid-old-password'));
+            }
+        }
+
+        $user->changePassword($this->request->input('password'));
+
+        return $this->successResponse(trans('views.profile.settings.password.password-changed'));
+    }
+
+    public function sendPasswordSMS()
+    {
+
     }
 }

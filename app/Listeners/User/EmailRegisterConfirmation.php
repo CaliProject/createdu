@@ -4,8 +4,6 @@ namespace Createdu\Listeners\User;
 
 use Crypt;
 use Mailer;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Createdu\Events\User\Auth\UserHasRegistered;
 
 class EmailRegisterConfirmation

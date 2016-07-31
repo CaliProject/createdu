@@ -383,4 +383,18 @@ class User extends Authenticatable {
 
         return sprintf("%s****%s", substr($this->tel, 0, 3), substr($this->tel, strlen($this->tel) - 3, 3));
     }
+
+    /**
+     * Change the password.
+     *
+     * @param $new_password
+     * @return $this
+     */
+    public function changePassword($new_password)
+    {
+        $this->password = bcrypt($new_password);
+        $this->save();
+
+        return $this;
+    }
 }

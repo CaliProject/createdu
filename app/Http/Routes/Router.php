@@ -108,10 +108,24 @@ class Router {
                 'as' => 'profile.'
             ], function () {
                 Route::get('{section?}', 'ProfileController@showSettings')->name('settings');
-                Route::patch('privacy/tel', 'ProfileController@sendVerification')->name('tel');
-                Route::post('privacy/tel/verify', 'ProfileController@verifyTel')->name('verify-tel');
-                Route::post('privacy/email', 'ProfileController@resendLink')->name('email');
-                Route::post('privacy/email/verify', 'ProfileController@verifyEmail')->name('verify-email');
+
+                // Password routes
+                Route::group([
+                    'prefix' => 'password'
+                ], function () {
+                    Route::patch('/', 'ProfileController@updatePassword');
+                    Route::post('sms', 'ProfileController@sendPasswordSMS')->name('sms-password');
+                });
+
+                // Privacy routes
+                Route::group([
+                    'prefix' => 'privacy'
+                ], function () {
+                    Route::patch('tel', 'ProfileController@sendVerification')->name('tel');
+                    Route::post('tel/verify', 'ProfileController@verifyTel')->name('verify-tel');
+                    Route::post('email', 'ProfileController@resendLink')->name('email');
+                    Route::post('email/verify', 'ProfileController@verifyEmail')->name('verify-email');
+                });
             });
 
             Route::group([

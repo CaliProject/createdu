@@ -11935,7 +11935,12 @@ button.toast-close-button {
   color: #fff;
   opacity: .9;
   -ms-filter: alpha(Opacity=80);
-  filter: alpha(opacity=80); }
+  filter: alpha(opacity=80);
+  animation: zoom 0.65s backwards;
+  -webkit-animation: zoom 0.65s backwards;
+  -moz-animation: zoom 0.65s backwards;
+  -ms-animation: zoom 0.65s backwards;
+  -o-animation: zoom 0.65s backwards; }
 
 #toast-container > :hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.65);

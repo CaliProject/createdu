@@ -30,21 +30,4 @@ class ProfileSaveRequest extends Request
             'email'      => 'required|email',
         ];
     }
-
-    /**
-     * 表单验证消息提醒
-     *
-     * @return array
-     */
-    public function messages()
-    {
-        return [
-            'name.required'       => '昵称不可为空！',
-            'name.unique'         => '昵称已存在！',
-            'credit.required'     => '积分不可为空！',
-            'experience.required' => '经验不可为空！',
-            'email.required'      => '邮箱不可为空！',
-            'email.email'         => '邮箱格式不正确！',
-        ];
-    }
 }

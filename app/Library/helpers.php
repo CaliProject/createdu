@@ -15,6 +15,16 @@ const ENV_DENIED = - 2;
  */
 const ENV_UPDATED = 1;
 
+/**
+ * Verification code expire time.
+ */
+const VERIFICATION_EXPIRE_MINUTES = 10;
+
+/**
+ * Verification cache key.
+ */
+const CACHE_KEY = "user-%s-tel-verify";
+
 if (! function_exists('env_put')) {
     /**
      * Store or update an environment variable.
@@ -155,5 +165,69 @@ if (! function_exists('request_is_route')) {
     function request_is_route($route, $attributes = [], $all = false)
     {
         return request()->is(substr(route($route, $attributes, false), 1) . ($all ? '*' : ''));    
+    }
+}
+
+if (! function_exists('sms')) {
+    /**
+     * Send sms verification.
+     *
+     * @param $to
+     * @param $template
+     * @param $params
+     * @return mixed
+     *
+     * @author Cali
+     */
+    function sms($to = null, $params = null, $template = null)
+    {
+        if (Auth::guest())
+            return false;
+
+        $template = $template ?: 1;
+        $params = $params ?: [generate_verification(), VERIFICATION_EXPIRE_MINUTES];
+        $to = $to ?: Auth::user()->tel;
+
+        return SMS::sendTemplateMessage($template, $params, $to);
+    }
+}
+
+if (! function_exists('generate_verification')) {
+    /**
+     * Generate verification code.
+     *
+     * @return int
+     * @author Cali
+     */
+    function generate_verification()
+    {
+        $code = random_int(1000, 9999);
+
+        Cache::put(sprintf(CACHE_KEY, Auth::id()), $code, VERIFICATION_EXPIRE_MINUTES);
+
+        return $code;
+    }
+}
+
+if (! function_exists('sms_validate')) {
+    /**
+     * Validate sms verification code.
+     *
+     * @param null $key
+     * @return bool
+     *
+     * @author Cali
+     */
+    function sms_validate($code, $key = null)
+    {
+        $key = $key ?: sprintf(CACHE_KEY, Auth::id());
+
+        if ($code == Cache::get($key)) {
+            Cache::forget($key);
+
+            return true;
+        }
+
+        return false;
     }
 }

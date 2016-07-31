@@ -177,9 +177,20 @@ $(() => {
                     }
                 },
                 success(data) {
+                    if ($(form).attr('callback')) {
+                        const callback = $(form).attr('callback');
+                        callback();
+
+                        return false;
+                    }
+
                     if (data.status !== 'error') {
                         if (typeof(data.redirectUrl) != 'undefined') {
-                            window.location.href = data.redirectUrl;
+                            if (data.redirectUrl == 'refresh') {
+                                window.location.reload();
+                            } else {
+                                window.location.href = data.redirectUrl;
+                            }
                         } else if (typeof(data.newWindowUrl) != 'undefined') {
                             window.open(data.newWindowUrl, "_blank");
                         } else if (typeof(data.reload) != 'undefined') {

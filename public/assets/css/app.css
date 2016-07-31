@@ -6389,7 +6389,12 @@ button.toast-close-button {
   color: #fff;
   opacity: .9;
   -ms-filter: alpha(Opacity=80);
-  filter: alpha(opacity=80); }
+  filter: alpha(opacity=80);
+  animation: zoom 0.65s backwards;
+  -webkit-animation: zoom 0.65s backwards;
+  -moz-animation: zoom 0.65s backwards;
+  -ms-animation: zoom 0.65s backwards;
+  -o-animation: zoom 0.65s backwards; }
 
 #toast-container > :hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.65);
@@ -7940,11 +7945,11 @@ li.on:after {
 
 .Form {
   margin: 1.5em 0; }
-  .Form input[type=text], .Form input[type=tel], .Form input[type=email], .Form input[type=number] {
+  .Form input[type=text], .Form input[type=tel], .Form input[type=email], .Form input[type=number], .Form input[type=password] {
     border-radius: 500px;
     border: 1px solid rgba(0, 0, 0, 0.15);
     margin: .5em 0; }
-    .Form input[type=text]:focus, .Form input[type=tel]:focus, .Form input[type=email]:focus, .Form input[type=number]:focus {
+    .Form input[type=text]:focus, .Form input[type=tel]:focus, .Form input[type=email]:focus, .Form input[type=number]:focus, .Form input[type=password]:focus {
       border-color: #30aa1a;
       box-shadow: 0 1px 15px 1px rgba(0, 0, 0, 0.1); }
   .Form .control-label {

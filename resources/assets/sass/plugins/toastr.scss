@@ -122,7 +122,8 @@ button.toast-close-button {
   color: #fff;
   opacity: .9;
   -ms-filter: alpha(Opacity=80);
-  filter: alpha(opacity=80)
+  filter: alpha(opacity=80);
+  @include am(zoom .65s backwards);
 }
 
 #toast-container > :hover {

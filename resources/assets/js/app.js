@@ -116,6 +116,11 @@ const vm = new Vue({
         searchText: '',
         User: CurrentUser,
         token: _TOKEN
+    },
+    computed: {
+        Inboxes() {
+            return JSON.parse($(".Inbox").attr('data-inbox'));
+        }
     }
 });
 
@@ -220,6 +225,11 @@ $(() => {
     $("#avatar-uploader").on('change', (ev) => {
         const input = ev.target;
         $($(input).parents("form")[0]).submit();
+    });
+
+    // Slimscroll
+    $('.SlimScroll').slimscroll({
+        allowPageScroll: true
     });
 });
 

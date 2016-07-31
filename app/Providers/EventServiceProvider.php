@@ -15,6 +15,8 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         'Createdu\Events\User\Auth\UserHasRegistered' => [
             'Createdu\Listeners\User\EmailRegisterConfirmation',
+            'Createdu\Listeners\User\NotifySlack',
+            'Createdu\Listeners\User\NotifyAdmins',
         ],
         'Createdu\Events\User\Auth\UserHasLoggedIn'     => [
 //            'Createdu\Listeners\User\EmailConfirmation@handleLoggedIn',

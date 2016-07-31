@@ -7376,6 +7376,46 @@ input, textarea {
   -ms-transition: all ease-in-out 0.3s;
   -o-transition: all ease-in-out 0.3s; }
 
+/* Custom Badges */
+.badge {
+  border-radius: 12px !important;
+  border-radius: 0px;
+  font-weight: 300;
+  font-size: 11px !important;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 11px !important;
+  height: 18px;
+  padding: 3px 6px 3px 6px;
+  text-shadow: none !important; }
+
+.badge.badge-roundless {
+  border-radius: 0 !important; }
+
+.badge.badge-default {
+  background: #f1f1f1;
+  color: #aaa; }
+
+.badge.badge-primary {
+  background: #7a6fbe;
+  color: #FFF; }
+
+.badge.badge-info {
+  background: #12AFCB;
+  color: #FFF; }
+
+.badge.badge-success {
+  background: #22BAA0;
+  color: #FFF; }
+
+.badge.badge-danger {
+  background: #f25656;
+  color: #FFF; }
+
+.badge.badge-warning {
+  background: #f6d433;
+  color: #FFF; }
+
 @keyframes shake {
   from, to {
     transform: translate3d(0, 0, 0); }
@@ -7411,6 +7451,16 @@ input, textarea {
     padding: 2px 20px; }
     .Nav .navbar-brand img {
       max-height: 100%; }
+  .Nav [data-toggle=dropdown] .badge {
+    text-align: center;
+    top: 2px;
+    right: 0;
+    position: absolute;
+    line-height: 13px !important;
+    font-weight: 600;
+    visibility: visible; }
+    .Nav [data-toggle=dropdown] .badge.unread-0 {
+      visibility: hidden; }
   .Nav .navbar-toggle {
     border-color: #fee; }
     .Nav .navbar-toggle .icon-bar {
@@ -7670,6 +7720,97 @@ li.on:after {
 .Menu ul li a:focus:before {
   color: #1abc9c; }
 
+.Inbox {
+  display: block;
+  visibility: hidden;
+  opacity: 0;
+  margin-top: 40px;
+  width: 300px;
+  position: absolute;
+  top: 100%;
+  z-index: 1000;
+  background: #403e3e;
+  left: auto;
+  right: 0;
+  border-radius: 6px;
+  padding: 1em 0;
+  transition: all ease-in-out 0.3s;
+  -webkit-transition: all ease-in-out 0.3s;
+  -moz-transition: all ease-in-out 0.3s;
+  -ms-transition: all ease-in-out 0.3s;
+  -o-transition: all ease-in-out 0.3s; }
+  .open .Inbox, .user-notification:hover + .Inbox {
+    visibility: visible;
+    opacity: 1;
+    margin-top: 17px !important; }
+  .Inbox:hover {
+    visibility: visible;
+    opacity: 1;
+    margin-top: 17px !important; }
+  .Inbox:before {
+    position: absolute;
+    top: -16px;
+    right: 15px;
+    display: inline-block !important;
+    border: 8px solid transparent;
+    border-bottom-color: #403e3e;
+    content: ''; }
+  .Inbox__title {
+    margin: .5em .25em 1em; }
+    .Inbox__title p {
+      font-size: 1.1em;
+      font-weight: bold;
+      margin: 0;
+      color: #f1a88c;
+      margin-left: 1em; }
+  .Inbox__inner {
+    margin: 0;
+    position: relative;
+    overflow: hidden;
+    width: auto;
+    height: 100%;
+    border-bottom: 1px solid rgba(249, 247, 246, 0.15); }
+  .Inbox__list {
+    padding: 0; }
+  .Inbox__item {
+    border-top: 1px solid rgba(249, 247, 246, 0.15); }
+    .Inbox__item > a {
+      padding: 10px 10px 10px 15px;
+      font-size: .9em;
+      text-decoration: none;
+      position: relative;
+      display: block; }
+      .Inbox__item > a > .badge {
+        height: 25px;
+        width: 25px;
+        float: left;
+        position: relative;
+        padding-top: 6px;
+        margin-right: 5px; }
+        .Inbox__item > a > .badge i {
+          text-align: center;
+          font-size: 12px;
+          margin-right: 10px; }
+      .Inbox__item > a time {
+        margin: 0;
+        margin-right: 5px;
+        max-width: 85px;
+        background: rgba(249, 247, 246, 0.25);
+        color: #eee;
+        float: right;
+        padding: 2px 5px;
+        font-size: 10px;
+        border-radius: 3px;
+        font-weight: 400; }
+  .Inbox__footer {
+    text-align: center;
+    padding-top: 1em; }
+    .Inbox__footer > a {
+      padding: .4em .8em;
+      color: #b2b2b2; }
+      .Inbox__footer > a:hover {
+        color: #fff; }
+
 .Stage {
   padding: 30px 0 50px 0; }
 
@@ -7713,6 +7854,8 @@ li.on:after {
     top: 100%;
     padding-top: 5px; }
   .Card:hover {
+    display: block !important; }
+  .open > .Card {
     display: block !important; }
   .Card__wrapper {
     background: #fff;

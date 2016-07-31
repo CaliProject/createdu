@@ -14,6 +14,10 @@
     display: block !important;
   }
 
+  @at-root .open > .Card {
+    display: block !important;
+  }
+
   @include has(wrapper) {
     background: #fff;
     box-shadow: 0 4px 6px 0 rgba(0,0,0, .15);

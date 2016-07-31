@@ -38,11 +38,13 @@ elixir(function (mix) {
             'plugins/jquery/ajaxfileupload.js',
             // 'plugins/jquery/jquery.pjax.js',
             // 'plugins/pace.min.js',
+            'plugins/jquery/jquery.slimscroll.min.js',
             'plugins/toastr.min.js',
             'plugins/bootstrap.js',
             'plugins/switchery.js',
             'plugins/sweetalert.min.js',
             'plugins/borderMenu.js',
+            'pusher.min.js',
             'builds/app.js'
         ], publicDir + 'js/app.js');
 

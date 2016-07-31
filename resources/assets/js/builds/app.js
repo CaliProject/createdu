@@ -10319,6 +10319,11 @@ var vm = new Vue({
         searchText: '',
         User: CurrentUser,
         token: _TOKEN
+    },
+    computed: {
+        Inboxes: function Inboxes() {
+            return JSON.parse($(".Inbox").attr('data-inbox'));
+        }
     }
 });
 
@@ -10430,6 +10435,11 @@ $(function () {
     $("#avatar-uploader").on('change', function (ev) {
         var input = ev.target;
         $($(input).parents("form")[0]).submit();
+    });
+
+    // Slimscroll
+    $('.SlimScroll').slimscroll({
+        allowPageScroll: true
     });
 });
 

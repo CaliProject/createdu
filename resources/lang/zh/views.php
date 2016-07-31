@@ -461,7 +461,6 @@ return [
                 'invalid-old-password' => '原密码不正确',
                 'password-changed'     => '密码已修改',
                 'send-verification'    => '发送验证码',
-                ''
             ],
             'privacy'  => [
                 'bind-tel'          => '绑定手机',
@@ -482,6 +481,13 @@ return [
                 'email-help'        => '您已激活并确认绑定邮箱 :email !',
                 'resend-success'    => '邮件已重新发送到您的邮箱'
             ]
+        ]
+    ],
+
+    'nav' => [
+        'inbox' => [
+            'unread'  => '条未读通知',
+            'see-all' => '查看全部'
         ]
     ],
 

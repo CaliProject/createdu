@@ -39,7 +39,19 @@
     <!-- JavaScripts -->
     <script src="/assets/js/app.js"></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
-
+    <script>
+        // Enable pusher logging - don't include this in production
+//        Pusher.logToConsole = true;
+//
+//        var pusher = new Pusher('619a49d4f147e6f3751f', {
+//            encrypted: true   
+//        });
+//
+//        var channel = pusher.subscribe('test_channel');
+//        channel.bind('', function(data) {
+//            alert(data.message);
+//        });
+    </script>
     @stack('scripts.footer')
 
 </body>

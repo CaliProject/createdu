@@ -34,6 +34,22 @@
     }
   }
 
+  [data-toggle=dropdown] {
+    .badge {
+      text-align: center;
+      top: 2px;
+      right: 0;
+      position: absolute;
+      line-height: 13px !important;
+      font-weight: 600;
+      visibility: visible;
+
+      &.unread-0 {
+        visibility: hidden;
+      }
+    }
+  }
+
   .navbar-toggle {
     border-color: #fee;
 

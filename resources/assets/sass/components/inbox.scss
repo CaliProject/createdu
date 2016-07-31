@@ -1,0 +1,117 @@
+.Inbox {
+  @at-root .open &, .user-notification:hover + & {
+    visibility: visible;
+    opacity: 1;
+    margin-top: 17px !important;
+  }
+
+  &:hover {
+    visibility: visible;
+    opacity: 1;
+    margin-top: 17px !important;
+  }
+
+  display: block;
+  visibility: hidden;
+  opacity: 0;
+  margin-top: 40px;
+  width: 300px;
+  position: absolute;
+  top: 100%;
+  z-index: 1000;
+  background: #403e3e;
+  left: auto;
+  right: 0;
+  border-radius: 6px;
+  padding: 1em 0;
+  @include ts();
+
+  &:before {
+    position: absolute;
+    top: -16px;
+    right: 15px;
+    display: inline-block !important;
+    border: 8px solid transparent;
+    border-bottom-color: #403e3e;
+    content: '';
+  }
+
+  @include has(title) {
+    margin: .5em .25em 1em;
+
+    p {
+      font-size: 1.1em;
+      font-weight: bold;
+      margin: 0;
+      color: #f1a88c;
+      margin-left: 1em;
+    }
+  }
+
+  @include has(inner) {
+    margin: 0;
+    position: relative;
+    overflow: hidden;
+    width: auto;
+    height: 100%;
+    border-bottom: 1px solid rgba($themewhite, .15);
+  }
+
+  @include has(list) {
+    padding: 0;
+  }
+
+  @include has(item) {
+    border-top: 1px solid rgba($themewhite, .15);
+
+    > a {
+      padding: 10px 10px 10px 15px;
+      font-size: .9em;
+      text-decoration: none;
+      position: relative;
+      display: block;
+
+      > .badge {
+        height: 25px;
+        width: 25px;
+        float: left;
+        position: relative;
+        padding-top: 6px;
+        margin-right: 5px;
+
+        i {
+          text-align: center;
+          font-size: 12px;
+          margin-right: 10px;
+        }
+      }
+
+      time {
+        margin: 0;
+        margin-right: 5px;
+        max-width: 85px;
+        background: rgba($themewhite, .25);
+        color: #eee;
+        float: right;
+        padding: 2px 5px;
+        font-size: 10px;
+        border-radius: 3px;
+        font-weight: 400;
+      }
+    }
+  }
+
+  @include has(footer) {
+    text-align: center;
+    padding-top: 1em;
+
+    > a {
+      padding: .4em .8em;
+      color: #b2b2b2;
+
+      &:hover {
+        color: #fff;
+      }
+    }
+  }
+}

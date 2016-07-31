@@ -7,7 +7,7 @@ use Createdu\Events\Event;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class UserHasRegistered extends Event
+class UserHasRegistered extends Event implements ShouldBroadcast
 {
     use SerializesModels;
 
@@ -35,6 +35,6 @@ class UserHasRegistered extends Event
      */
     public function broadcastOn()
     {
-        return [];
+        return ['administrator'];
     }
 }

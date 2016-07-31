@@ -105,6 +105,54 @@ input, textarea {
   @include ts();
 }
 
+/* Custom Badges */
+.badge {
+  border-radius: 12px !important;
+  border-radius: 0px;
+  font-weight: 300;
+  font-size: 11px !important;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 11px !important;
+  height: 18px;
+  padding: 3px 6px 3px 6px;
+  text-shadow: none !important;
+}
+
+.badge.badge-roundless {
+  border-radius: 0 !important;
+}
+
+.badge.badge-default {
+  background: #f1f1f1;
+  color: #aaa;
+}
+
+.badge.badge-primary {
+  background: #7a6fbe;
+  color: #FFF;
+}
+
+.badge.badge-info {
+  background: #12AFCB;
+  color: #FFF;
+}
+
+.badge.badge-success {
+  background: #22BAA0;
+  color: #FFF;
+}
+
+.badge.badge-danger {
+  background: #f25656;
+  color: #FFF;
+}
+
+.badge.badge-warning {
+  background: #f6d433;
+  color: #FFF;
+}
+
 @keyframes shake {
   from, to {
     transform: translate3d(0, 0, 0);

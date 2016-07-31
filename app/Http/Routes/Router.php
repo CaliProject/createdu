@@ -100,13 +100,14 @@ class Router {
             'namespace' => "User",
             'as'        => 'users.'
         ], function () {
-            Route::get('@{user}', 'ProfileController@showProfile')->name('profile');
+            Route::get('@{name}', 'ProfileController@showProfile')->name('profile');
             Route::post('checkin', 'ProfileController@checkIn')->name('check-in');
 
             Route::group([
                 'prefix' => 'profile',
                 'as' => 'profile.'
             ], function () {
+                Route::post('avatar', 'ProfileController@uploadAvatar')->name('upload-avatar');
                 Route::get('{section?}', 'ProfileController@showSettings')->name('settings');
 
                 // Password routes
@@ -114,7 +115,6 @@ class Router {
                     'prefix' => 'password'
                 ], function () {
                     Route::patch('/', 'ProfileController@updatePassword');
-                    Route::post('sms', 'ProfileController@sendPasswordSMS')->name('sms-password');
                 });
 
                 // Privacy routes
@@ -129,9 +129,9 @@ class Router {
             });
 
             Route::group([
-                'domain'    => 'avatars.' . str_replace('http://', '', str_replace('https://', '', config('app.url')))
+                'prefix'    => 'avatars'
             ], function () {
-                Route::get('u/{user?}', 'ProfileController@getAvatar')->name('avatar');
+                Route::get('{user?}', 'ProfileController@getAvatar')->name('avatar');
             });
         });
 

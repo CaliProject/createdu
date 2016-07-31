@@ -35,6 +35,7 @@ elixir(function (mix) {
         .scripts([
             'plugins/classie.js',
             'plugins/jquery/jquery.min.js',
+            'plugins/jquery/ajaxfileupload.js',
             // 'plugins/jquery/jquery.pjax.js',
             // 'plugins/pace.min.js',
             'plugins/toastr.min.js',

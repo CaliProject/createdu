@@ -4,7 +4,7 @@
 
 @section('pane.content')
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="Well">
                 <h4 class="text-danger"><i class="icon-lock-open"></i>&nbsp;@lang('views.profile.settings.password.via-old-password')</h4>
                 <form action="@route('users.profile.settings', ['section' => 'password'])" method="POST"
@@ -35,28 +35,6 @@
                         <button type="submit" class="btn btn-danger btn-well btn-round btn-block">@lang('views.profile.settings.password.submit')</button>
                     </div>
                 </form>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="Well">
-                @if(Auth::user()->tel)
-                    <h4 class="text-danger"><i class="icon-screen-smartphone"></i>&nbsp;通过手机验证更改</h4>
-                    <form action="@route('users.profile.sms-password')" class="Form">
-
-                    </form>
-                @else
-                    <h4 class="text-danger"><i class="fa fa-phone"></i>&nbsp;请先绑定手机</h4>
-                    <a href="@route('users.profile.settings', ['section' => 'privacy'])"
-                       class="btn btn-round btn-primary btn-well center-block">前往绑定</a>
-                @endif
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="Well">
-                <h4 class="text-primary"><i class="icon-envelope"></i>&nbsp;通过邮箱验证</h4>
-                <form action="" class="Form"></form>
             </div>
         </div>
     </div>

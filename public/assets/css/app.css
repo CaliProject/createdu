@@ -7866,13 +7866,43 @@ li.on:after {
       align-items: center;
       text-align: center;
       margin-bottom: 1em; }
-      .Profile--settings .sidebar .user-info img {
+      .Profile--settings .sidebar .user-info .user-avatar {
         width: 75px;
         height: 75px;
         border-radius: 50%;
         display: block;
         margin: 1.5em 0;
-        box-shadow: 0 1px 15px 1px rgba(0, 0, 0, 0.25); }
+        box-shadow: 0 1px 15px 1px rgba(0, 0, 0, 0.25);
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+        text-align: center;
+        z-index: 9; }
+        .Profile--settings .sidebar .user-info .user-avatar img {
+          width: 100%;
+          height: 100%;
+          z-index: 5; }
+        .Profile--settings .sidebar .user-info .user-avatar span {
+          display: block;
+          width: 100%;
+          height: 30px;
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          background: rgba(0, 0, 0, 0.65);
+          color: #fff;
+          pointer-events: none;
+          font-size: 12px;
+          line-height: 28px;
+          opacity: 0;
+          z-index: 8;
+          transition: opacity 0.35s ease-in-out;
+          -webkit-transition: opacity 0.35s ease-in-out;
+          -moz-transition: opacity 0.35s ease-in-out;
+          -ms-transition: opacity 0.35s ease-in-out;
+          -o-transition: opacity 0.35s ease-in-out; }
+        .Profile--settings .sidebar .user-info .user-avatar:hover span {
+          opacity: 1; }
       .Profile--settings .sidebar .user-info .name {
         font-size: 1.3em;
         font-weight: 500;

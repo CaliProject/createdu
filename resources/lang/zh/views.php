@@ -459,7 +459,9 @@ return [
                 'via-old-password'     => '通过原密码更改',
                 'submit'               => '确认修改',
                 'invalid-old-password' => '原密码不正确',
-                'password-changed'     => '密码已修改'
+                'password-changed'     => '密码已修改',
+                'send-verification'    => '发送验证码',
+                ''
             ],
             'privacy'  => [
                 'bind-tel'          => '绑定手机',

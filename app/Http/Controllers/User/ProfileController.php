@@ -188,8 +188,19 @@ class ProfileController extends Controller {
         return $this->successResponse(trans('views.profile.settings.password.password-changed'));
     }
 
-    public function sendPasswordSMS()
+    /**
+     * Upload new avatar.
+     *
+     * @return array
+     */
+    public function uploadAvatar()
     {
+        Avatar::move($this->request->file('avatar'), $this->request->user());
 
+        return response(json_encode([
+            'url' => route('users.avatar', ['user' => $this->request->user()->id])
+        ]), 200, [
+            'Content-type' => 'text/html'
+        ]);
     }
 }

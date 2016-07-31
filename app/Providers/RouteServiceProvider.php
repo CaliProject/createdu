@@ -112,7 +112,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function bindModels($router)
     {
-        $router->bind('user', function ($value) {
+        $router->bind('name', function ($value) {
             return User::whereName($value)->firstOrFail();
         });
     }

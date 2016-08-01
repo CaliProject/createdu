@@ -2,6 +2,7 @@
 
 namespace Createdu\Http\Controllers\User;
 
+use Createdu\Notification;
 use SMS;
 use Cache;
 use Crypt;
@@ -202,5 +203,38 @@ class ProfileController extends Controller {
         ]), 200, [
             'Content-type' => 'text/html'
         ]);
+    }
+
+    /**
+     * Read notifications endpoint.
+     *
+     * @return array
+     */
+    public function readNotifications()
+    {
+        if (str_contains($this->request->input('id'), ',')) {
+            // Multiple read request
+            foreach (explode(',', $this->request->input('id')) as $id) {
+                $this->readNotification($id);
+            }
+        } else {
+            // Single read request
+            $this->readNotification(intval($this->request->input('id')));
+        }
+
+        return $this->successResponse();
+    }
+
+    /**
+     * Read a notification.
+     *
+     * @param $id
+     * @return mixed
+     */
+    protected function readNotification($id)
+    {
+        $notification = Notification::findOrFail($id);
+
+        return $notification->read();
     }
 }

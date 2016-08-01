@@ -27,6 +27,8 @@
 
         vm.User.unread++;
         vm.playNotificationSound();
+
+        $("body").timeago();
     }
 </script>
 @endif

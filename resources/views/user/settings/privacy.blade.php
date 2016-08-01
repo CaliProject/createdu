@@ -24,7 +24,7 @@
                             <label class="control-label" for="tel">@lang('validation.attributes.tel')</label>
                             <input type="tel" class="form-control" id="tel" name="tel" v-model="User.tel" required>
                         @else
-                            <p class="form-control-static">@{{ User.tel }}</p>
+                            <p class="form-control-static" v-cloak>@{{ User.tel }}</p>
                             <input type="hidden" value="yes" name="unbind">
                         @endif
                     </div>

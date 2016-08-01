@@ -434,6 +434,7 @@ return [
 
     'profile' => [
         'settings' => [
+            'change-avatar' => '修改头像',
             'titles'   => [
                 'overview'   => '帐号总览',
                 'edit'       => '编辑资料',
@@ -487,7 +488,8 @@ return [
     'nav' => [
         'inbox' => [
             'unread'  => '条未读通知',
-            'see-all' => '查看全部'
+            'see-all' => '查看全部',
+            'empty'   => '暂无未读通知 :)'
         ]
     ],
 

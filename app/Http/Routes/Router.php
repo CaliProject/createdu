@@ -102,6 +102,7 @@ class Router {
         ], function () {
             Route::get('@{name}', 'ProfileController@showProfile')->name('profile');
             Route::post('checkin', 'ProfileController@checkIn')->name('check-in');
+            Route::patch('read/notification', 'ProfileController@readNotifications');
 
             Route::group([
                 'prefix' => 'profile',

@@ -22,7 +22,7 @@ class PasswordHasChanged extends Event implements ShouldBroadcast, ShouldNotify
     /**
      * @var Notification
      */
-    public $notification;
+    protected $notification;
 
     /**
      * Create a new event instance.
@@ -66,5 +66,17 @@ class PasswordHasChanged extends Event implements ShouldBroadcast, ShouldNotify
     public function user()
     {
         return $this->user;
+    }
+
+    /**
+     * Broadcast with notification.
+     *
+     * @return array
+     */
+    public function broadcastWith()
+    {
+        return [
+            'notification' => array_merge($this->notification->toArray(), $this->notification->extraAttributes())
+        ];
     }
 }

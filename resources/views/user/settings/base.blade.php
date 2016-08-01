@@ -8,10 +8,10 @@
                 <div class="user-info">
                     <div class="user-avatar">
                         <img :src="User.avatarUrl" :alt="User.name">
-                        <span>修改头像</span>
+                        <span>@lang('views.profile.settings.change-avatar')</span>
                     </div>
-                    <span class="name">@{{ User.name }}</span>
-                    <span class="email">@{{ User.email }}</span>
+                    <span class="name" v-cloak>@{{ User.name }}</span>
+                    <span class="email" v-cloak>@{{ User.email }}</span>
                 </div>
                 <ul class="List--naked Tab">
                     <li{{ request_is_route('users.profile.settings') ? ' class=active' : '' }}>

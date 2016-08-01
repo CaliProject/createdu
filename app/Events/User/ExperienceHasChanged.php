@@ -21,7 +21,7 @@ class ExperienceHasChanged extends Event implements ShouldBroadcast, ShouldNotif
     /**
      * @var Notification
      */
-    public $notification;
+    protected $notification;
 
     /**
      * @var null
@@ -91,5 +91,17 @@ class ExperienceHasChanged extends Event implements ShouldBroadcast, ShouldNotif
         $message = trans('notifications.content.exp.earned', ['exp' => $this->exp]);
 
         return is_null($this->extraMessage) ? $message : $this->extraMessage . $message;
+    }
+
+    /**
+     * Broadcast with notification.
+     *
+     * @return array
+     */
+    public function broadcastWith()
+    {
+        return [
+            'notification' => array_merge($this->notification->toArray(), $this->notification->extraAttributes())
+        ];
     }
 }

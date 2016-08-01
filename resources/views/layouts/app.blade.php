@@ -26,7 +26,8 @@
         var CurrentUser = JSON.parse('{!! Auth::check() ? addslashes(Auth::user()) : '{}' !!}'),
             _TOKEN = "{{ csrf_token() }}",
             PUSHER_KEY = "{{ config('broadcasting.connections.pusher.key') }}",
-            signOutMessages = JSON.parse("{!! addslashes(json_encode(trans('views.logout'))) !!}");
+            signOutMessages = JSON.parse("{!! addslashes(json_encode(trans('views.logout'))) !!}"),
+            carbonLines = JSON.parse("{!! addslashes(json_encode(trans('locales.carbon'))) !!}");
 
     </script>
 
@@ -37,8 +38,10 @@
 
     @yield('content')
 
-    <audio src="/assets/audio/NewMessage.mp3" preload="auto" id="new-message-sound"></audio>
-    <audio src="/assets/audio/Notification.mp3" preload="auto" id="notification-sound"></audio>
+    <div class="audio_files">
+        <audio src="/assets/audio/NewMessage.mp3" preload="auto" id="new-message-sound"></audio>
+        <audio src="/assets/audio/Notification.mp3" preload="auto" id="notification-sound"></audio>
+    </div>
 
     <!-- JavaScripts -->
     <script src="/assets/js/app.js"></script>

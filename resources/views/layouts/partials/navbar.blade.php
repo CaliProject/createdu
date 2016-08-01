@@ -42,13 +42,13 @@
                 <li>
                     <a href="#" class="user-notification" data-toggle="dropdown" role="button" aria-expanded="false">
                         <i class="fa fa-bell"></i>
-                        <span class="badge badge-success pull-right unread-{{ Auth::user()->unread }}" :class="'unread-'+User.unread" v-show="User.unread">@{{ User.unread }}</span>
+                        <span class="badge badge-success pull-right unread-{{ Auth::user()->unread }}" :class="'unread-'+User.unread" v-show="User.unread" v-cloak>@{{ User.unread }}</span>
                     </a>
                     @include('layouts.partials.inbox')
                 </li>
                 <li>
                     <a href="#" class="user-info" data-toggle="dropdown" role="button" aria-expanded="false">
-                        <img :src="User.avatarUrl" :alt="User.name" class="avatar">
+                        <img :src="User.avatarUrl" :alt="User.name" class="avatar" v-cloak>
                     </a>
                     @include('layouts.partials.card')
                 </li>

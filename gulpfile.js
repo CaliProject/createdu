@@ -36,6 +36,7 @@ elixir(function (mix) {
             'plugins/classie.js',
             'plugins/jquery/jquery.min.js',
             'plugins/jquery/ajaxfileupload.js',
+            'plugins/jquery/timeago.js',
             // 'plugins/jquery/jquery.pjax.js',
             // 'plugins/pace.min.js',
             'plugins/jquery/jquery.slimscroll.min.js',

@@ -10321,6 +10321,52 @@ var vm = new Vue({
         },
         playMessageSound: function playMessageSound() {
             document.getElementById("new-message-sound").play();
+        },
+        readInbox: function readInbox(e) {
+            var inbox = e.target,
+                $this = this;
+
+            $(inbox).addClass('reading');
+
+            this.request({
+                url: '/read/notification',
+                type: 'PATCH',
+                data: {
+                    id: $(inbox).attr('inbox-id')
+                },
+                callback: function callback(success) {
+                    $(inbox).removeClass('reading');
+
+                    if (success) {
+                        $this.Inboxes.$remove($this.Inboxes[$(inbox).attr('inbox')]);
+                        $this.User.unread--;
+                    }
+                }
+            });
+        },
+        readAllInbox: function readAllInbox() {
+            var ids = [],
+                $this = this;
+
+            $(".Inbox__item > a").each(function () {
+                ids.push($(this).attr('inbox-id'));
+                $(this).addClass('reading');
+            });
+
+            this.request({
+                url: '/read/notification',
+                type: 'PATCH',
+                data: {
+                    id: ids.join(',')
+                },
+                callback: function callback(success) {
+                    if (success) {
+                        for (var id in ids) {
+                            $this.Inboxes.pop();
+                        }$this.User.unread -= ids.length;
+                    }
+                }
+            });
         }
     },
     data: {
@@ -10328,9 +10374,8 @@ var vm = new Vue({
         searchText: '',
         User: CurrentUser,
         token: _TOKEN,
-        Inboxes: JSON.parse($(".Inbox").attr('data-inbox'))
-    },
-    computed: {}
+        Inboxes: JSON.parse($(".Inbox").attr('data-inbox') || '{}')
+    }
 });
 
 $(window).scroll(function () {
@@ -10356,6 +10401,8 @@ window.onresize = stageAndContentHeight;
 
 $(function () {
     var loadingIcon = '<i class="fa fa-circle-o-notch fa-spin"></i>&nbsp;';
+
+    $("body").timeago();
 
     $("form.ajax").each(function () {
         var form = this;

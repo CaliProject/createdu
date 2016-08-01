@@ -40,6 +40,12 @@ body {
   color: $primary-light-hover;
 }
 
+[v-cloak] {
+  opacity: 0;
+  visibility: hidden;
+  display: none;
+}
+
 a:hover {
   text-decoration: none;
 }

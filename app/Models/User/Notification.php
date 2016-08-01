@@ -2,10 +2,11 @@
 
 namespace Createdu;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
-class Notification extends Model
-{
+class Notification extends Model {
+
     const NORMAL_TYPE = 'normal';
 
     const CREDIT_TYPE = 'credit';
@@ -43,8 +44,30 @@ class Notification extends Model
      */
     public function jsonSerialize()
     {
-        return array_merge($this->toArray(), [
-            'time' => $this->created_at->diffForHumans()
-        ]);
+        return array_merge($this->toArray(), $this->extraAttributes());
+    }
+
+    /**
+     * Get the extra attributes.
+     *
+     * @return array
+     */
+    public function extraAttributes()
+    {
+        return [
+            'time' => $this->created_at->toIso8601String()
+        ];
+    }
+
+    /**
+     * Read the notification.
+     *
+     * @return bool
+     */
+    public function read()
+    {
+        $this->read = true;
+
+        return $this->save();
     }
 }

@@ -21,7 +21,7 @@ class CreditHasChanged extends Event implements ShouldNotify, ShouldBroadcast {
     /**
      * @var Notification
      */
-    public $notification;
+    protected $notification;
 
     /**
      * @var
@@ -93,5 +93,17 @@ class CreditHasChanged extends Event implements ShouldNotify, ShouldBroadcast {
             trans('notifications.content.credit.decrease', ['credit' => abs($this->credit)]);
 
         return is_null($this->extraMessage) ? $message : $this->extraMessage . $message;
+    }
+
+    /**
+     * Broadcast with notification.
+     *
+     * @return array
+     */
+    public function broadcastWith()
+    {
+        return [
+            'notification' => array_merge($this->notification->toArray(), $this->notification->extraAttributes())
+        ];
     }
 }

@@ -79,12 +79,6 @@
                         {{ csrf_field() }}
                         {{ method_field('PATCH') }}
                         <div class="form-group">
-                            <label class="col-md-2 control-label">@lang('validation.attributes.password_old')</label>
-                            <div class="col-md-10">
-                                <input type="password" name="password_old" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
                             <label class="col-md-2 control-label">@lang('validation.attributes.password')</label>
                             <div class="col-md-10">
                                 <input type="password" name="password" class="form-control" required>
@@ -100,6 +94,55 @@
                             <button type="submit" class="btn btn-primary btn-block btn-rounded">@lang('views.admin.pages.settings.update-button')</button>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        @if(empty($user))
+            <div class="col-md-6">
+                <div class="panel panel-white">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            @lang('views.admin.pages.users.profile.avatar.heading')
+                        </h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-sm-12">
+                            <div class="avatar-crop col-xs-6 col-xs-offset-3">
+                                <img :src="User.avatarUrl" :alt="User.name" class="img-circle" style="width: 100%; height: 100%">
+                            </div>
+                        </div>
+                        <div class="col-sm-12 text-center">
+                            <div class="m-t-lg">
+                                <form action="@route('admin.users.profile.upload-avatar', [], false)" method="POST" id="avatar-uploader">
+                                    <input type="file" name="avatar" id="avatar-file" class="input-file input-uploader" accept="image/png,image/gif,image/jpeg">
+                                    <label for="avatar">
+                                        <figure class="icon-cloud-upload"></figure>
+                                        <span>@lang('views.admin.pages.settings.display.upload-logo.upload')&hellip;</span>
+                                    </label>
+                                    <div class="row">
+                                        <div class="col-xs-8 col-xs-offset-2">
+                                            <button class="btn btn-primary btn-block btn-rounded" id="resize-button" style="display: none;">剪裁</button>
+                                        </div>
+                                        <form action="@route('admin.users.profile.resize-avatar')" class="hidden" method="POST" id="resize-avatar"></form>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+        <div class="col-md-6">
+            <div class="panel panel-white">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        @lang('views.admin.pages.users.profile.social.heading')
+                    </h4>
+                </div>
+                <div class="panel-body">
+
                 </div>
             </div>
         </div>

@@ -1,21 +1,11 @@
 <?php
 
-namespace Createdu\Http\Requests;
+namespace Createdu\Http\Requests\Admin;
 
-use Createdu\Http\Requests\Request;
+use Createdu\Http\Requests\Admin\AdminRequest as Request;
 
 class ProfileSaveRequest extends Request
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *

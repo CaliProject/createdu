@@ -197,3 +197,34 @@
     margin: .1em 0 0 .5em;
   }
 }
+
+.oAuths {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+
+  .oAuth {
+    flex: 1;
+  }
+}
+
+h1.qq {
+  color: $qq-color;
+}
+
+h1.weibo {
+  color: $weibo-color;
+}
+
+h1.weixin {
+  color: $wechat-color;
+}
+
+h1.google {
+  color: $youtube-color;
+}
+
+h1.facebook {
+  color: $facebook-color;
+}

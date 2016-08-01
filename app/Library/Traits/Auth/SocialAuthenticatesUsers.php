@@ -66,7 +66,7 @@ trait SocialAuthenticatesUsers {
             Auth::login($user, true);
         } else {
             if (session()->has('redirect')) {
-                return redirect(session('redirect'))->with($user === false ? [
+                return redirect(session()->get('redirect'))->with($user === false ? [
                     'status' => 'error',
                     'message' => trans('views.admin.pages.users.profile.social.bind-error', compact('service'))
                 ] : [

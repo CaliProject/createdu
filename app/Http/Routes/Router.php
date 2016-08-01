@@ -126,6 +126,8 @@ class Router {
                     Route::post('tel/verify', 'ProfileController@verifyTel')->name('verify-tel');
                     Route::post('email', 'ProfileController@resendLink')->name('email');
                     Route::post('email/verify', 'ProfileController@verifyEmail')->name('verify-email');
+                    Route::get('oauth/{service}', 'ProfileController@redirectToService')->name('oauth');
+                    Route::post('oauth/{service}', 'ProfileController@bindOrUnbindOAuth');
                 });
             });
 

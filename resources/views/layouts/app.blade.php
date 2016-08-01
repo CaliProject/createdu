@@ -46,6 +46,15 @@
     <!-- JavaScripts -->
     <script src="/assets/js/app.js"></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
+
+    @if(session()->has('status'))
+        <script>
+            $(function () {
+                toastr['{{ session('status') }}']('{{ session('message') }}');
+            });
+        </script>
+    @endif
+
     @include('layouts.scripts.pusher')
     @stack('scripts.footer')
 

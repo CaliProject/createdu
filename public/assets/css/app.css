@@ -8206,3 +8206,30 @@ li.on:after {
       box-shadow: 0 1px 15px 1px rgba(0, 0, 0, 0.1); }
   .Form .control-label {
     margin: .1em 0 0 .5em; }
+
+.oAuths {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+  -ms-flex-align: center;
+  align-items: center;
+  text-align: center; }
+  .oAuths .oAuth {
+    -ms-flex: 1;
+    flex: 1; }
+
+h1.qq {
+  color: #07abdd; }
+
+h1.weibo {
+  color: #ef4e4e; }
+
+h1.weixin {
+  color: #30aa1a; }
+
+h1.google {
+  color: #ff2929; }
+
+h1.facebook {
+  color: #354e8e; }

@@ -9,8 +9,8 @@ use Createdu\Http\Controllers\Controller;
 use Createdu\Http\Requests\Admin\ProfileSaveRequest;
 
 
-class UsersController extends Controller
-{
+class UsersController extends Controller {
+
     /**
      * 显示个人资料视图
      *
@@ -30,23 +30,28 @@ class UsersController extends Controller
      */
     public function saveProfile(ProfileSaveRequest $request)
     {
-
-        return User::where('id',Auth::user()->id)
-                    ->update($request->except(['_token','_method'])) ? $this->successResponse(
-                        ['message' => trans('views.admin.pages.settings.updated',[
-                            'setting' => trans('views.admin.pages.users.profile.basics.heading')
-                        ])]
+        return User::where('id', Auth::user()->id)
+            ->update($request->except(['_token', '_method'])) ? $this->successResponse(
+            ['message' => trans('views.admin.pages.settings.updated', [
+                'setting' => trans('views.admin.pages.users.profile.basics.heading')
+            ])]
         ) : $this->errorResponse([
-            'message' => trans('views.admin.pages.settings.updated-error',[
+            'message' => trans('views.admin.pages.settings.updated-error', [
                 'setting' => trans('views.admin.pages.users.profile.basics.heading')
             ])
         ]);
     }
 
+    /**
+     * @param UpdateUserPasswordRequest $request
+     * @return array
+     */
     public function updatePassword(UpdateUserPasswordRequest $request)
     {
-        return $request->user()->update(['password' => bcrypt(trim($request->input('password')))]) ?
-            $this->successResponse(trans('views.admin.pages.settings.updated',['setting' => trans('views.admin.pages.users.profile.password.heading')])) :
-            $this->errorResponse(trans('views.admin.pages.setting.updated-error',['settings' => trans('views.admin.pages.users.profile.password.heading')]));
+        $request->user()->changePassword($request->input('password'));
+
+        return $this->successResponse(trans('views.admin.pages.settings.updated', [
+            'setting' => trans('views.admin.pages.users.profile.password.heading')
+        ]));
     }
 }

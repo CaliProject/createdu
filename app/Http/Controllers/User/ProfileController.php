@@ -2,12 +2,12 @@
 
 namespace Createdu\Http\Controllers\User;
 
-use Createdu\Notification;
 use SMS;
-use Cache;
 use Crypt;
+use Socialite;
 use Createdu\User;
 use Createdu\Avatar;
+use Createdu\Notification;
 use Illuminate\Http\Request;
 use Createdu\Http\Controllers\Controller;
 use Createdu\Events\User\Auth\UserHasRegistered;
@@ -236,5 +236,38 @@ class ProfileController extends Controller {
         $notification = Notification::findOrFail($id);
 
         return $notification->read();
+    }
+
+    /**
+     * Bind/Unbind the user's OAuth service.
+     *
+     * @param $service
+     * @return array
+     */
+    public function bindOrUnbindOAuth($service)
+    {
+        if ($this->request->user()->boundOAuth($service)) {
+            $this->request->user()->unbindOAuth($service);
+
+            return $this->successResponse([
+                'message' => trans('views.admin.pages.users.profile.social.unbind-success', compact('service')),
+                'reload'  => true
+            ]);
+        }
+
+        return $this->successResponse(['redirectUrl' => route('users.profile.oauth', compact('service'))]);
+    }
+
+    /**
+     * Redirect to oAuth service.
+     *
+     * @param $service
+     * @return mixed
+     */
+    public function redirectToService($service)
+    {
+        request()->session()->put('redirect', route('users.profile.settings', ['section' => 'privacy'], false));
+
+        return Socialite::with($service)->redirect();
     }
 }

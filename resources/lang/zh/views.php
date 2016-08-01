@@ -435,7 +435,7 @@ return [
     'profile' => [
         'settings' => [
             'change-avatar' => '修改头像',
-            'titles'   => [
+            'titles'        => [
                 'overview'   => '帐号总览',
                 'edit'       => '编辑资料',
                 'password'   => '更改密码',
@@ -444,7 +444,7 @@ return [
                 'history'    => '学习记录',
                 'privacy'    => '隐私信息',
             ],
-            'overview' => [
+            'overview'      => [
                 'joined-since'       => '我在:when加入的:where',
                 'invalid-membership' => '您还未开通会员',
                 'go-join'            => '前往开通',
@@ -456,14 +456,14 @@ return [
                 'email-confirmed'    => '您已激活绑定邮箱',
                 'go-confirm'         => '前往确认'
             ],
-            'password' => [
+            'password'      => [
                 'via-old-password'     => '通过原密码更改',
                 'submit'               => '确认修改',
                 'invalid-old-password' => '原密码不正确',
                 'password-changed'     => '密码已修改',
                 'send-verification'    => '发送验证码',
             ],
-            'privacy'  => [
+            'privacy'       => [
                 'bind-tel'          => '绑定手机',
                 'unbind-tel'        => '取消绑定',
                 'bound-tel'         => '已成功绑定手机',
@@ -480,7 +480,9 @@ return [
                 'send-link'         => '重新发送邮件',
                 'email-resend-help' => '我们已经发送了一封激活邮件到您的邮箱(:email)中, 请点击邮件中的链接激活绑定!',
                 'email-help'        => '您已激活并确认绑定邮箱 :email !',
-                'resend-success'    => '邮件已重新发送到您的邮箱'
+                'resend-success'    => '邮件已重新发送到您的邮箱',
+                'oauth-bindings'    => '社交帐号绑定',
+                'oauth-tips'        => '绑定后可直接通过绑定的方式登录网站'
             ]
         ]
     ],

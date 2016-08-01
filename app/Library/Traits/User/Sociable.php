@@ -33,7 +33,7 @@ trait Sociable {
         /** @var UserData $userData */
         $userData = Socialite::driver($service)->user();
         $info = "\"$service\":\"$userData->id\"";
-        
+
         // If already obtained
         if (Auth::check()) {
             $user = Auth::user();

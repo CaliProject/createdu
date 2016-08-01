@@ -69,9 +69,34 @@
             </div>
         </div>
     </div>
-    <div class="row"></div>
     {{-- Social platforms --}}
-    <div class="row"></div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="Well">
+                <h4 class="text-primary">@lang('views.profile.settings.privacy.oauth-bindings')</h4>
+                <p>@lang('views.profile.settings.privacy.oauth-tips')</p>
+                <div class="oAuths">
+                    @foreach(explode(",", Site::supportedOAuths()) as $service)
+                        <div class="oAuth">
+                            <form action="@route('users.profile.oauth', compact('service'), false)" method="POST" class="Form ajax">
+                                {!! csrf_field() !!}
+                                <div class="form-group">
+                                    <h1 class="{{ $service }}"><i class="fa fa-{{ $service }}"></i></h1>
+                                </div>
+                                <div class="form-group">
+                                    @if(Auth::user()->boundOAuth($service))
+                                        <button type="submit" class="btn btn-danger btn-round btn-well center-block">@lang('views.admin.pages.users.profile.social.unbind')</button>
+                                    @else
+                                        <button type="submit" class="btn btn-primary btn-round btn-well center-block">@lang('views.admin.pages.users.profile.social.bind')</button>
+                                    @endif
+                                </div>
+                            </form>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
     <form action="@route('users.profile.verify-tel', [], false)" class="hidden verification" method="POST">
         {!! csrf_field() !!}
         <input type="hidden" v-model="User.tel" name="tel">

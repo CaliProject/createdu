@@ -9,8 +9,8 @@ use Createdu\Events\ShouldNotify;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class ExperienceHasChanged extends Event implements ShouldBroadcast, ShouldNotify
-{
+class ExperienceHasChanged extends Event implements ShouldBroadcast, ShouldNotify {
+
     use SerializesModels;
 
     /**
@@ -24,14 +24,14 @@ class ExperienceHasChanged extends Event implements ShouldBroadcast, ShouldNotif
     protected $notification;
 
     /**
+     * @var
+     */
+    public $experience;
+
+    /**
      * @var null
      */
     protected $extraMessage;
-
-    /**
-     * @var
-     */
-    private $exp;
 
     /**
      * Create a new event instance.
@@ -43,7 +43,7 @@ class ExperienceHasChanged extends Event implements ShouldBroadcast, ShouldNotif
     public function __construct(User $user, $exp, $extraMessage = null)
     {
         $this->user = $user;
-        $this->exp = $exp;
+        $this->experience = $exp;
         $this->extraMessage = $extraMessage;
         $this->notification = $this->getNotification();
     }
@@ -88,7 +88,7 @@ class ExperienceHasChanged extends Event implements ShouldBroadcast, ShouldNotif
      */
     protected function getMessage()
     {
-        $message = trans('notifications.content.exp.earned', ['exp' => $this->exp]);
+        $message = trans('notifications.content.exp.earned', ['exp' => $this->experience]);
 
         return is_null($this->extraMessage) ? $message : $this->extraMessage . $message;
     }
@@ -101,7 +101,8 @@ class ExperienceHasChanged extends Event implements ShouldBroadcast, ShouldNotif
     public function broadcastWith()
     {
         return [
-            'notification' => array_merge($this->notification->toArray(), $this->notification->extraAttributes())
+            'notification' => array_merge($this->notification->toArray(), $this->notification->extraAttributes()),
+            'experience'   => $this->experience
         ];
     }
 }

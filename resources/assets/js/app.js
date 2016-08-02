@@ -13,7 +13,7 @@ const vm = new Vue({
             $("#avatar-uploader").click();
         },
         checkIn() {
-            if (! this.User.checkedIn) {
+            if (!this.User.checkedIn) {
                 const _this = this,
                     button = $(".checkin-button");
 
@@ -283,10 +283,22 @@ $(() => {
         $($(input).parents("form")[0]).submit();
     });
 
+    // Uniform
+    var checkBox = $("input[type=radio]:not(.no-uniform)");
+    if (checkBox.length > 0) {
+        checkBox.each(function () {
+            $(this).uniform();
+        });
+    }
+
     // Slimscroll
     $('.SlimScroll').slimscroll({
         allowPageScroll: true
     });
+
+    [].slice.call( document.querySelectorAll( 'select.cs-select' ) ).forEach( function(el) {
+        new SelectFx(el);
+    } );
 });
 
 toastr.options = {

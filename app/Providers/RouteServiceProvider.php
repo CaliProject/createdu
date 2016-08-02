@@ -86,10 +86,8 @@ class RouteServiceProvider extends ServiceProvider
         if (request()->hasCookie('lang')) {
             $this->setLocale(Crypt::decrypt(request()->cookie('lang')));
         } else {
-            if (site('autoLocale') != '0') {
-                // TODO: Uncomment when we're ready
+            // TODO: Uncomment when we're ready
 //            request()->header('accept-language') ? $this->setLocale(substr(request()->header('accept-language'), 0, 2)) : null;
-            }
         }
     }
 

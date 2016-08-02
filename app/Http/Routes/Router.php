@@ -111,6 +111,12 @@ class Router {
                 Route::post('avatar', 'ProfileController@uploadAvatar')->name('upload-avatar');
                 Route::get('{section?}', 'ProfileController@showSettings')->name('settings');
 
+                Route::group([
+                    'prefix' => 'edit'
+                ], function () {
+                    Route::patch('/', 'ProfileController@updateProfile');
+                });
+
                 // Password routes
                 Route::group([
                     'prefix' => 'password'

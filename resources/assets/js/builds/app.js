@@ -10490,9 +10490,21 @@ $(function () {
         $($(input).parents("form")[0]).submit();
     });
 
+    // Uniform
+    var checkBox = $("input[type=radio]:not(.no-uniform)");
+    if (checkBox.length > 0) {
+        checkBox.each(function () {
+            $(this).uniform();
+        });
+    }
+
     // Slimscroll
     $('.SlimScroll').slimscroll({
         allowPageScroll: true
+    });
+
+    [].slice.call(document.querySelectorAll('select.cs-select')).forEach(function (el) {
+        new SelectFx(el);
     });
 });
 

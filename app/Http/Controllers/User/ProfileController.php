@@ -156,7 +156,6 @@ class ProfileController extends Controller {
     {
         $email = Crypt::decrypt($request->input('token'));
 
-        // TODO: Push into notification stack
         if ($email == $request->user()->email) {
             $request->user()->activated();
         }
@@ -269,5 +268,29 @@ class ProfileController extends Controller {
         request()->session()->put('redirect', route('users.profile.settings', ['section' => 'privacy'], false));
 
         return Socialite::with($service)->redirect();
+    }
+
+    /**
+     * Update user's profile.
+     *
+     * @return array
+     */
+    public function updateProfile()
+    {
+        $this->validate($this->request, [
+            'name' => 'min:2|required|unique:users,name,' . $this->request->user()->id,
+            'gender' => 'required|in:secret,male,female,other'
+        ]);
+
+        $user = $this->request->user();
+        $attributes = $this->request->except(['_token', '_method']);
+
+        foreach ($attributes as $attribute => $value) {
+            $user->{$attribute} = $value;
+        }
+
+        return $user->update($user->getDirty()) ?
+            $this->successResponse(trans('views.admin.pages.settings.updated', ['setting' => trans('views.profile.settings.edit.profile')])) :
+            $this->errorResponse(trans('views.admin.pages.settings.updated-error', ['setting' => trans('views.profile.settings.edit.profile')]));
     }
 }

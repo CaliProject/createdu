@@ -423,7 +423,13 @@ return [
             'exp'      => '经验',
             'check_in' => '签到',
             'settings' => '设置',
-            'sign-out' => '注销'
+            'sign-out' => '注销',
+            'gender'   => [
+                'secret' => '保密',
+                'male'   => '男生',
+                'female' => '女生',
+                'other'  => '其他'
+            ]
         ],
         'footer' => [
             'policy'    => '隐私政策',
@@ -445,7 +451,7 @@ return [
                 'privacy'    => '隐私信息',
             ],
             'overview'      => [
-                'joined-since'       => '我在:when加入的:where',
+                'joined-since'       => '我在<time class="timeago" datetime=":time">:when</time>加入的:where',
                 'invalid-membership' => '您还未开通会员',
                 'go-join'            => '前往开通',
                 'go-pay'             => '前往充值',
@@ -455,6 +461,9 @@ return [
                 'email-unconfirmed'  => '您还未确认邮箱',
                 'email-confirmed'    => '您已激活绑定邮箱',
                 'go-confirm'         => '前往确认'
+            ],
+            'edit'          => [
+                'profile' => '个人资料'
             ],
             'password'      => [
                 'via-old-password'     => '通过原密码更改',

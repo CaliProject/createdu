@@ -28,7 +28,17 @@
         vm.User.unread++;
         vm.playNotificationSound();
 
-        $("body").timeago();
+        if (data.credit != undefined) {
+            vm.User.credit += parseInt(data.credit);
+        }
+
+        if (data.experience != undefined) {
+            vm.User.experience += parseInt(data.experience);
+        }
+
+        setTimeout(function () {
+            $("time.timeago").timeago();
+        }, 500);
     }
 </script>
 @endif

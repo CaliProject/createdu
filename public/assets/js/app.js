@@ -451,6 +451,333 @@ jQuery.extend({
     };
 
 }).call(this);
+/**
+ * selectFx.js v1.0.0
+ * http://www.codrops.com
+ *
+ * Licensed under the MIT license.
+ * http://www.opensource.org/licenses/mit-license.php
+ *
+ * Copyright 2014, Codrops
+ * http://www.codrops.com
+ */
+;( function( window ) {
+
+    'use strict';
+
+    /**
+     * based on from https://github.com/inuyaksa/jquery.nicescroll/blob/master/jquery.nicescroll.js
+     */
+    function hasParent( e, p ) {
+        if (!e) return false;
+        var el = e.target||e.srcElement||e||false;
+        while (el && el != p) {
+            el = el.parentNode||false;
+        }
+        return (el!==false);
+    };
+
+    /**
+     * extend obj function
+     */
+    function extend( a, b ) {
+        for( var key in b ) {
+            if( b.hasOwnProperty( key ) ) {
+                a[key] = b[key];
+            }
+        }
+        return a;
+    }
+
+    /**
+     * SelectFx function
+     */
+    function SelectFx( el, options ) {
+        this.el = el;
+        this.options = extend( {}, this.options );
+        extend( this.options, options );
+        this._init();
+    }
+
+    /**
+     * SelectFx options
+     */
+    SelectFx.prototype.options = {
+        // if true all the links will open in a new tab.
+        // if we want to be redirected when we click an option, we need to define a data-link attr on the option of the native select element
+        newTab : true,
+        // when opening the select element, the default placeholder (if any) is shown
+        stickyPlaceholder : true,
+        // callback when changing the value
+        onChange : function( val ) { return false; }
+    }
+
+    /**
+     * init function
+     * initialize and cache some vars
+     */
+    SelectFx.prototype._init = function() {
+        // check if we are using a placeholder for the native select box
+        // we assume the placeholder is disabled and selected by default
+        var selectedOpt = this.el.querySelector( 'option[selected]' );
+        this.hasDefaultPlaceholder = selectedOpt && selectedOpt.disabled;
+
+        // get selected option (either the first option with attr selected or just the first option)
+        this.selectedOpt = selectedOpt || this.el.querySelector( 'option' );
+
+        // create structure
+        this._createSelectEl();
+
+        // all options
+        this.selOpts = [].slice.call( this.selEl.querySelectorAll( 'li[data-option]' ) );
+
+        // total options
+        this.selOptsCount = this.selOpts.length;
+
+        // current index
+        this.current = this.selOpts.indexOf( this.selEl.querySelector( 'li.cs-selected' ) ) || -1;
+
+        // placeholder elem
+        this.selPlaceholder = this.selEl.querySelector( 'span.cs-placeholder' );
+
+        // init events
+        this._initEvents();
+    }
+
+    /**
+     * creates the structure for the select element
+     */
+    SelectFx.prototype._createSelectEl = function() {
+        var self = this, options = '', createOptionHTML = function(el) {
+            var optclass = '', classes = '', link = '';
+
+            if( el.selectedOpt && !this.foundSelected && !this.hasDefaultPlaceholder ) {
+                classes += 'cs-selected ';
+                this.foundSelected = true;
+            }
+            // extra classes
+            if( el.getAttribute( 'data-class' ) ) {
+                classes += el.getAttribute( 'data-class' );
+            }
+            // link options
+            if( el.getAttribute( 'data-link' ) ) {
+                link = 'data-link=' + el.getAttribute( 'data-link' );
+            }
+
+            if( classes !== '' ) {
+                optclass = 'class="' + classes + '" ';
+            }
+
+            return '<li ' + optclass + link + ' data-option data-value="' + el.value + '"><span>' + el.textContent + '</span></li>';
+        };
+
+        [].slice.call( this.el.children ).forEach( function(el) {
+            if( el.disabled ) { return; }
+
+            var tag = el.tagName.toLowerCase();
+
+            if( tag === 'option' ) {
+                options += createOptionHTML(el);
+            }
+            else if( tag === 'optgroup' ) {
+                options += '<li class="cs-optgroup"><span>' + el.label + '</span><ul>';
+                [].slice.call( el.children ).forEach( function(opt) {
+                    options += createOptionHTML(opt);
+                } );
+                options += '</ul></li>';
+            }
+        } );
+
+        var opts_el = '<div class="cs-options"><ul>' + options + '</ul></div>';
+        this.selEl = document.createElement( 'div' );
+        this.selEl.className = this.el.className;
+        this.selEl.tabIndex = this.el.tabIndex;
+        this.selEl.innerHTML = '<span class="cs-placeholder">' + this.selectedOpt.textContent + '</span>' + opts_el;
+        this.el.parentNode.appendChild( this.selEl );
+        this.selEl.appendChild( this.el );
+    }
+
+    /**
+     * initialize the events
+     */
+    SelectFx.prototype._initEvents = function() {
+        var self = this;
+
+        // open/close select
+        this.selPlaceholder.addEventListener( 'click', function() {
+            self._toggleSelect();
+        } );
+
+        // clicking the options
+        this.selOpts.forEach( function(opt, idx) {
+            opt.addEventListener( 'click', function() {
+                self.current = idx;
+                self._changeOption();
+                // close select elem
+                self._toggleSelect();
+            } );
+        } );
+
+        // close the select element if the target it´s not the select element or one of its descendants..
+        document.addEventListener( 'click', function(ev) {
+            var target = ev.target;
+            if( self._isOpen() && target !== self.selEl && !hasParent( target, self.selEl ) ) {
+                self._toggleSelect();
+            }
+        } );
+
+        // keyboard navigation events
+        this.selEl.addEventListener( 'keydown', function( ev ) {
+            var keyCode = ev.keyCode || ev.which;
+
+            switch (keyCode) {
+                // up key
+                case 38:
+                    ev.preventDefault();
+                    self._navigateOpts('prev');
+                    break;
+                // down key
+                case 40:
+                    ev.preventDefault();
+                    self._navigateOpts('next');
+                    break;
+                // space key
+                case 32:
+                    ev.preventDefault();
+                    if( self._isOpen() && typeof self.preSelCurrent != 'undefined' && self.preSelCurrent !== -1 ) {
+                        self._changeOption();
+                    }
+                    self._toggleSelect();
+                    break;
+                // enter key
+                case 13:
+                    ev.preventDefault();
+                    if( self._isOpen() && typeof self.preSelCurrent != 'undefined' && self.preSelCurrent !== -1 ) {
+                        self._changeOption();
+                        self._toggleSelect();
+                    }
+                    break;
+                // esc key
+                case 27:
+                    ev.preventDefault();
+                    if( self._isOpen() ) {
+                        self._toggleSelect();
+                    }
+                    break;
+            }
+        } );
+    }
+
+    /**
+     * navigate with up/dpwn keys
+     */
+    SelectFx.prototype._navigateOpts = function(dir) {
+        if( !this._isOpen() ) {
+            this._toggleSelect();
+        }
+
+        var tmpcurrent = typeof this.preSelCurrent != 'undefined' && this.preSelCurrent !== -1 ? this.preSelCurrent : this.current;
+
+        if( dir === 'prev' && tmpcurrent > 0 || dir === 'next' && tmpcurrent < this.selOptsCount - 1 ) {
+            // save pre selected current - if we click on option, or press enter, or press space this is going to be the index of the current option
+            this.preSelCurrent = dir === 'next' ? tmpcurrent + 1 : tmpcurrent - 1;
+            // remove focus class if any..
+            this._removeFocus();
+            // add class focus - track which option we are navigating
+            classie.add( this.selOpts[this.preSelCurrent], 'cs-focus' );
+        }
+    }
+
+    /**
+     * open/close select
+     * when opened show the default placeholder if any
+     */
+    SelectFx.prototype._toggleSelect = function() {
+        // remove focus class if any..
+        this._removeFocus();
+
+        if( this._isOpen() ) {
+            if( this.current !== -1 ) {
+                // update placeholder text
+                this.selPlaceholder.textContent = this.selOpts[ this.current ].textContent;
+            }
+            classie.remove( this.selEl, 'cs-active' );
+        }
+        else {
+            if( this.hasDefaultPlaceholder && this.options.stickyPlaceholder ) {
+                // everytime we open we wanna see the default placeholder text
+                this.selPlaceholder.textContent = this.selectedOpt.textContent;
+            }
+            classie.add( this.selEl, 'cs-active' );
+        }
+    }
+
+    /**
+     * change option - the new value is set
+     */
+    SelectFx.prototype._changeOption = function() {
+        // if pre selected current (if we navigate with the keyboard)...
+        if( typeof this.preSelCurrent != 'undefined' && this.preSelCurrent !== -1 ) {
+            this.current = this.preSelCurrent;
+            this.preSelCurrent = -1;
+        }
+
+        // current option
+        var opt = this.selOpts[ this.current ];
+
+        // update current selected value
+        this.selPlaceholder.textContent = opt.textContent;
+
+        // change native select element´s value
+        this.el.value = opt.getAttribute( 'data-value' );
+
+        // remove class cs-selected from old selected option and add it to current selected option
+        var oldOpt = this.selEl.querySelector( 'li.cs-selected' );
+        if( oldOpt ) {
+            classie.remove( oldOpt, 'cs-selected' );
+        }
+        classie.add( opt, 'cs-selected' );
+
+        // if there´s a link defined
+        if( opt.getAttribute( 'data-link' ) ) {
+            // open in new tab?
+            if( this.options.newTab ) {
+                window.open( opt.getAttribute( 'data-link' ), '_blank' );
+            }
+            else {
+                window.location = opt.getAttribute( 'data-link' );
+            }
+        }
+
+        // callback
+        this.options.onChange( this.el.value );
+    }
+
+    /**
+     * returns true if select element is opened
+     */
+    SelectFx.prototype._isOpen = function(opt) {
+        return classie.has( this.selEl, 'cs-active' );
+    }
+
+    /**
+     * removes the focus class from the option
+     */
+    SelectFx.prototype._removeFocus = function(opt) {
+        var focusEl = this.selEl.querySelector( 'li.cs-focus' )
+        if( focusEl ) {
+            classie.remove( focusEl, 'cs-focus' );
+        }
+    }
+
+    /**
+     * add to global namespace
+     */
+    window.SelectFx = SelectFx;
+
+} )( window );
+
+!function(e,t,n){"use strict";function s(e){var t=Array.prototype.slice.call(arguments,1);return e.prop?e.prop.apply(e,t):e.attr.apply(e,t)}function a(e,t,n){var s,a;for(s in n)n.hasOwnProperty(s)&&(a=s.replace(/ |$/g,t.eventNamespace),e.bind(a,n[s]))}function r(e,t,n){a(e,n,{focus:function(){t.addClass(n.focusClass)},blur:function(){t.removeClass(n.focusClass),t.removeClass(n.activeClass)},mouseenter:function(){t.addClass(n.hoverClass)},mouseleave:function(){t.removeClass(n.hoverClass),t.removeClass(n.activeClass)},"mousedown touchbegin":function(){e.is(":disabled")||t.addClass(n.activeClass)},"mouseup touchend":function(){t.removeClass(n.activeClass)}})}function i(e,t){e.removeClass(t.hoverClass+" "+t.focusClass+" "+t.activeClass)}function l(e,t,n){n?e.addClass(t):e.removeClass(t)}function u(e,t,n){var s="checked",a=t.is(":"+s);t.prop?t.prop(s,a):a?t.attr(s,s):t.removeAttr(s),l(e,n.checkedClass,a)}function o(e,t,n){l(e,n.disabledClass,t.is(":disabled"))}function c(e,t,n){switch(n){case"after":return e.after(t),e.next();case"before":return e.before(t),e.prev();case"wrap":return e.wrap(t),e.parent()}return null}function d(e,n,a){var r,i,l;return a||(a={}),a=t.extend({bind:{},divClass:null,divWrap:"wrap",spanClass:null,spanHtml:null,spanWrap:"wrap"},a),r=t("<div />"),i=t("<span />"),n.autoHide&&e.is(":hidden")&&"none"===e.css("display")&&r.hide(),a.divClass&&r.addClass(a.divClass),n.wrapperClass&&r.addClass(n.wrapperClass),a.spanClass&&i.addClass(a.spanClass),l=s(e,"id"),n.useID&&l&&s(r,"id",n.idPrefix+"-"+l),a.spanHtml&&i.html(a.spanHtml),r=c(e,r,a.divWrap),i=c(e,i,a.spanWrap),o(r,e,n),{div:r,span:i}}function f(e,n){var s;return n.wrapperClass?(s=t("<span />").addClass(n.wrapperClass),s=c(e,s,"wrap")):null}function p(){var n,s,a,r;return r="rgb(120,2,153)",s=t('<div style="width:0;height:0;color:'+r+'">'),t("body").append(s),a=s.get(0),n=e.getComputedStyle?e.getComputedStyle(a,"").color:(a.currentStyle||a.style||{}).color,s.remove(),n.replace(/ /g,"")!==r}function m(e){return e?t("<span />").text(e).html():""}function v(){return navigator.cpuClass&&!navigator.product}function h(){return void 0!==e.XMLHttpRequest?!0:!1}function C(e){var t;return e[0].multiple?!0:(t=s(e,"size"),!t||1>=t?!1:!0)}function b(){return!1}function y(e,t){var n="none";a(e,t,{"selectstart dragstart mousedown":b}),e.css({MozUserSelect:n,msUserSelect:n,webkitUserSelect:n,userSelect:n})}function w(e,t,n){var s=e.val();""===s?s=n.fileDefaultHtml:(s=s.split(/[\/\\]+/),s=s[s.length-1]),t.text(s)}function g(e,t,n){var s,a;for(s=[],e.each(function(){var e;for(e in t)Object.prototype.hasOwnProperty.call(t,e)&&(s.push({el:this,name:e,old:this.style[e]}),this.style[e]=t[e])}),n();s.length;)a=s.pop(),a.el.style[a.name]=a.old}function k(e,t){var n;n=e.parents(),n.push(e[0]),n=n.not(":visible"),g(n,{visibility:"hidden",display:"block",position:"absolute"},t)}function H(e,t){return function(){e.unwrap().unwrap().unbind(t.eventNamespace)}}var x=!0,A=!1,W=[{match:function(e){return e.is("a, button, :submit, :reset, input[type='button']")},apply:function(t,n){var l,u,c,f,p;return u=n.submitDefaultHtml,t.is(":reset")&&(u=n.resetDefaultHtml),f=t.is("a, button")?function(){return t.html()||u}:function(){return m(s(t,"value"))||u},c=d(t,n,{divClass:n.buttonClass,spanHtml:f()}),l=c.div,r(t,l,n),p=!1,a(l,n,{"click touchend":function(){var n,a,r,i;p||t.is(":disabled")||(p=!0,t[0].dispatchEvent?(n=document.createEvent("MouseEvents"),n.initEvent("click",!0,!0),a=t[0].dispatchEvent(n),t.is("a")&&a&&(r=s(t,"target"),i=s(t,"href"),r&&"_self"!==r?e.open(i,r):document.location.href=i)):t.click(),p=!1)}}),y(l,n),{remove:function(){return l.after(t),l.remove(),t.unbind(n.eventNamespace),t},update:function(){i(l,n),o(l,t,n),t.detach(),c.span.html(f()).append(t)}}}},{match:function(e){return e.is(":checkbox")},apply:function(e,t){var n,s,l;return n=d(e,t,{divClass:t.checkboxClass}),s=n.div,l=n.span,r(e,s,t),a(e,t,{"click touchend":function(){u(l,e,t)}}),u(l,e,t),{remove:H(e,t),update:function(){i(s,t),l.removeClass(t.checkedClass),u(l,e,t),o(s,e,t)}}}},{match:function(e){return e.is(":file")},apply:function(e,n){function l(){w(e,p,n)}var u,f,p,m;return u=d(e,n,{divClass:n.fileClass,spanClass:n.fileButtonClass,spanHtml:n.fileButtonHtml,spanWrap:"after"}),f=u.div,m=u.span,p=t("<span />").html(n.fileDefaultHtml),p.addClass(n.filenameClass),p=c(e,p,"after"),s(e,"size")||s(e,"size",f.width()/10),r(e,f,n),l(),v()?a(e,n,{click:function(){e.trigger("change"),setTimeout(l,0)}}):a(e,n,{change:l}),y(p,n),y(m,n),{remove:function(){return p.remove(),m.remove(),e.unwrap().unbind(n.eventNamespace)},update:function(){i(f,n),w(e,p,n),o(f,e,n)}}}},{match:function(e){if(e.is("input")){var t=(" "+s(e,"type")+" ").toLowerCase(),n=" color date datetime datetime-local email month number password search tel text time url week ";return n.indexOf(t)>=0}return!1},apply:function(e,t){var n,a;return n=s(e,"type"),e.addClass(t.inputClass),a=f(e,t),r(e,e,t),t.inputAddTypeAsClass&&e.addClass(n),{remove:function(){e.removeClass(t.inputClass),t.inputAddTypeAsClass&&e.removeClass(n),a&&e.unwrap()},update:b}}},{match:function(e){return e.is(":radio")},apply:function(e,n){var l,c,f;return l=d(e,n,{divClass:n.radioClass}),c=l.div,f=l.span,r(e,c,n),a(e,n,{"click touchend":function(){t.uniform.update(t(':radio[name="'+s(e,"name")+'"]'))}}),u(f,e,n),{remove:H(e,n),update:function(){i(c,n),u(f,e,n),o(c,e,n)}}}},{match:function(e){return e.is("select")&&!C(e)?!0:!1},apply:function(e,n){var s,l,u,c;return n.selectAutoWidth&&k(e,function(){c=e.width()}),s=d(e,n,{divClass:n.selectClass,spanHtml:(e.find(":selected:first")||e.find("option:first")).html(),spanWrap:"before"}),l=s.div,u=s.span,n.selectAutoWidth?k(e,function(){g(t([u[0],l[0]]),{display:"block"},function(){var e;e=u.outerWidth()-u.width(),l.width(c+e),u.width(c)})}):l.addClass("fixedWidth"),r(e,l,n),a(e,n,{change:function(){u.html(e.find(":selected").html()),l.removeClass(n.activeClass)},"click touchend":function(){var t=e.find(":selected").html();u.html()!==t&&e.trigger("change")},keyup:function(){u.html(e.find(":selected").html())}}),y(u,n),{remove:function(){return u.remove(),e.unwrap().unbind(n.eventNamespace),e},update:function(){n.selectAutoWidth?(t.uniform.restore(e),e.uniform(n)):(i(l,n),u.html(e.find(":selected").html()),o(l,e,n))}}}},{match:function(e){return e.is("select")&&C(e)?!0:!1},apply:function(e,t){var n;return e.addClass(t.selectMultiClass),n=f(e,t),r(e,e,t),{remove:function(){e.removeClass(t.selectMultiClass),n&&e.unwrap()},update:b}}},{match:function(e){return e.is("textarea")},apply:function(e,t){var n;return e.addClass(t.textareaClass),n=f(e,t),r(e,e,t),{remove:function(){e.removeClass(t.textareaClass),n&&e.unwrap()},update:b}}}];v()&&!h()&&(x=!1),t.uniform={defaults:{activeClass:"active",autoHide:!0,buttonClass:"button",checkboxClass:"checker",checkedClass:"checked",disabledClass:"disabled",eventNamespace:".uniform",fileButtonClass:"action",fileButtonHtml:"Choose File",fileClass:"uploader",fileDefaultHtml:"No file selected",filenameClass:"filename",focusClass:"focus",hoverClass:"hover",idPrefix:"uniform",inputAddTypeAsClass:!0,inputClass:"uniform-input",radioClass:"radio",resetDefaultHtml:"Reset",resetSelector:!1,selectAutoWidth:!0,selectClass:"selector",selectMultiClass:"uniform-multiselect",submitDefaultHtml:"Submit",textareaClass:"uniform",useID:!0,wrapperClass:null},elements:[]},t.fn.uniform=function(n){var s=this;return n=t.extend({},t.uniform.defaults,n),A||(A=!0,p()&&(x=!1)),x?(n.resetSelector&&t(n.resetSelector).mouseup(function(){e.setTimeout(function(){t.uniform.update(s)},10)}),this.each(function(){var e,s,a,r=t(this);if(r.data("uniformed"))return t.uniform.update(r),void 0;for(e=0;e<W.length;e+=1)if(s=W[e],s.match(r,n))return a=s.apply(r,n),r.data("uniformed",a),t.uniform.elements.push(r.get(0)),void 0})):this},t.uniform.restore=t.fn.uniform.restore=function(e){e===n&&(e=t.uniform.elements),t(e).each(function(){var e,n,s=t(this);n=s.data("uniformed"),n&&(n.remove(),e=t.inArray(this,t.uniform.elements),e>=0&&t.uniform.elements.splice(e,1),s.removeData("uniformed"))})},t.uniform.update=t.fn.uniform.update=function(e){e===n&&(e=t.uniform.elements),t(e).each(function(){var e,n=t(this);e=n.data("uniformed"),e&&e.update(n,e.options)})}}(this,jQuery);
 (function(f){jQuery.fn.extend({slimScroll:function(h){var a=f.extend({width:"auto",height:"100%",size:"7px",color:"#ccc",position:"right",distance:"0",start:"top",opacity:0.3,alwaysVisible:!1,disableFadeOut:!1,railVisible:!1,railColor:"#333",railOpacity:0.2,railDraggable:!0,railClass:"slimScrollRail",barClass:"slimScrollBar",wrapperClass:"slimScrollDiv",allowPageScroll:1,wheelStep:20,touchScrollStep:200,borderRadius:"0",railBorderRadius:"0"},h);this.each(function(){function r(d){if(s){d=d||
 window.event;var c=0;d.wheelDelta&&(c=-d.wheelDelta/120);d.detail&&(c=d.detail/3);f(d.target||d.srcTarget||d.srcElement).closest("."+a.wrapperClass).is(b.parent())&&m(c,!0);d.preventDefault&&!k&&d.preventDefault();k||(d.returnValue=!1)}}function m(d,f,h){k=!1;var e=d,g=b.outerHeight()-c.outerHeight();f&&(e=parseInt(c.css("top"))+d*parseInt(a.wheelStep)/100*c.outerHeight(),e=Math.min(Math.max(e,0),g),e=0<d?Math.ceil(e):Math.floor(e),c.css({top:e+"px"}));l=parseInt(c.css("top"))/(b.outerHeight()-c.outerHeight());
 e=l*(b[0].scrollHeight-b.outerHeight());h&&(e=d,d=e/b[0].scrollHeight*b.outerHeight(),d=Math.min(Math.max(d,0),g),c.css({top:d+"px"}));b.scrollTop(e);b.trigger("slimscrolling",~~e);v();p()}function C(){window.addEventListener?(this.addEventListener("DOMMouseScroll",r,!1),this.addEventListener("mousewheel",r,!1),this.addEventListener("MozMousePixelScroll",r,!1)):document.attachEvent("onmousewheel",r)}function w(){u=Math.max(b.outerHeight()/b[0].scrollHeight*b.outerHeight(),D);c.css({height:u+"px"});
@@ -14717,9 +15044,21 @@ $(function () {
         $($(input).parents("form")[0]).submit();
     });
 
+    // Uniform
+    var checkBox = $("input[type=radio]:not(.no-uniform)");
+    if (checkBox.length > 0) {
+        checkBox.each(function () {
+            $(this).uniform();
+        });
+    }
+
     // Slimscroll
     $('.SlimScroll').slimscroll({
         allowPageScroll: true
+    });
+
+    [].slice.call(document.querySelectorAll('select.cs-select')).forEach(function (el) {
+        new SelectFx(el);
     });
 });
 

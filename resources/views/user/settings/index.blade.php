@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="Well">
-                <h4 class="text-success">@lang('views.profile.settings.overview.joined-since', ['when' => Auth::user()->created_at->diffForHumans(), 'where' => site('siteTitle')])</h4>
+                <h4 class="text-success">@lang('views.profile.settings.overview.joined-since', ['time' => Auth::user()->created_at->toIso8601String(), 'when' => Auth::user()->created_at->diffForHumans(), 'where' => site('siteTitle')])</h4>
             </div>
         </div>
     </div>
@@ -51,12 +51,9 @@
         <div class="col-md-6">
             <div class="Well text-center">
                 <h1 class="text-primary"><i class="icon-envelope-open"></i></h1>
-                @if(Auth::user()->active)
-                    <h4 class="text-primary">@lang('views.profile.settings.overview.email-confirmed')</h4>
-                @else
-                    <h4 class="text-primary">@lang('views.profile.settings.overview.email-unconfirmed')</h4>
-                    <a href="@route('users.profile.settings', ['section' => 'privacy'], false)" class="btn btn-blue btn-sm btn-block btn-round btn-well center-block">@lang('views.profile.settings.overview.go-confirm')</a>
-                @endif
+                <h4 class="text-primary" v-if="User.active" v-cloak>@lang('views.profile.settings.overview.email-confirmed')</h4>
+                <h4 class="text-primary" v-else v-cloak>@lang('views.profile.settings.overview.email-unconfirmed')</h4>
+                <a v-if="!User.active" href="@route('users.profile.settings', ['section' => 'privacy'], false)" class="btn btn-blue btn-sm btn-block btn-round btn-well center-block" v-cloak>@lang('views.profile.settings.overview.go-confirm')</a>
             </div>
         </div>
     </div>

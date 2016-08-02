@@ -2,17 +2,11 @@
 
 namespace Createdu;
 
-use Crypt;
 use Createdu\Events\User\CreditHasChanged;
-use Createdu\Library\Traits\User\HasRoles;
-use Createdu\Library\Traits\User\Sociable;
-use Createdu\Library\Traits\User\UserMetas;
-use Createdu\Library\Traits\User\Notifiable;
 use Createdu\Events\User\ExperienceHasChanged;
-use Createdu\Library\Traits\Model\TimeSortable;
-use Createdu\Library\Traits\User\AvatarControls;
-use Createdu\Events\User\Auth\PasswordHasChanged;
 use Createdu\Events\User\Auth\UserHasRegistered;
+use Createdu\Events\User\Auth\PasswordHasChanged;
+use Createdu\Library\Traits\User\UserCapabilities;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable {
@@ -27,7 +21,14 @@ class User extends Authenticatable {
     |
     */
 
-    use Sociable, TimeSortable, AvatarControls, UserMetas, HasRoles, Notifiable;
+    use UserCapabilities;
+
+    /**
+     * The gender types.
+     */
+    const GENDER_TYPES = [
+        'secret', 'male', 'female', 'other'
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -87,21 +88,6 @@ class User extends Authenticatable {
         }
 
         return $user;
-    }
-
-    /**
-     * Get appropriate attributes for registration.
-     *
-     * @param $attributes
-     * @return array
-     *
-     * @author Cali
-     */
-    private static function getRegisterAttributes($attributes)
-    {
-        $attributes['password'] = bcrypt($attributes['password']);
-
-        return $attributes;
     }
 
     /**
@@ -376,28 +362,6 @@ class User extends Authenticatable {
             event(new ExperienceHasChanged($this, $exp, trans('notifications.content.exp.tel-verified')));
         }
         $this->save();
-    }
-
-    /**
-     * Get the phone number. (Decrypted)
-     *
-     * @return null|string
-     */
-    public function getTelAttribute()
-    {
-        $tel = $this->attributes['tel'];
-
-        return empty($tel) ? null : Crypt::decrypt($tel);
-    }
-
-    /**
-     * Set the phone number. (Auto-encrypted)
-     *
-     * @param $value
-     */
-    public function setTelAttribute($value)
-    {
-        $this->attributes['tel'] = Crypt::encrypt($value);
     }
 
     /**

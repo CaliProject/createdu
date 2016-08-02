@@ -145,6 +145,29 @@ class Statistic extends Model {
     }
 
     /**
+     * 获取新课程的数量
+     * 
+     * @param string $method
+     * @param array $params
+     * @return mixed
+     */
+    public static function newCourses($method = 'today', $params = [])
+    {
+        return call_user_func_array([new Course, camel_case($method)], $params)->count();
+    }
+
+    /**
+     * 获取新课程的所占百分比
+     * 
+     * @param $count
+     * @return float
+     */
+    public static function newCoursesRatio($count)
+    {
+        return ($count / Course::count()) * 100;
+    }
+    
+    /**
      * Get the unique visitors (UV).
      * 
      * @param string $method

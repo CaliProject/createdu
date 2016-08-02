@@ -115,10 +115,17 @@ elixir(function (mix) {
         ], publicDir + 'js/admin/app.js');
 
     mix.browserify([
-        'admin/users/index.js'
-    ], assetsDir + 'js/builds/admin/users/index.js');
+            'admin/users/index.js'
+        ], assetsDir + 'js/builds/admin/users/index.js')
+        .browserify([
+            'admin/users/profile.js'
+        ], assetsDir + 'js/builds/admin/users/profile.js')
+        .browserify([
+            'admin/pages/dashboard.js'
+        ], assetsDir + 'js/builds/admin/pages/dashboard.js');
 
     mix.copy(assetsDir + 'js/builds/admin/users', publicDir + 'js/admin/users');
+    mix.copy(assetsDir + 'js/builds/admin/pages', publicDir + 'js/admin/pages');
 
     /*
      |------------------------------------------------------------

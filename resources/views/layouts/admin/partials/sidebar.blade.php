@@ -37,15 +37,15 @@
                     {{--</ul>--}}
                 {{--</a>--}}
             {{--</li>--}}
-            {{--<li class="droplink{{ request_is_route('admin.center.index', true) ? ' active' : '' }}">--}}
-                {{--<a href="#" class="waves-effect waves-button">--}}
-                    {{--<span class="menu-icon icon-support"></span><p>@lang('views.admin.titles.data-center.main')</p><span class="arrow"></span>--}}
-                {{--</a>--}}
-                {{--<ul class="sub-menu">--}}
-                    {{--<li><a href="@route('admin.center.index', [], false)" data-pjax>@lang('views.admin.titles.data-center.sub.index')</a></li>--}}
-                    {{--<li><a href="@route('admin.center.factory', [], false)" data-pjax>@lang('views.admin.titles.data-center.sub.factory')</a></li>--}}
-                {{--</ul>--}}
-            {{--</li>--}}
+            <li class="droplink{{ request_is_route('admin.index', ['section' => 'centers' ], true) ? ' active' : '' }}">
+                <a href="#" class="waves-effect waves-button">
+                    <span class="menu-icon icon-support"></span><p>@lang('views.admin.titles.data-center.main')</p><span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li><a href="@route('admin.index', ['section' => 'centers'], false)" data-pjax>@lang('views.admin.titles.data-center.sub.index')</a></li>
+                    {{--<li><a href="@route('admin.factory', [], false)" data-pjax>@lang('views.admin.titles.data-center.sub.factory')</a></li>--}}
+                </ul>
+            </li>
             <li class="droplink">
                 <a href="#" class="waves-effect waves-button">
                     <span class="menu-icon icon-equalizer"></span><p>@lang('views.admin.titles.settings.main')</p><span class="arrow"></span>

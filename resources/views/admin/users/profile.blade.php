@@ -142,9 +142,61 @@
                     </h4>
                 </div>
                 <div class="panel-body">
-
+                    @if(empty($user))
+                        <div class="Well">
+                            <div class="oAuths">
+                                @foreach(explode(",", Site::supportedOAuths()) as $service)
+                                    <div class="col-md-6">
+                                        <div class="oAuth">
+                                            <form action="" method="POST" class="Form ajax">
+                                                {!! csrf_field() !!}
+                                                <div class="form-group">
+                                                    <h1 class="{{ $service }}"><i class="fa fa-{{ $service }}"></i></h1>
+                                                </div>
+                                                <div class="form-group">
+                                                    @if(Auth::user()->boundOAuth($service))
+                                                        <button type="submit" class="btn btn-danger btn-round btn-well center-block">@lang('views.admin.pages.users.profile.social.unbind')</button>
+                                                    @else
+                                                        <button type="submit" class="btn btn-primary btn-round btn-well center-block">@lang('views.admin.pages.users.profile.social.bind')</button>
+                                                    @endif
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    @else
+                        <div class="Well">
+                            <div class="oAuths">
+                                @foreach(explode(",", Site::supportedOAuths()) as $service)
+                                    <div class="col-md-6">
+                                        <div class="oAuth">
+                                            <form action="" method="POST" class="Form ajax">
+                                                {!! csrf_field() !!}
+                                                <div class="form-group">
+                                                    <h1 class="{{ $service }}"><i class="fa fa-{{ $service }}"></i></h1>
+                                                </div>
+                                                <div class="form-group">
+                                                    @if(Auth::user()->boundOAuth($service))
+                                                        <button type="submit" class="btn btn-danger btn-round btn-well center-block">@lang('views.admin.pages.users.profile.social.unbind')</button>
+                                                    @else
+                                                        <button type="submit" class="btn btn-primary btn-round btn-well center-block">@lang('views.admin.pages.users.profile.social.bind')</button>
+                                                    @endif
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
 @stop
+
+@push('scripts.footer')
+<script src="/assets/js/admin/users/profile.js" pjax-script></script>
+@endpush

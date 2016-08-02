@@ -24,9 +24,11 @@ class NotifySlack
      */
     public function handle(ShouldNotifySlack $event)
     {
-        if ($attachment = $event->shouldAttach())
-            return Slack::attach($attachment)->send($event->getSlackMessage());
+        if (env('SLACK_ENABLED', 'yes') !== 'no') {
+            if ($attachment = $event->shouldAttach())
+                return Slack::attach($attachment)->send($event->getSlackMessage());
 
-        Slack::send($event->getSlackMessage());
+            Slack::send($event->getSlackMessage());
+        }
     }
 }

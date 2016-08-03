@@ -19,8 +19,8 @@
                             @foreach(\Createdu\User::GENDER_TYPES as $gender)
                                 <div class="radio-inline">
                                     <label>
-                                        <input type="radio" name="gender" value="{{ $gender }}"{{ Auth::user()->gender == $gender ? ' checked' : '' }}>
-                                        @lang('views.global.user.gender.' . $gender)
+                                        <input type="radio" name="gender" value="{{ $gender }}"{{ Auth::user()->gender == $gender ? ' checked' : '' }} v-model="User.gender">
+                                        <i class="gender-icon-{{ $gender }}"></i>&nbsp;@lang('views.global.user.gender.' . $gender)
                                     </label>
                                 </div>
                             @endforeach
@@ -28,7 +28,7 @@
                     </div>
                     <div class="form-group">
                         <label for="description" class="control-label">@lang('validation.attributes.description')</label>
-                        <textarea name="description" id="description" cols="20" rows="5" class="form-control"></textarea>
+                        <textarea name="description" id="description" cols="20" rows="5" class="form-control" v-model="User.description"></textarea>
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-well btn-primary btn-round center-block">@lang('views.admin.pages.settings.update-button')</button>

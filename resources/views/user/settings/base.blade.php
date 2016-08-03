@@ -10,6 +10,7 @@
                         <img :src="User.avatarUrl" :alt="User.name">
                         <span>@lang('views.profile.settings.change-avatar')</span>
                     </div>
+                    <i class="gender-bg" :class="'gender-icon-' + User.gender" v-if="User.gender!='secret'"></i>
                     <span class="name" v-cloak>@{{ User.name }}</span>
                     <span class="email" v-cloak>@{{ User.email }}</span>
                 </div>

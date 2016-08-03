@@ -164,11 +164,13 @@ class User extends Authenticatable {
     protected function profileSerializeAttributes()
     {
         return [
-            'avatarUrl' => $this->avatarUrl,
-            'checkedIn' => $this->checkedIn(),
-            'email'     => $this->email,
-            'tel'       => $this->asteriskedTel(),
-            'unread'    => $this->unread
+            'avatarUrl'   => $this->avatarUrl,
+            'checkedIn'   => $this->checkedIn(),
+            'email'       => $this->email,
+            'tel'         => $this->asteriskedTel(),
+            'unread'      => $this->unread,
+            'gender'      => $this->gender,
+            'description' => $this->description
         ];
     }
 

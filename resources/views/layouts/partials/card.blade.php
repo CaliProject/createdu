@@ -3,6 +3,7 @@
         <div class="Card__header">
             <div class="Card__avatar">
                 <img :src="User.avatarUrl" :alt="User.name">
+                <i class="gender-bg" :class="'gender-icon-' + User.gender" v-if="User.gender!='secret'"></i>
             </div>
             <div class="Card__info">
                 <a class="user-name" href="{{ Auth::user()->profileLink() }}">@{{ User.name }}</a>

@@ -69,6 +69,19 @@
       border-radius: 50%;
       border: 1px solid rgba(255, 255, 255, .5);
     }
+    
+    i {
+      position: absolute;
+      right: 5px;
+      bottom: 15px;
+      border-radius: 50%;
+      background: #eee;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
 
   @include has(info) {

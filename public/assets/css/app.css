@@ -8302,6 +8302,9 @@ textarea {
   resize: none;
   margin-top: 10px; }
 
+label {
+  cursor: pointer; }
+
 /* Custom Badges */
 .badge {
   border-radius: 12px !important;
@@ -8901,6 +8904,20 @@ li.on:after {
       height: 70px;
       border-radius: 50%;
       border: 1px solid rgba(255, 255, 255, 0.5); }
+    .Card__avatar i {
+      position: absolute;
+      right: 5px;
+      bottom: 15px;
+      border-radius: 50%;
+      background: #eee;
+      width: 20px;
+      height: 20px;
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-pack: center;
+      justify-content: center;
+      -ms-flex-align: center;
+      align-items: center; }
   .Card__info {
     position: relative;
     display: inline-block;
@@ -9046,6 +9063,20 @@ li.on:after {
           -o-transition: opacity 0.35s ease-in-out; }
         .Profile--settings .sidebar .user-info .user-avatar:hover span {
           opacity: 1; }
+        .Profile--settings .sidebar .user-info .user-avatar + i {
+          position: absolute;
+          top: 90px;
+          right: 95px;
+          width: 20px;
+          height: 20px;
+          background: #eee;
+          border-radius: 50%;
+          display: -ms-flexbox;
+          display: flex;
+          -ms-flex-pack: center;
+          justify-content: center;
+          -ms-flex-align: center;
+          align-items: center; }
       .Profile--settings .sidebar .user-info .name {
         font-size: 1.3em;
         font-weight: 500;
@@ -9157,3 +9188,34 @@ h1.google {
 
 h1.facebook {
   color: #354e8e; }
+<<<<<<< HEAD
+=======
+
+[class*="gender-icon-"], [gender]:before {
+  font-family: "FontAwesome";
+  speak: none;
+  font-style: normal;
+  font-weight: bold;
+  display: inline-block; }
+
+.gender-icon-male:before {
+  content: '\f222'; }
+
+.gender-icon-male.gender-bg {
+  background: #354e8e !important;
+  color: #eee; }
+
+.gender-icon-female:before {
+  content: '\f221'; }
+
+.gender-icon-female.gender-bg {
+  background: #cd2fc6 !important;
+  color: #fff; }
+
+.gender-icon-other:before {
+  content: '\f224'; }
+
+.gender-icon-other.gender-bg {
+  background: #ff2929 !important;
+  color: #fff; }
+>>>>>>> ea4aceb8f6dff361b61872c463ae4741f19b4dfe

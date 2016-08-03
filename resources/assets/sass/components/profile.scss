@@ -76,6 +76,19 @@
               opacity: 1;
             }
           }
+
+          & + i {
+            position: absolute;
+            top: 90px;
+            right: 95px;
+            width: 20px;
+            height: 20px;
+            background: #eee;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
         }
 
         .name {
@@ -232,4 +245,45 @@ h1.google {
 
 h1.facebook {
   color: $facebook-color;
+}
+
+[class*="gender-icon-"],[gender]:before {
+  font-family: "FontAwesome";
+  speak: none;
+  font-style: normal;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.gender-icon-male {
+  &:before {
+    content: '\f222';
+  }
+
+  &.gender-bg {
+    background: $facebook-color !important;
+    color: #eee;
+  }
+}
+
+.gender-icon-female {
+  &:before {
+    content: '\f221';
+  }
+  
+  &.gender-bg {
+    background: $pink-color !important;
+    color: #fff;
+  }
+}
+
+.gender-icon-other {
+  &:before {
+    content: '\f224';
+  }
+
+  &.gender-bg {
+    background: $youtube-color !important;
+    color: #fff;
+  }
 }

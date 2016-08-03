@@ -144,7 +144,7 @@ return [
         'second'                => '秒',
         'title'                 => '标题',
         'content'               => '内容',
-        'description'           => '描述',
+        'description'           => '介绍',
         'excerpt'               => '摘要',
         'date'                  => '日期',
         'tel'                   => '手机号码',

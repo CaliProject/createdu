@@ -247,7 +247,7 @@ h1.facebook {
   color: $facebook-color;
 }
 
-[class*="gender-icon-"],[gender]:before {
+[class*="gender-"] {
   font-family: "FontAwesome";
   speak: none;
   font-style: normal;
@@ -255,7 +255,7 @@ h1.facebook {
   display: inline-block;
 }
 
-.gender-icon-male {
+.gender-male {
   &:before {
     content: '\f222';
   }
@@ -266,7 +266,7 @@ h1.facebook {
   }
 }
 
-.gender-icon-female {
+.gender-female {
   &:before {
     content: '\f221';
   }
@@ -277,7 +277,7 @@ h1.facebook {
   }
 }
 
-.gender-icon-other {
+.gender-other {
   &:before {
     content: '\f224';
   }

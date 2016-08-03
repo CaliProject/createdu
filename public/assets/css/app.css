@@ -9188,34 +9188,31 @@ h1.google {
 
 h1.facebook {
   color: #354e8e; }
-<<<<<<< HEAD
-=======
 
-[class*="gender-icon-"], [gender]:before {
+[class*="gender-"] {
   font-family: "FontAwesome";
   speak: none;
   font-style: normal;
   font-weight: bold;
   display: inline-block; }
 
-.gender-icon-male:before {
+.gender-male:before {
   content: '\f222'; }
 
-.gender-icon-male.gender-bg {
+.gender-male.gender-bg {
   background: #354e8e !important;
   color: #eee; }
 
-.gender-icon-female:before {
+.gender-female:before {
   content: '\f221'; }
 
-.gender-icon-female.gender-bg {
+.gender-female.gender-bg {
   background: #cd2fc6 !important;
   color: #fff; }
 
-.gender-icon-other:before {
+.gender-other:before {
   content: '\f224'; }
 
-.gender-icon-other.gender-bg {
+.gender-other.gender-bg {
   background: #ff2929 !important;
   color: #fff; }
->>>>>>> ea4aceb8f6dff361b61872c463ae4741f19b4dfe

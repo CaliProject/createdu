@@ -35,10 +35,6 @@
         if (data.experience != undefined) {
             vm.User.experience += parseInt(data.experience);
         }
-
-        setTimeout(function () {
-            $("time.timeago").timeago();
-        }, 500);
     }
 </script>
 @endif

@@ -10503,8 +10503,9 @@ $(function () {
         allowPageScroll: true
     });
 
-    [].slice.call(document.querySelectorAll('select.cs-select')).forEach(function (el) {
-        new SelectFx(el);
+    // Listen for changes
+    $("body").on("DOMNodeInserted", function () {
+        $("time.timeago").timeago();
     });
 });
 

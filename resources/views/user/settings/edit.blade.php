@@ -20,7 +20,7 @@
                                 <div class="radio-inline">
                                     <label>
                                         <input type="radio" name="gender" value="{{ $gender }}"{{ Auth::user()->gender == $gender ? ' checked' : '' }} v-model="User.gender">
-                                        <i class="gender-icon-{{ $gender }}"></i>&nbsp;@lang('views.global.user.gender.' . $gender)
+                                        <i class="gender-{{ $gender }}"></i>&nbsp;@lang('views.global.user.gender.' . $gender)
                                     </label>
                                 </div>
                             @endforeach

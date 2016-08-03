@@ -139,16 +139,18 @@ return [
         ],
         'pages'                 => [
             'dashboard'   => [
-                'new-users-this-month'   => '本月新用户',
-                'page-views-this-month'  => '本月站点浏览量',
-                'new-courses-this-month' => '本月新课程',
-                'unique-ips-today'       => '今日独立IP',
-                'unique-visitors-today'  => '今日网站UV',
-                'visitors'               => '访客流量',
-                'browser-stats'          => '访客浏览器比例',
-                'city-stats'             => '访客地区比例',
-                'uri'                    => '页面排行',
-                'home'                   => '主页'
+                'new-users-this-month'    => '本月新用户',
+                'page-views-this-month'   => '本月站点浏览量',
+                'new-courses-this-month'  => '本月新课程',
+                'new-Posts-this-month'    => '本月新文章',
+                'new-Comments-this-month' => '本月新评论',
+                'unique-ips-today'        => '今日独立IP',
+                'unique-visitors-today'   => '今日网站UV',
+                'visitors'                => '访客流量',
+                'browser-stats'           => '访客浏览器比例',
+                'city-stats'              => '访客地区比例',
+                'uri'                     => '页面排行',
+                'home'                    => '主页'
             ],
             'users'       => [
                 'index'       => [

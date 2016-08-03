@@ -145,11 +145,12 @@ class Statistic extends Model {
     }
 
     /**
-     * 获取新课程的数量
+     * 获取（今日）新课程的数量
      * 
      * @param string $method
      * @param array $params
      * @return mixed
+     * @author Tim
      */
     public static function newCourses($method = 'today', $params = [])
     {
@@ -161,12 +162,64 @@ class Statistic extends Model {
      * 
      * @param $count
      * @return float
+     * @author Tim
      */
     public static function newCoursesRatio($count)
     {
-        return ($count / Course::count()) * 100;
+        return $count ? ($count / Course::count()) * 100 : 0;
     }
-    
+
+    /**
+     * 获取（今日）新文章的数量
+     *
+     * @param string $method
+     * @param array $params
+     * @return mixed
+     * @author Tim
+     */
+    public static function newPosts($method = 'today', $params = [])
+    {
+        return call_user_func_array([new Post, camel_case($method)], $params)->count();
+    }
+
+    /**
+     * 获取新文章所占百分比
+     *
+     * @param $count
+     * @return float|int
+     * @author Tim
+     */
+    public static function newPostsRatio($count)
+    {
+        return $count ? ($count / Post::count()) * 100 : 0;
+    }
+
+    /**
+     * 获取（今日）新评论的数量
+     *
+     * @param string $method
+     * @param array $params
+     * @return mixed
+     * @author Tim
+     */
+    public static function newComments($method = 'today', $params = [])
+    {
+        return call_user_func_array([new Comment, camel_case($method)], $params)->count();
+    }
+
+    /**
+     * 获取新评论所占百分比
+     *
+     * @param $count
+     * @return float|int
+     * @author Tim
+     */
+    public static function newCommentsRatio($count)
+    {
+        return $count ? ($count / Comment::count()) * 100 : 0;
+    }
+
+
     /**
      * Get the unique visitors (UV).
      * 
@@ -226,14 +279,25 @@ class Statistic extends Model {
     }
 
     /**
-     * Get the total blog count.
+     * 获取文章总数
      *
      * @return int
-     * @author Cali
+     * @author Tim
      */
-    public static function totalBlogs()
+    public static function totalPosts()
     {
-        return Blog::count();
+        return Post::count();
+    }
+
+    /**
+     * 获取课程总数
+     *
+     * @return int
+     * @author Tim
+     */
+    public static function totalCourses()
+    {
+        return Course::count();
     }
 
     /**

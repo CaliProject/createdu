@@ -121,12 +121,6 @@
                                         <figure class="icon-cloud-upload"></figure>
                                         <span>@lang('views.admin.pages.settings.display.upload-logo.upload')&hellip;</span>
                                     </label>
-                                    <div class="row">
-                                        <div class="col-xs-8 col-xs-offset-2">
-                                            <button class="btn btn-primary btn-block btn-rounded" id="resize-button" style="display: none;">剪裁</button>
-                                        </div>
-                                        <form action="@route('admin.users.profile.resize-avatar')" class="hidden" method="POST" id="resize-avatar"></form>
-                                    </div>
                                 </form>
                             </div>
                         </div>

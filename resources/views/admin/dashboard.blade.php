@@ -107,6 +107,44 @@
                 </div>
             </div>
         </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-white info-box">
+                <div class="panel-body">
+                    <div class="info-box-stats">
+                        <p class="counter">{{ $newPosts = Stat::newPosts('this_month') }}</p>
+                        <span class="info-box-title">@lang('views.admin.pages.dashboard.new-Posts-this-month')</span>
+                    </div>
+                    <div class="info-box-icon">
+                        <i class="icon-note"></i>
+                    </div>
+                    <div class="info-box-progress">
+                        <div class="progress progress-xs progress-squared bs-n">
+                            <div class="progress-bar progress-bar-success" role="progressbar" style="width: @stat('newPostsRatio', $newPosts)%">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-white info-box">
+                <div class="panel-body">
+                    <div class="info-box-stats">
+                        <p class="counter">{{ $newComments = Stat::newComments('this_month') }}</p>
+                        <span class="info-box-title">@lang('views.admin.pages.dashboard.new-Comments-this-month')</span>
+                    </div>
+                    <div class="info-box-icon">
+                        <i class="icon-bubbles"></i>
+                    </div>
+                    <div class="info-box-progress">
+                        <div class="progress progress-xs progress-squared bs-n">
+                            <div class="progress-bar progress-bar-success" role="progressbar" style="width: @stat('newCommentsRatio', $newComments)%">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="row">
         <div class="col-md-12">

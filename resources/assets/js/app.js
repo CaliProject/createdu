@@ -121,6 +121,12 @@ const vm = new Vue({
         playMessageSound() {
             document.getElementById("new-message-sound").play();
         },
+        playToastrSound() {
+            document.getElementById("toastr-sound").play();
+        },
+        playMessageSound(sent: true) {
+            document.getElementById(`message-${sent ? 'sent' : 'received'}-sound`);
+        },
         readInbox(e) {
             const inbox = e.target,
                 $this = this;
@@ -167,6 +173,15 @@ const vm = new Vue({
                     }
                 }
             });
+        },
+        openConvoBox($index) {
+            for (const i in this.Conversations) {
+                if (this.Conversations[i].open) {
+                    this.Conversations[i].open = false;
+                }
+            }
+
+            this.Conversations[$index].open = true;
         }
     },
     data: {
@@ -174,7 +189,24 @@ const vm = new Vue({
         searchText: '',
         User: CurrentUser,
         token: _TOKEN,
-        Inboxes: JSON.parse($(".Inbox").attr('data-inbox') || '{}')
+        Inboxes: JSON.parse($(".Inbox").attr('data-inbox') || '{}'),
+        Conversations: [],
+        message: ''
+    },
+    computed: {
+        hasOpenedConvo() {
+            for (const i in this.Conversations) {
+                if (this.Conversations[i].open) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+    },
+    ready() {
+        if (this.User.id != undefined)
+            this.Conversations = conversations;
     }
 });
 
@@ -318,4 +350,8 @@ toastr.options = {
     "hideEasing": "linear",
     "showMethod": "fadeIn",
     "hideMethod": "fadeOut"
+}
+
+toastr.options.onShown = () => {
+    vm.playToastrSound();
 }

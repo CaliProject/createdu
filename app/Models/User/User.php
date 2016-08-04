@@ -394,4 +394,27 @@ class User extends Authenticatable {
 
         return $this;
     }
+
+    /**
+     * Get user's current conversations side list.
+     *
+     * @return mixed
+     */
+    public function conversationsList()
+    {
+        /* TODO: Dynamic list in meta */
+        $users = static::where('id', '!=', $this->id)->take(8)->get();
+
+        return $users->map(function ($user) {
+            return [
+                'id'          => $user->id,
+                'avatar'      => $user->avatarUrl,
+                'name'        => $user->name,
+                'description' => $user->description,
+                // TODO:
+                'unread'      => 0,
+                'open'        => false
+            ];
+        });
+    }
 }

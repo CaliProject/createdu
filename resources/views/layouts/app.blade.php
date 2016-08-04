@@ -29,6 +29,9 @@
             signOutMessages = JSON.parse("{!! addslashes(json_encode(trans('views.logout'))) !!}"),
             carbonLines = JSON.parse("{!! addslashes(json_encode(trans('locales.carbon'))) !!}");
 
+        @if(Auth::check())
+            var conversations = JSON.parse("{!! addslashes(json_encode(Auth::user()->conversationsList())) !!}");
+        @endif
     </script>
 
     @stack('scripts.header')
@@ -41,6 +44,9 @@
     <div class="audio_files">
         <audio src="/assets/audio/NewMessage.mp3" preload="auto" id="new-message-sound"></audio>
         <audio src="/assets/audio/Notification.mp3" preload="auto" id="notification-sound"></audio>
+        <audio src="/assets/audio/Toastr.mp3" preload="auto" id="toastr-sound"></audio>
+        <audio src="/assets/audio/Message_Received.mp3" preload="auto" id="message-received-sound"></audio>
+        <audio src="/assets/audio/Message_Sent.mp3" preload="auto" id="message-sent-sound"></audio>
     </div>
 
     <!-- JavaScripts -->

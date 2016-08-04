@@ -1,1 +1,50 @@
-!function n(r,a,e){function o(t,f){if(!a[t]){if(!r[t]){var u="function"==typeof require&&require;if(!f&&u)return u(t,!0);if(i)return i(t,!0);var l=new Error("Cannot find module '"+t+"'");throw l.code="MODULE_NOT_FOUND",l}var s=a[t]={exports:{}};r[t][0].call(s.exports,function(n){var a=r[t][1][n];return o(a?a:n)},s,s.exports,n,r,a,e)}return a[t].exports}for(var i="function"==typeof require&&require,t=0;t<e.length;t++)o(e[t]);return o}({1:[function(n,r,a){"use strict";$(function(){function n(n){var o=n.target.value.split("\\").pop();o&&a.find("span").html(o),e=e?e:$(r).parents("form")[0],$(e).addClass("loading"),$($(a).find("figure")[0]).toggleClass("icon-cloud-upload fa fa-spin fa-spinner"),$.ajaxFileUpload({url:e.action,dataType:"json",fileElementId:"avatar-file",success:function(n){Admin.User.avatarUrl=n.url,$.pjax.reload("#"+$(e).attr("id"))},complete:function(){$(e).removeClass("loading"),$($(a).find("figure")[0]).toggleClass("icon-cloud-upload fa fa-spin fa-spinner")}})}var r,a,e;$(".avatar-crop img");$(".input-file").each(function(){r=$(this),a=r.next("label"),a.on("click",function(){$(r).click()}),r.on("change",n),r.on("focus",function(){r.addClass("has-focus")}).on("blur",function(){r.removeClass("has-focus")})})})},{}]},{},[1]);
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+'use strict';
+
+$(function () {
+    var $input, $label, $form;
+    var $image = $('.avatar-crop img');
+
+    $('.input-file').each(function () {
+        $input = $(this), $label = $input.next('label');
+
+        $label.on('click', function () {
+            $($input).click();
+        });
+
+        $input.on('change', uploadFile);
+
+        // Firefox bug fix
+        $input.on('focus', function () {
+            $input.addClass('has-focus');
+        }).on('blur', function () {
+            $input.removeClass('has-focus');
+        });
+    });
+
+    function uploadFile(e) {
+        var fileName = e.target.value.split('\\').pop();
+
+        if (fileName) $label.find('span').html(fileName);
+
+        $form = $form ? $form : $($input).parents("form")[0];
+        $($form).addClass('loading');
+        $($($label).find("figure")[0]).toggleClass('icon-cloud-upload fa fa-spin fa-spinner');
+
+        $.ajaxFileUpload({
+            url: $form.action,
+            dataType: 'json',
+            fileElementId: 'avatar-file',
+            success: function success(d) {
+                Admin.User.avatarUrl = d.url;
+                $.pjax.reload('#' + $($form).attr('id'));
+            },
+            complete: function complete() {
+                $($form).removeClass('loading');
+                $($($label).find("figure")[0]).toggleClass('icon-cloud-upload fa fa-spin fa-spinner');
+            }
+        });
+    }
+});
+
+},{}]},{},[1]);

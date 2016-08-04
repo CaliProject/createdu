@@ -1,0 +1,179 @@
+.Conversations {
+  margin: 0;
+  padding: 0;
+  right: 0;
+  bottom: 0;
+
+  @include has(popover) {
+    position: fixed;
+    @include ts(all .25s cubic-bezier(0.66, 0.05, 0.36, 1.13));
+    z-index: 89;
+    height: calc(100% - 88px);
+    min-height: 450px;
+    bottom: 0;
+    right: 0;
+
+    &.has-convo-opened {
+      right: 89px;
+    }
+  }
+
+  @include has(list) {
+    position: fixed;
+    z-index: 90;
+    max-height: calc(100% - 80px);
+    right: 5px;
+    bottom: 15px;
+    width: 75px;
+    display: flex;
+    flex-direction: column-reverse;
+    @include ts(all .2s cubic-bezier(.165, .84, .44, 1.05));
+
+    &:before {
+      content: '';
+      display: block;
+      background: linear-gradient(to bottom, #fff, rgba(255, 255, 255, 0.05));
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 70px;
+      z-index: 100;
+    }
+  }
+
+  @include has(container) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    flex-direction: column;
+    padding: 10px 20px 10px 0;
+  }
+
+  @include has(user) {
+    margin: 20px 0 0 20px;
+    flex-shrink: 0;
+
+    .minimized {
+      width: 40px;
+      height: 40px;
+      position: relative;
+
+      .convo-trigger {
+        display: block;
+        color: inherit;
+      }
+
+      .avatar {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+        overflow: hidden;
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      .badge {
+        position: absolute;
+        right: -5px;
+        top: -8px;
+        font-weight: bold;
+      }
+    }
+
+    &:first-of-type {
+      margin-top: 5px;
+    }
+
+    &:last-of-type {
+      margin-bottom: 25px;
+    }
+  }
+}
+
+.convo-transition {
+  @include ts(all .25s cubic-bezier(0.66, 0.05, 0.36, 1.13));
+}
+
+.convo-enter, .convo-leave {
+  height: 0 !important;
+  transform: scale3d(0, 0, 1);
+  transform-origin: 50% 50%;
+}
+
+.Convo {
+  @include has(popover) {
+    position: relative;
+    width: 300px;
+    height: 100%;
+    opacity: 1;
+  }
+
+  @include has(wrapper) {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  @include mod(open) {
+    display: flex;
+    flex-direction: column;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    box-shadow: 0 5px 13px 0 rgba(0, 0, 0, .25);
+    
+    .Convo__header {
+      position: relative;
+      font-weight: 700;
+      overflow: hidden;
+      z-index: 1;
+      color: #fff;
+
+      .Convo__header__image {
+        display: block;
+        position: absolute;
+        background-size: cover;
+        background-position: bottom;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin: -7px;
+        @include blur(5px);
+      }
+
+      .Convo__header__main {
+        color: #fff;
+        background: rgba(10, 10, 10, .3);
+        display: flex;
+        position: relative;
+        z-index: 2;
+        padding: 15px;
+
+        .title {
+          line-height: 1em;
+          flex: 1;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+        }
+
+        .controls {
+          display: flex;
+
+
+        }
+      }
+    }
+    
+    .Convo__main {
+      
+    }
+  }
+}

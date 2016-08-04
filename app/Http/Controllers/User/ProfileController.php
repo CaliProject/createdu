@@ -10,7 +10,6 @@ use Createdu\Avatar;
 use Createdu\Notification;
 use Illuminate\Http\Request;
 use Createdu\Http\Controllers\Controller;
-use Createdu\Events\User\Auth\UserHasRegistered;
 use Createdu\Library\Traits\Controller\ImageResponse;
 
 class ProfileController extends Controller {
@@ -139,7 +138,14 @@ class ProfileController extends Controller {
      */
     public function resendLink()
     {
-        event(new UserHasRegistered($this->request->user()));
+        $token = Crypt::encrypt($this->request->user()->email);
+
+        \Mailer::subject(trans('emails.confirmation.subject'))
+            ->to($this->request->user()->email)
+            ->user($this->request->user())
+            ->load('auth.emails.confirm')
+            ->with(compact('token'))
+            ->send();
 
         return $this->successResponse(trans('views.profile.settings.privacy.resend-success'));
     }

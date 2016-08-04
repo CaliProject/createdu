@@ -254,7 +254,9 @@ class ProfileController extends Controller {
             ]);
         }
 
-        return $this->successResponse(['redirectUrl' => route('users.profile.oauth', compact('service'))]);
+        $fromAdmin = $this->request->has('admin');
+
+        return $this->successResponse(['redirectUrl' => route('users.profile.oauth', compact('service', 'fromAdmin'))]);
     }
 
     /**
@@ -265,7 +267,10 @@ class ProfileController extends Controller {
      */
     public function redirectToService($service)
     {
-        request()->session()->put('redirect', route('users.profile.settings', ['section' => 'privacy'], false));
+        request()->session()->put('redirect', $this->request->input('fromAdmin') ?
+            route('admin.users.profile.index', [], false) :
+            route('users.profile.settings', ['section' => 'privacy'], false)
+        );
 
         return Socialite::with($service)->redirect();
     }

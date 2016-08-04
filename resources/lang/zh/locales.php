@@ -27,5 +27,9 @@ return [
             'ago'    => ''
         ],
         'suffix'   => '前'
+    ],
+
+    'dates' => [
+        'today' => '今天'
     ]
 ];

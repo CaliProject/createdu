@@ -2,13 +2,13 @@
   @at-root .open &, .user-notification:hover + & {
     visibility: visible;
     opacity: 1;
-    margin-top: 17px !important;
+    margin-top: 8px !important;
   }
 
   &:hover {
     visibility: visible;
     opacity: 1;
-    margin-top: 17px !important;
+    margin-top: 8px !important;
   }
 
   display: block;
@@ -20,26 +20,26 @@
   top: 100%;
   z-index: 1000;
   background: rgba(#403e3e, 0.88);
+  background: linear-gradient(30deg, rgba($facebook-color, .88), rgba($pink-color, .88), rgba(#403e3e, 0.88), rgba($twitter-color, .88));
+  background-size: 500%;
+  transition: all .3s ease;
   left: auto;
   right: 0;
   border-radius: 6px;
   padding: 1em 0;
   box-shadow: 0 1px 15px 2px rgba(0, 0, 0, .35);
+  @include am(bg-gradient 17s ease-in-out infinite);
   @include ts();
 
-  &:before {
-    position: absolute;
-    top: -16px;
-    right: 15px;
-    display: inline-block !important;
-    border: 8px solid transparent;
-    border-bottom-color: rgba(#403e3e, 0.88);
-    content: '';
-  }
-
-  @include has(blurry-overlay) {
-
-  }
+  //&:before {
+  //  position: absolute;
+  //  top: -16px;
+  //  right: 15px;
+  //  display: inline-block !important;
+  //  border: 8px solid transparent;
+  //  border-bottom-color: rgba(#403e3e, 0.88);
+  //  content: '';
+  //}
 
   @include has(title) {
     margin: .5em .25em 1em;

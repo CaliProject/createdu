@@ -8,7 +8,6 @@ use Createdu\Statistic;
 class RecordStatistics {
 
     protected $excludes = [
-        ['route' => 'admin.dashboard', 'all' => true],
         ['route' => 'users.avatar', 'all' => true],
     ];
 
@@ -22,7 +21,7 @@ class RecordStatistics {
     public function handle($request, Closure $next)
     {
         if (strtoupper($request->method()) === 'GET') {
-            if ($this->filterExclusions($request)) {
+            if ($this->filterAdmin() && $this->filterExclusions()) {
                 Statistic::visited($request);
             }
         }
@@ -33,23 +32,38 @@ class RecordStatistics {
     /**
      * Filter excluded paths that is unnecessary to record in statistics.
      *
-     * @param $request
      * @return bool
      *
      * @author Cali
      */
-    protected function filterExclusions($request)
+    protected function filterExclusions()
     {
         foreach ($this->excludes as $exclude) {
             if ($exclude['all']) {
-                if ($request->is(substr(route($exclude['route'], [], false), 1) . '*')) {
+                if (request_is_route($exclude['route'], [], true)) {
                     return false;
                 }
             } else {
-                if ($request->is(substr(route($exclude['route'], [], false), 1))) {
+                if (request_is_route($exclude['route'])) {
                     return false;
                 }
             }
+        }
+
+        return true;
+    }
+
+    /**
+     * Filter all admin uris.
+     *
+     * @return bool
+     *
+     * @author Cali
+     */
+    protected function filterAdmin()
+    {
+        if (str_contains(request()->url(), route('admin.index'))) {
+            return false;
         }
 
         return true;

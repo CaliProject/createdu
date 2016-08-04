@@ -7,9 +7,9 @@
 @stop
 
 @section('app.content')
-    {{--<script>--}}
-        {{--var visitorsData = JSON.parse("{!! addslashes(json_encode(Stat::visitorsStats())) !!}");--}}
-    {{--</script>--}}
+    <script>
+        var visitorsData = JSON.parse("{!! addslashes(json_encode(Stat::visitorsStats())) !!}");
+    </script>
     <div class="row">
         <div class="col-lg-3 col-md-6">
             <div class="panel info-box panel-white">

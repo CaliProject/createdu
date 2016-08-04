@@ -7973,6 +7973,14 @@ input.uniform-input, input.uniform-input:focus {
   to {
     transform: perspective(400px); } }
 
+@keyframes bg-gradient {
+  0% {
+    background-position: 2% 95%; }
+  50% {
+    background-position: 95% 10%; }
+  100% {
+    background-position: 2% 98%; } }
+
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -8659,11 +8667,19 @@ li.on:after {
   top: 100%;
   z-index: 1000;
   background: rgba(64, 62, 62, 0.88);
+  background: linear-gradient(30deg, rgba(53, 78, 142, 0.88), rgba(205, 47, 198, 0.88), rgba(64, 62, 62, 0.88), rgba(114, 146, 244, 0.88));
+  background-size: 500%;
+  transition: all .3s ease;
   left: auto;
   right: 0;
   border-radius: 6px;
   padding: 1em 0;
   box-shadow: 0 1px 15px 2px rgba(0, 0, 0, 0.35);
+  animation: bg-gradient 17s ease-in-out infinite;
+  -webkit-animation: bg-gradient 17s ease-in-out infinite;
+  -moz-animation: bg-gradient 17s ease-in-out infinite;
+  -ms-animation: bg-gradient 17s ease-in-out infinite;
+  -o-animation: bg-gradient 17s ease-in-out infinite;
   transition: all ease-in-out 0.3s;
   -webkit-transition: all ease-in-out 0.3s;
   -moz-transition: all ease-in-out 0.3s;
@@ -8672,19 +8688,11 @@ li.on:after {
   .open .Inbox, .user-notification:hover + .Inbox {
     visibility: visible;
     opacity: 1;
-    margin-top: 17px !important; }
+    margin-top: 8px !important; }
   .Inbox:hover {
     visibility: visible;
     opacity: 1;
-    margin-top: 17px !important; }
-  .Inbox:before {
-    position: absolute;
-    top: -16px;
-    right: 15px;
-    display: inline-block !important;
-    border: 8px solid transparent;
-    border-bottom-color: rgba(64, 62, 62, 0.88);
-    content: ''; }
+    margin-top: 8px !important; }
   .Inbox__title {
     margin: .5em .25em 1em; }
     .Inbox__title p {

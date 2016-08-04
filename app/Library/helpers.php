@@ -231,3 +231,20 @@ if (! function_exists('sms_validate')) {
         return false;
     }
 }
+
+if (! function_exists('random_trans')) {
+    /**
+     * Get a random translation line.
+     *
+     * @param $key
+     * @return mixed
+     *
+     * @author Cali
+     */
+    function random_trans($key)
+    {
+        $index = random_int(0, count(trans($key)));
+
+        return trans($key)[$index];
+    }
+}

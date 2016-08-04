@@ -78,9 +78,4 @@ $(document).ready(function () {
     };
 
     flot();
-
-    $(".live-tile").liveTile();
-    $(document).on('pjax:beforeReplace', function () {
-        $(".live-tile").liveTile("destroy");
-    });
 });

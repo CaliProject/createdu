@@ -3,7 +3,8 @@
 @section("title", trans('views.admin.titles.users.sub.profile'))
 
 @section('breadcrumb')
-    <li><a href="@route('admin.index',['section' => 'users'],false)" data-pjax><i class="icon-user"></i>@lang('views.admin.titles.users.sub.index')</a></li>
+    <li><a href="@route('admin.index',['section' => 'users'],false)" data-pjax><i
+                    class="icon-user"></i>@lang('views.admin.titles.users.sub.index')</a></li>
     <li class="active"><i class="icon-pencil"></i>@lang('views.admin.titles.users.sub.profile')</li>
 @stop
 
@@ -17,7 +18,8 @@
                     </h4>
                 </div>
                 <div class="panel-body">
-                    <form action="{{ empty($user) ? route('admin.users.profile.save', [], false) : route('admin.users.edit.update', ['user' => $user->id], false) }}" method="POST" class="form-horizontal">
+                    <form action="{{ empty($user) ? route('admin.users.profile.save', [], false) : route('admin.users.edit.update', ['user' => $user->id], false) }}"
+                          method="POST" class="form-horizontal">
                         {{ csrf_field() }}
                         {{ method_field('PATCH') }}
                         <div class="form-group">
@@ -26,7 +28,8 @@
                                 @if(empty($user))
                                     <input type="text" name="name" class="form-control" v-model="User.name" required>
                                 @else
-                                    <input type="text" name="name" class="form-control" value="{{ $user->name }}" required>
+                                    <input type="text" name="name" class="form-control" value="{{ $user->name }}"
+                                           required>
                                 @endif
                             </div>
                         </div>
@@ -34,9 +37,11 @@
                             <label class="col-md-2 control-label">@lang('validation.attributes.credit')</label>
                             <div class="col-md-10">
                                 @if(empty($user))
-                                    <input type="text" name="credit" class="form-control" v-model="User.credit" required>
+                                    <input type="text" name="credit" class="form-control" v-model="User.credit"
+                                           required>
                                 @else
-                                    <input type="text" name="credit" class="form-control" value="{{ $user->credit }}" required>
+                                    <input type="text" name="credit" class="form-control" value="{{ $user->credit }}"
+                                           required>
                                 @endif
                             </div>
                         </div>
@@ -44,9 +49,11 @@
                             <label class="col-md-2 control-label">@lang('validation.attributes.experience')</label>
                             <div class="col-md-10">
                                 @if(empty($user))
-                                    <input type="text" name="experience" class="form-control" v-model="User.experience" required>
+                                    <input type="text" name="experience" class="form-control" v-model="User.experience"
+                                           required>
                                 @else
-                                    <input type="text" name="experience" class="form-control" value="{{ $user->experience }}">
+                                    <input type="text" name="experience" class="form-control"
+                                           value="{{ $user->experience }}">
                                 @endif
                             </div>
                         </div>
@@ -56,12 +63,14 @@
                                 @if(empty($user))
                                     <input type="text" name="email" class="form-control" v-model="User.email" required>
                                 @else
-                                    <input type="text" name="email" class="form-control" value="{{ $user->email }}" required>
+                                    <input type="text" name="email" class="form-control" value="{{ $user->email }}"
+                                           required>
                                 @endif
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <button type="submit" class="btn btn-primary btn-block btn-rounded">@lang('views.admin.pages.settings.update-button')</button>
+                            <button type="submit"
+                                    class="btn btn-primary btn-block btn-rounded">@lang('views.admin.pages.settings.update-button')</button>
                         </div>
                     </form>
                 </div>
@@ -75,7 +84,8 @@
                     </h4>
                 </div>
                 <div class="panel-body">
-                    <form action="{{ empty($user) ? route('admin.users.profile.update-password', [], false) : route('admin.users.edit.password', ['user' => $user->id], false) }}" method="POST" class="form-horizontal">
+                    <form action="{{ empty($user) ? route('admin.users.profile.update-password', [], false) : route('admin.users.edit.password', ['user' => $user->id], false) }}"
+                          method="POST" class="form-horizontal">
                         {{ csrf_field() }}
                         {{ method_field('PATCH') }}
                         <div class="form-group">
@@ -91,15 +101,16 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <button type="submit" class="btn btn-primary btn-block btn-rounded">@lang('views.admin.pages.settings.update-button')</button>
+                            <button type="submit"
+                                    class="btn btn-primary btn-block btn-rounded">@lang('views.admin.pages.settings.update-button')</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        @if(empty($user))
+    @if(empty($user))
+        <div class="row">
             <div class="col-md-6">
                 <div class="panel panel-white">
                     <div class="panel-heading">
@@ -110,13 +121,16 @@
                     <div class="panel-body">
                         <div class="col-sm-12">
                             <div class="avatar-crop col-xs-6 col-xs-offset-3">
-                                <img :src="User.avatarUrl" :alt="User.name" class="img-circle" style="width: 100%; height: 100%">
+                                <img :src="User.avatarUrl" :alt="User.name" class="img-circle"
+                                     style="width: 100%; height: 100%">
                             </div>
                         </div>
                         <div class="col-sm-12 text-center">
                             <div class="m-t-lg">
-                                <form action="@route('admin.users.profile.upload-avatar', [], false)" method="POST" id="avatar-uploader">
-                                    <input type="file" name="avatar" id="avatar-file" class="input-file input-uploader" accept="image/png,image/gif,image/jpeg">
+                                <form action="@route('admin.users.profile.upload-avatar', [], false)" method="POST"
+                                      id="avatar-uploader">
+                                    <input type="file" name="avatar" id="avatar-file" class="input-file input-uploader"
+                                           accept="image/png,image/gif,image/jpeg">
                                     <label for="avatar">
                                         <figure class="icon-cloud-upload"></figure>
                                         <span>@lang('views.admin.pages.settings.display.upload-logo.upload')&hellip;</span>
@@ -127,68 +141,41 @@
                     </div>
                 </div>
             </div>
-        @endif
-        <div class="col-md-6">
-            <div class="panel panel-white">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        @lang('views.admin.pages.users.profile.social.heading')
-                    </h4>
-                </div>
-                <div class="panel-body">
-                    @if(empty($user))
-                        <div class="Well">
-                            <div class="oAuths">
-                                @foreach(explode(",", Site::supportedOAuths()) as $service)
-                                    <div class="col-md-6">
-                                        <div class="oAuth">
-                                            <form action="" method="POST" class="Form ajax">
-                                                {!! csrf_field() !!}
-                                                <div class="form-group">
-                                                    <h1 class="{{ $service }}"><i class="fa fa-{{ $service }}"></i></h1>
-                                                </div>
-                                                <div class="form-group">
-                                                    @if(Auth::user()->boundOAuth($service))
-                                                        <button type="submit" class="btn btn-danger btn-round btn-well center-block">@lang('views.admin.pages.users.profile.social.unbind')</button>
-                                                    @else
-                                                        <button type="submit" class="btn btn-primary btn-round btn-well center-block">@lang('views.admin.pages.users.profile.social.bind')</button>
-                                                    @endif
-                                                </div>
-                                            </form>
-                                        </div>
+            <div class="col-md-6">
+                <div class="panel panel-white">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            @lang('views.admin.pages.users.profile.social.heading')
+                        </h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-xs-12">
+                            @foreach(explode(',', Site::supportedOAuths()) as $service)
+                                <form action="@route('users.profile.oauth', ['service' => $service, 'admin' => true], false)"
+                                      id="{{ $service }}-oauth" method="POST" class="p-v-md">
+                                    {!! csrf_field() !!}
+                                    <div class="col-md-8 col-sm-7 col-xs-6">
+                                        <b class="{{ $service }}-colored" style="text-transform: capitalize"><i
+                                                    class="fa fa-{{ $service }}"></i>&nbsp;{{ $service == 'qq' ? 'QQ' : $service }}
+                                        </b>
                                     </div>
-                                @endforeach
-                            </div>
-                        </div>
-                    @else
-                        <div class="Well">
-                            <div class="oAuths">
-                                @foreach(explode(",", Site::supportedOAuths()) as $service)
-                                    <div class="col-md-6">
-                                        <div class="oAuth">
-                                            <form action="" method="POST" class="Form ajax">
-                                                {!! csrf_field() !!}
-                                                <div class="form-group">
-                                                    <h1 class="{{ $service }}"><i class="fa fa-{{ $service }}"></i></h1>
-                                                </div>
-                                                <div class="form-group">
-                                                    @if(Auth::user()->boundOAuth($service))
-                                                        <button type="submit" class="btn btn-danger btn-round btn-well center-block">@lang('views.admin.pages.users.profile.social.unbind')</button>
-                                                    @else
-                                                        <button type="submit" class="btn btn-primary btn-round btn-well center-block">@lang('views.admin.pages.users.profile.social.bind')</button>
-                                                    @endif
-                                                </div>
-                                            </form>
-                                        </div>
+                                    <div class="col-md-4 col-sm-5 col-xs-6 text-right">
+                                        @if(Auth::user()->boundOAuth($service))
+                                            <button type="submit"
+                                                    class="btn btn-danger btn-block btn-rounded">@lang('views.admin.pages.users.profile.social.unbind')</button>
+                                        @else
+                                            <button type="submit"
+                                                    class="btn btn-success btn-block btn-rounded">@lang('views.admin.pages.users.profile.social.bind')</button>
+                                        @endif
                                     </div>
-                                @endforeach
-                            </div>
+                                </form>
+                            @endforeach
                         </div>
-                    @endif
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endif
 @stop
 
 @push('scripts.footer')

@@ -93,6 +93,14 @@
   to {
     transform: perspective(400px); } }
 
+@keyframes bg-gradient {
+  0% {
+    background-position: 2% 95%; }
+  50% {
+    background-position: 95% 10%; }
+  100% {
+    background-position: 2% 98%; } }
+
 .Input {
   position: relative;
   z-index: 1;

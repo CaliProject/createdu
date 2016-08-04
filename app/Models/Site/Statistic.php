@@ -437,7 +437,7 @@ class Statistic extends Model {
                     [Carbon::today()->addDays($i - 1), $i === 1 ? Carbon::now() : Carbon::today()->addDays($i)])->count()
             ]);
             array_push($dates, [
-                abs(5 + $i), $i === 1 ? trans('validation.dates.today') : Carbon::today()->addDays($i - 1)->diffForHumans()
+                abs(5 + $i), $i === 1 ? trans('locales.dates.today') : Carbon::today()->addDays($i - 1)->diffForHumans()
             ]);
         }
         

@@ -191,6 +191,13 @@ class Router {
                     Route::post('resize', 'UsersController@resizeAvatar')->name('resize-avatar');
                 });
             });
+            Route::group([
+                'prefix' => 'centers',
+                'as'     => 'centers.'
+            ], function () {
+                Route::get('factory', 'CenterController@showFactory')->name('factory');
+                Route::post('factory', 'CenterController@createFactory');
+            });
         });
 
         return new static;

@@ -92,7 +92,8 @@ return [
             'data-center' => [
                 'main' => '数据中心',
                 'sub'  => [
-                    'index' => '数据统计',
+                    'index'   => '数据统计',
+                    'factory' => '模型工厂'
                 ]
             ],
             'settings'  => [
@@ -215,7 +216,8 @@ return [
                 'index'   => [
                     'total-users'      => '用户总数',
                     'total-page-views' => '网站流量总数',
-                    'total-blogs'      => '社交博客总数',
+                    'total-posts'      => '文章总数',
+                    'total-courses'    => '课程总数',
                     'total-comments'   => '评论总数',
                     'visitor-records'  => '访客记录',
                     'most'             => '最多:item',
@@ -229,13 +231,14 @@ return [
                 ],
                 'factory' => [
                     'heading'       => '欢迎来到模型工厂',
-                    'tips'          => '模式工厂是Project Noah特有的数据生产间, 在这里你可以快速生成测试数据, 比如生成50名用户, 100篇博文等.',
+                    'tips'          => '模式工厂是创学特有的数据生产间, 在这里你可以快速生成测试数据, 比如生成50名用户, 100篇博文等.',
                     'model'         => '选择生产模型',
                     'quantity'      => '选择数量',
                     'quantity-tips' => '数量选择越多时间消耗越久, 若超时请选择较少数量',
                     'models'        => [
-                        'user' => '用户模型',
-                        'blog' => '博文模型'
+                        'user'   => '用户模型',
+                        'post'   => '文章模型',
+                        'course' => '课程模型'
                     ],
                     'create'        => '开始生产',
                     'created'       => ':q个:model 已成功出厂',

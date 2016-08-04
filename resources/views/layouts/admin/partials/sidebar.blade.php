@@ -43,7 +43,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li><a href="@route('admin.index', ['section' => 'centers'], false)" data-pjax>@lang('views.admin.titles.data-center.sub.index')</a></li>
-                    {{--<li><a href="@route('admin.factory', [], false)" data-pjax>@lang('views.admin.titles.data-center.sub.factory')</a></li>--}}
+                    <li><a href="@route('admin.centers.factory', [], false)" data-pjax>@lang('views.admin.titles.data-center.sub.factory')</a></li>
                 </ul>
             </li>
             <li class="droplink">

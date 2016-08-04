@@ -248,7 +248,7 @@ if (! function_exists('random_trans')) {
             return trans($key, $data);
         }
 
-        $keys = array_keys();
+        $keys = array_keys(trans($key));
         $key = $key . '.' . $keys[random_int(0, count($keys) - 1)];
 
         return trans($key, $data);

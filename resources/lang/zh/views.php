@@ -510,7 +510,8 @@ return [
             'unread'  => '条未读通知',
             'see-all' => '查看全部',
             'empty'   => '暂无未读通知 :)'
-        ]
+        ],
+        'checked-in' => '签到成功!'
     ],
 
     'alert' => [

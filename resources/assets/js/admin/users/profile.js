@@ -1,7 +1,6 @@
 $(function () {
     var $input, $label, $form;
     var $image = $('.avatar-crop img');
-    var $resizeButton = $('button#resize-button');
 
     $('.input-file').each(function () {
         $input = $(this),
@@ -23,35 +22,6 @@ $(function () {
             });
     });
 
-    $($resizeButton).on('click', function () {
-        const $data = $($image).cropper('getData'),
-            $resizeForm = $("form#resize-avatar");
-
-        $.post({
-                url: $($resizeForm).attr('action'),
-                data: $data,
-                success: (jsonData) => {
-                if (jsonData.status != 'error') {
-            Admin.User.avatarUrl = jsonData.avatarUrl;
-            toastr.success(`<h4>${jsonData.message}</h4>`);
-            $($resizeButton).fadeOut();
-            $image.cropper('destroy');
-        } else {
-            toastr.error(`<h4>${jsonData.message}</h4>`);
-        }
-    },
-        error: (er) => {
-            toastr.error(`<h4>${er.responseText}</h4>`);
-        },
-        complete: () => {
-            setTimeout(() => {
-                const sel = `#${$($form).attr('id')}`;
-            $.pjax.reload(sel);
-        }, 100);
-        }
-    });
-    });
-
     function uploadFile(e) {
         const fileName = e.target.value.split('\\').pop();
 
@@ -63,26 +33,17 @@ $(function () {
         $($($label).find("figure")[0]).toggleClass('icon-cloud-upload fa fa-spin fa-spinner');
 
         $.ajaxFileUpload({
-                url: $form.action,
-                dataType: 'json',
-                fileElementId: 'avatar-file',
-                success: (d) => {
-                $($image).attr('src', d.url);
-        $($image).cropper({
-            aspectRatio: 1,
-            rotatable: false,
-            scalable: false,
-            zoomable: false
+            url: $form.action,
+            dataType: 'json',
+            fileElementId: 'avatar-file',
+            success: (d) => {
+                Admin.User.avatarUrl = d.url;
+                $.pjax.reload(`#${$($form).attr('id')}`);
+            },
+            complete: () => {
+                $($form).removeClass('loading');
+                $($($label).find("figure")[0]).toggleClass('icon-cloud-upload fa fa-spin fa-spinner');
+            }
         });
-        $($resizeButton).fadeIn();
-    },
-        error: (er) => {
-
-        },
-        complete: () => {
-            $($form).removeClass('loading');
-            $($($label).find("figure")[0]).toggleClass('icon-cloud-upload fa fa-spin fa-spinner');
-        }
-    });
     }
 });

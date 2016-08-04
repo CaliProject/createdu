@@ -151,7 +151,7 @@
                     <div class="panel-body">
                         <div class="col-xs-12">
                             @foreach(explode(',', Site::supportedOAuths()) as $service)
-                                <form action="@route('users.profile.oauth', ['service' => $service, 'admin' => true], false)"
+                                <form action="@route('admin.users.profile.oauth', ['service' => $service, 'admin' => true])"
                                       id="{{ $service }}-oauth" method="POST" class="p-v-md">
                                     {!! csrf_field() !!}
                                     <div class="col-md-8 col-sm-7 col-xs-6">

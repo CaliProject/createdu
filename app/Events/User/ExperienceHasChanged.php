@@ -88,7 +88,7 @@ class ExperienceHasChanged extends Event implements ShouldBroadcast, ShouldNotif
      */
     protected function getMessage()
     {
-        $message = trans('notifications.content.exp.earned', ['exp' => $this->experience]);
+        $message = random_trans('notifications.content.exp.earned', ['exp' => $this->experience]);
 
         return is_null($this->extraMessage) ? $message : $this->extraMessage . $message;
     }

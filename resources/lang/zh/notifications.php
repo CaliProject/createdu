@@ -5,7 +5,9 @@ return [
         'credit' => [
             'increase' => '增加了:credit积分',
             'decrease' => '扣除了:credit积分',
-            'check-in' => '每日签到,',
+            'check-in' => [
+                '每日签到,', '奖励辛勤的签到工,'
+            ],
         ],
         'exp'    => [
             'earned'         => '获得了:exp经验',

@@ -74,7 +74,7 @@ class ProfileController extends Controller {
         if (! $this->request->user()->checkedIn()) {
             $this->request->user()->checkIn();
 
-            return $this->successResponse('签到成功!');
+            return $this->successResponse(trans('views.nav.checked-in'));
         } else {
             return redirect('/');
         }
@@ -268,8 +268,8 @@ class ProfileController extends Controller {
     public function redirectToService($service)
     {
         request()->session()->put('redirect', $this->request->input('fromAdmin') ?
-            route('admin.users.profile.index', [], false) :
-            route('users.profile.settings', ['section' => 'privacy'], false)
+            route('admin.users.profile.index') :
+            route('users.profile.settings', ['section' => 'privacy'])
         );
 
         return Socialite::with($service)->redirect();

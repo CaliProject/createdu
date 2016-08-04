@@ -89,8 +89,8 @@ class CreditHasChanged extends Event implements ShouldNotify, ShouldBroadcast {
     protected function getMessage()
     {
         $message = $this->credit > 0 ?
-            trans('notifications.content.credit.increase', ['credit' => $this->credit]) :
-            trans('notifications.content.credit.decrease', ['credit' => abs($this->credit)]);
+            random_trans('notifications.content.credit.increase', ['credit' => $this->credit]) :
+            random_trans('notifications.content.credit.decrease', ['credit' => abs($this->credit)]);
 
         return is_null($this->extraMessage) ? $message : $this->extraMessage . $message;
     }

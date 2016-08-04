@@ -279,7 +279,7 @@ class User extends Authenticatable {
     {
         if (! $this->checkedIn()) {
             /* TODO: Change to settable dynamic amount */
-            $this->credit(20, trans('notifications.content.credit.check-in'));
+            $this->credit(20, random_trans('notifications.content.credit.check-in'));
 
             return $this->meta('check_in', 'checked', true);
         }

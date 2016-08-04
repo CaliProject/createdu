@@ -236,15 +236,21 @@ if (! function_exists('random_trans')) {
     /**
      * Get a random translation line.
      *
-     * @param $key
+     * @param       $key
+     * @param array $data
      * @return mixed
      *
      * @author Cali
      */
-    function random_trans($key)
+    function random_trans($key, $data = [])
     {
-        $index = random_int(0, count(trans($key)));
+        if (is_string(trans($key))) {
+            return trans($key, $data);
+        }
 
-        return trans($key)[$index];
+        $keys = array_keys();
+        $key = $key . '.' . $keys[random_int(0, count($keys) - 1)];
+
+        return trans($key, $data);
     }
 }

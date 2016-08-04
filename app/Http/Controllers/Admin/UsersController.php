@@ -78,9 +78,32 @@ class UsersController extends Controller {
         Avatar::move($request->file('avatar'), $request->user());
 
         return response(json_encode([
-            'url' => route('users.avatar', ['user' => $request->user()->id])
+            'url' => $request->user()->avatarUrl
         ]), 200, [
             'Content-type' => 'text/html'
         ]);
+    }
+
+    /**
+     * Bind/Unbind the user's OAuth service.
+     *
+     * @param         $service
+     * @param Request $request
+     * @return array
+     */
+    public function bindOrUnbindOAuth($service, Request $request)
+    {
+        if ($request->user()->boundOAuth($service)) {
+            $request->user()->unbindOAuth($service);
+
+            return $this->successResponse([
+                'message' => trans('views.admin.pages.users.profile.social.unbind-success', compact('service')),
+                'reload'  => true
+            ]);
+        }
+
+        $fromAdmin = $request->has('admin');
+
+        return $this->successResponse(['redirectUrl' => route('users.profile.oauth', compact('service', 'fromAdmin'))]);
     }
 }

@@ -186,6 +186,7 @@ class Router {
 
                     Route::patch('save', 'UsersController@saveProfile')->name('save');
                     Route::patch('password', 'UsersController@updatePassword')->name('update-password');
+                    Route::post('oauth/{service}', 'UsersController@bindOrUnbindOAuth')->name('oauth');
                     Route::post('avatar', 'UsersController@uploadAvatar')->name('upload-avatar');
                     Route::post('resize', 'UsersController@resizeAvatar')->name('resize-avatar');
                 });

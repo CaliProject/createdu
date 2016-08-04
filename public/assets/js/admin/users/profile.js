@@ -4,7 +4,6 @@
 $(function () {
     var $input, $label, $form;
     var $image = $('.avatar-crop img');
-    var $resizeButton = $('button#resize-button');
 
     $('.input-file').each(function () {
         $input = $(this), $label = $input.next('label');
@@ -23,35 +22,6 @@ $(function () {
         });
     });
 
-    $($resizeButton).on('click', function () {
-        var $data = $($image).cropper('getData'),
-            $resizeForm = $("form#resize-avatar");
-
-        $.post({
-            url: $($resizeForm).attr('action'),
-            data: $data,
-            success: function success(jsonData) {
-                if (jsonData.status != 'error') {
-                    Admin.User.avatarUrl = jsonData.avatarUrl;
-                    toastr.success('<h4>' + jsonData.message + '</h4>');
-                    $($resizeButton).fadeOut();
-                    $image.cropper('destroy');
-                } else {
-                    toastr.error('<h4>' + jsonData.message + '</h4>');
-                }
-            },
-            error: function error(er) {
-                toastr.error('<h4>' + er.responseText + '</h4>');
-            },
-            complete: function complete() {
-                setTimeout(function () {
-                    var sel = '#' + $($form).attr('id');
-                    $.pjax.reload(sel);
-                }, 100);
-            }
-        });
-    });
-
     function uploadFile(e) {
         var fileName = e.target.value.split('\\').pop();
 
@@ -66,16 +36,9 @@ $(function () {
             dataType: 'json',
             fileElementId: 'avatar-file',
             success: function success(d) {
-                $($image).attr('src', d.url);
-                $($image).cropper({
-                    aspectRatio: 1,
-                    rotatable: false,
-                    scalable: false,
-                    zoomable: false
-                });
-                $($resizeButton).fadeIn();
+                Admin.User.avatarUrl = d.url;
+                $.pjax.reload('#' + $($form).attr('id'));
             },
-            error: function error(er) {},
             complete: function complete() {
                 $($form).removeClass('loading');
                 $($($label).find("figure")[0]).toggleClass('icon-cloud-upload fa fa-spin fa-spinner');

@@ -124,7 +124,7 @@ const vm = new Vue({
         playToastrSound() {
             document.getElementById("toastr-sound").play();
         },
-        playMessageSound(sent: true) {
+        playMessageSound(sent:true) {
             document.getElementById(`message-${sent ? 'sent' : 'received'}-sound`);
         },
         readInbox(e) {
@@ -182,9 +182,33 @@ const vm = new Vue({
             }
 
             this.Conversations[$index].open = true;
+
+            setTimeout(() => setupSlimScrolls(), 500);
+
+            if (this.Conversations[$index].messages != undefined) {
+
+            } else {
+
+            }
         },
         sendMessage() {
+            const $message = this.message,
+                id = parseInt($($(".Convo__message")[0]).attr('conversation-id'));
 
+            this.message = '';
+
+            // this.request({
+            //     url: `/chat/${id}`,
+            //     type: 'POST',
+            //     data: {
+            //         message: $message
+            //     },
+            //     callback(success) {
+            //         if (success) {
+            //
+            //         }
+            //     }
+            // });
         }
     },
     data: {
@@ -233,6 +257,10 @@ stageAndContentHeight();
 
 window.vm = vm;
 window.onresize = stageAndContentHeight;
+
+function setupSlimScrolls() {
+    $('.SlimScroll').slimscroll();
+}
 
 $(() => {
     const loadingIcon = '<i class="fa fa-circle-o-notch fa-spin"></i>&nbsp;';

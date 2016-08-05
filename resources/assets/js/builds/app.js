@@ -10383,7 +10383,31 @@ var vm = new Vue({
         }
 
         this.Conversations[$index].open = true;
-    }), _defineProperty(_methods, 'sendMessage', function sendMessage() {}), _methods),
+
+        setTimeout(function () {
+            return setupSlimScrolls();
+        }, 500);
+
+        if (this.Conversations[$index].messages != undefined) {} else {}
+    }), _defineProperty(_methods, 'sendMessage', function sendMessage() {
+        var $message = this.message,
+            id = parseInt($($(".Convo__message")[0]).attr('conversation-id'));
+
+        this.message = '';
+
+        // this.request({
+        //     url: `/chat/${id}`,
+        //     type: 'POST',
+        //     data: {
+        //         message: $message
+        //     },
+        //     callback(success) {
+        //         if (success) {
+        //
+        //         }
+        //     }
+        // });
+    }), _methods),
     data: {
         displayBackTop: false,
         searchText: '',
@@ -10429,6 +10453,10 @@ stageAndContentHeight();
 
 window.vm = vm;
 window.onresize = stageAndContentHeight;
+
+function setupSlimScrolls() {
+    $('.SlimScroll').slimscroll();
+}
 
 $(function () {
     var loadingIcon = '<i class="fa fa-circle-o-notch fa-spin"></i>&nbsp;';

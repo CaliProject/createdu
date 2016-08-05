@@ -7939,7 +7939,7 @@ input.uniform-input, input.uniform-input:focus {
     transform: translateX(-50px); }
   100% {
     opacity: 1;
-    transform: scale3d(1, 1, 1) translateX(0); } }
+    transform: translateX(0); } }
 
 @keyframes rubberBand {
   from {
@@ -9128,8 +9128,6 @@ li.on:after {
   display: flex;
   -ms-flex-direction: column;
   flex-direction: column;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
   box-shadow: 0 5px 13px 0 rgba(0, 0, 0, 0.25);
   transform-origin: 50% 50%;
   height: 100%; }
@@ -9138,7 +9136,9 @@ li.on:after {
     font-weight: 700;
     overflow: hidden;
     z-index: 1;
-    color: #fff; }
+    color: #fff;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px; }
     .Convo--open .Convo__header .Convo__header__image {
       display: block;
       position: absolute;
@@ -9189,14 +9189,15 @@ li.on:after {
     position: relative;
     color: #444; }
     .Convo--open .Convo__main .Convo__inner {
-      position: relative;
+      position: absolute;
       left: 0;
       top: 0;
       bottom: 0;
       right: 0;
       width: 100%;
       height: 100%;
-      overflow: hidden; }
+      overflow: hidden;
+      max-height: 380px; }
     .Convo--open .Convo__main .Convo__messages {
       height: 100%; }
       .Convo--open .Convo__main .Convo__messages .icebreaker {
@@ -9224,6 +9225,84 @@ li.on:after {
           color: #555; }
       .Convo--open .Convo__main .Convo__messages .message-list {
         padding: 15px; }
+        .Convo--open .Convo__main .Convo__messages .message-list .message-bubble-container {
+          animation: fadeInDown 0.35s backwards;
+          -webkit-animation: fadeInDown 0.35s backwards;
+          -moz-animation: fadeInDown 0.35s backwards;
+          -ms-animation: fadeInDown 0.35s backwards;
+          -o-animation: fadeInDown 0.35s backwards;
+          line-height: 1.4;
+          margin-top: 15px; }
+          .Convo--open .Convo__main .Convo__messages .message-list .message-bubble-container:first-of-type {
+            margin-top: 0 !important; }
+          .Convo--open .Convo__main .Convo__messages .message-list .message-bubble-container.collapsed {
+            margin-top: 5px !important; }
+            .Convo--open .Convo__main .Convo__messages .message-list .message-bubble-container.collapsed .avatar {
+              display: none;
+              visibility: hidden; }
+            .Convo--open .Convo__main .Convo__messages .message-list .message-bubble-container.collapsed .message-bubble {
+              margin-left: 40px !important; }
+          .Convo--open .Convo__main .Convo__messages .message-list .message-bubble-container.self .message-container {
+            -ms-flex-flow: row-reverse !important;
+            flex-flow: row-reverse !important; }
+            .Convo--open .Convo__main .Convo__messages .message-list .message-bubble-container.self .message-container .avatar {
+              margin: 0 0 0 10px !important; }
+            .Convo--open .Convo__main .Convo__messages .message-list .message-bubble-container.self .message-container .message-bubble {
+              background: #1884f8 !important;
+              color: #fff !important; }
+          .Convo--open .Convo__main .Convo__messages .message-list .message-bubble-container.self.collapsed .message-bubble {
+            margin-left: 0 !important;
+            margin-right: 40px; }
+          .Convo--open .Convo__main .Convo__messages .message-list .message-bubble-container time {
+            display: block;
+            text-align: center;
+            font-size: .85em;
+            font-weight: normal;
+            opacity: .65;
+            margin-bottom: 15px; }
+          .Convo--open .Convo__main .Convo__messages .message-list .message-bubble-container .message-container {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-flow: row;
+            flex-flow: row;
+            -ms-flex-pack: start;
+            justify-content: flex-start;
+            -ms-flex-align: start;
+            align-items: flex-start;
+            overflow: hidden;
+            position: relative; }
+            .Convo--open .Convo__main .Convo__messages .message-list .message-bubble-container .message-container .avatar {
+              line-height: 0;
+              margin-right: 10px;
+              -ms-flex: 0 0 30px;
+              flex: 0 0 30px; }
+              .Convo--open .Convo__main .Convo__messages .message-list .message-bubble-container .message-container .avatar img {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%; }
+            .Convo--open .Convo__main .Convo__messages .message-list .message-bubble-container .message-container .message-bubble {
+              padding: 6px 10px;
+              border-radius: 6px;
+              background: #fff;
+              color: #444; }
+              .Convo--open .Convo__main .Convo__messages .message-list .message-bubble-container .message-container .message-bubble.has-image {
+                padding: 0 !important;
+                line-height: 0; }
+              .Convo--open .Convo__main .Convo__messages .message-list .message-bubble-container .message-container .message-bubble .message {
+                white-space: pre-wrap;
+                font-size: 14px;
+                word-wrap: break-word;
+                font-weight: 500; }
+                .Convo--open .Convo__main .Convo__messages .message-list .message-bubble-container .message-container .message-bubble .message .image-thumbnail {
+                  display: block;
+                  position: relative;
+                  margin-left: 0;
+                  line-height: 0;
+                  border-radius: 6px;
+                  background: rgba(0, 0, 0, 0.05);
+                  overflow: hidden; }
+                  .Convo--open .Convo__main .Convo__messages .message-list .message-bubble-container .message-container .message-bubble .message .image-thumbnail img {
+                    width: 100%; }
       .Convo--open .Convo__main .Convo__messages .new-indicator {
         position: absolute;
         z-index: 49;

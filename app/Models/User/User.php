@@ -396,6 +396,16 @@ class User extends Authenticatable {
     }
 
     /**
+     * Get user's related messages.
+     *
+     * @return mixed
+     */
+    public function messages()
+    {
+        return Message::where('from_user_id', $this->id)->orWhere('to_user_id', $this->id)->latest();
+    }
+
+    /**
      * Get user's current conversations side list.
      *
      * @return mixed
@@ -416,5 +426,19 @@ class User extends Authenticatable {
                 'open'        => false
             ];
         });
+    }
+
+    /**
+     * Send a message to other user.
+     *
+     * @param User   $user
+     * @param string $content
+     * @return $this
+     */
+    public function sendMessageTo(User $user, $content = '')
+    {
+        $m = new Message;
+
+        return $m->from($this)->to($user)->said(compact('content'));
     }
 }

@@ -104,6 +104,8 @@ class Router {
             Route::post('checkin', 'ProfileController@checkIn')->name('check-in');
             Route::patch('read/notification', 'ProfileController@readNotifications');
 
+            Route::post('chat/{user}', 'ConversationsController@send');
+
             Route::group([
                 'prefix' => 'profile',
                 'as' => 'profile.'

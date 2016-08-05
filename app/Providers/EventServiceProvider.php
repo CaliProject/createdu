@@ -35,8 +35,11 @@ class EventServiceProvider extends ServiceProvider {
         'Createdu\Events\User\LeveledUp'               => [
 
         ],
-        'Createdu\Events\AnnouncementHasMade' => [
+        'Createdu\Events\AnnouncementHasMade'          => [
 
+        ],
+        'Createdu\Events\NewMessage'                   => [
+            'Createdu\Listeners\User\StoreMessage'
         ]
     ];
 

@@ -37,6 +37,7 @@
                                     @endforeach
                                 </select>
                             </div>
+                            <button type="submit" class="btn btn-primary btn-rounded btn-block">@lang('views.admin.pages.data-center.factory.create')</button>
                         </form>
                     </div>
                 </div>

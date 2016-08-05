@@ -192,6 +192,22 @@ class Router {
                 });
             });
             Route::group([
+                'prefix' => 'courses',
+                'as'     => 'courses.'
+            ], function () {
+                Route::group(['prefix' => 'profile', 'as' => 'profile.'], function() {
+                    Route::get('/', 'CoursesController@showProfile')->name('index');
+                });
+            });
+            Route::group([
+                'prefix' => 'posts',
+                'as'     => 'posts.'
+            ], function () {
+                Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
+                    Route::get('/', 'PostsController@showProfile')->name('index');
+                });
+            });
+            Route::group([
                 'prefix' => 'centers',
                 'as'     => 'centers.'
             ], function () {

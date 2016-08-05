@@ -26,7 +26,7 @@
                 <ul class="sub-menu">
                     <li><a href="@route('admin.index', ['section' => 'users'], false)" data-pjax>@lang('views.admin.titles.users.sub.index')</a></li>
                     <li><a href="@route('admin.users.profile.index', [], false)" data-pjax>@lang('views.admin.titles.users.sub.profile')</a></li>
-{{--                    <li><a href="@route('admin.users.invitations', [], false)" data-pjax>@lang('views.admin.titles.users.sub.invitations')</a></li>--}}
+                    <li><a href="@route('admin.users.invitations', [], false)" data-pjax>@lang('views.admin.titles.users.sub.invitations')</a></li>
                 </ul>
             </li>
             {{--<li class="droplink">--}}
@@ -37,6 +37,24 @@
                     {{--</ul>--}}
                 {{--</a>--}}
             {{--</li>--}}
+            <li class="droplink{{ request_is_route('admin.index', ['section' => 'courses'], true) ? ' active' : ''}}">
+                <a href="#" class="waves-effect waves-button">
+                    <span class="menu-icon icon-book-open"></span><p>@lang('views.admin.titles.courses.main')</p><span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li><a href="@route('admin.index', ['section' => 'courses'], false)" data-pjax>@lang('views.admin.titles.courses.sub.index')</a></li>
+                    <li><a href="@route('admin.courses.profile.index')" data-pjax>@lang('views.admin.titles.courses.sub.profile')</a></li>
+                </ul>
+            </li>
+            <li class="droplink{{ request_is_route('admin.index', ['section' => 'posts'], true) ? ' active' : ''}}">
+                <a href="#" class="waves-effect waves-button">
+                    <span class="menu-icon icon-note"></span><p>@lang('views.admin.titles.posts.main')</p><span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li><a href="@route('admin.index', ['section' => 'posts'], false)" data-pjax>@lang('views.admin.titles.posts.sub.index')</a></li>
+                    <li><a href="@route('admin.posts.profile.index')" data-pjax>@lang('views.admin.titles.posts.sub.profile')</a></li>
+                </ul>
+            </li>
             <li class="droplink{{ request_is_route('admin.index', ['section' => 'centers' ], true) ? ' active' : '' }}">
                 <a href="#" class="waves-effect waves-button">
                     <span class="menu-icon icon-support"></span><p>@lang('views.admin.titles.data-center.main')</p><span class="arrow"></span>

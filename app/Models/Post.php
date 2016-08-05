@@ -8,4 +8,6 @@ use Createdu\Library\Traits\Model\TimeSortable;
 class Post extends Model
 {
     use TimeSortable;
+
+    protected $guarded = ['id'];
 }

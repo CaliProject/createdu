@@ -8,19 +8,19 @@
 
 @section('app.content')
     <script>
-        var deleteMessages = JSON.parse("{!! addslashes(json_encode(trans('views.admin.pages.users.index.delete-messages'))) !!}");
+        var deleteMessages = JSON.parse("{!! addslashes(json_encode(trans('views.admin.operation.delete-messages'))) !!}");
         var deleteUrl = "@route('admin.users.delete')",
                 bulkUrl = "@route('admin.users.bulk')";
     </script>
     <div class="row">
         <div class="panel panel-white">
-            <div class="panel-heading">
-                <a href="@route('admin.index', ['section' => 'users'], false)" data-pjax>
-                    <h4 class="panel-title">
-                        @lang('views.admin.pages.users.index.heading')
-                    </h4>
-                </a>
-            </div>
+            {{--<div class="panel-heading">--}}
+                {{--<a href="@route('admin.index', ['section' => 'users'], false)" data-pjax>--}}
+                    {{--<h4 class="panel-title">--}}
+                        {{--@lang('views.admin.pages.users.index.heading')--}}
+                    {{--</h4>--}}
+                {{--</a>--}}
+            {{--</div>--}}
             <div class="panel-body">
                 <div class="row">
                     <div class="col-sm-8">
@@ -32,7 +32,7 @@
                     <div class="col-sm-4 text-right">
                         <form :action="'@route('admin.users.search', ['keyword' => ''], false)/'+keyword" method="GET" class="pjax no-ajax">
                             <input type="text" class="form-control input-rounded search-input"
-                                   placeholder="@lang('views.admin.pages.users.index.search')..." v-model="keyword" value="{{ isset($keyword) ? $keyword : '' }}" required>
+                                   placeholder="@lang('views.admin.operation.search',['record' => trans('views.admin.records.user')])..." v-model="keyword" value="{{ isset($keyword) ? $keyword : '' }}" required>
                             <i class="fa fa-search"></i>
                         </form>
                     </div>
@@ -40,9 +40,9 @@
                 @if($users->count())
                 <div class="row">
                     <div class="col-xs-12">
-                        <span class="text-primary">@lang('views.admin.pages.users.index.bulk-actions')</span>
+                        <span class="text-primary">@lang('views.admin.operation.bulk-actions')</span>
                         <div class="actions" style="display: inline-block;">
-                            <button class="btn btn-danger btn-rounded m-l-lg bulk-delete">@lang('views.admin.pages.users.index.delete')</button>
+                            <button class="btn btn-danger btn-rounded m-l-lg bulk-delete">@lang('views.admin.operation.delete')</button>
                         </div>
                     </div>
                 </div>
@@ -118,15 +118,15 @@
                 @else
                     <div class="well text-center">
                         <h1><i class="icon-ban fa-3x"></i></h1>
-                        <h2>@lang('views.admin.pages.users.index.no-result')</h2>
+                        <h2>@lang('views.admin.operation.no-result',['record' => trans('views.admin.records.user')])</h2>
                     </div>
                 @endif
                 @if($users->count())
                 <div class="row">
                     <div class="col-xs-12">
-                        <span class="text-primary">@lang('views.admin.pages.users.index.bulk-actions')</span>
+                        <span class="text-primary">@lang('views.admin.operation.bulk-actions')</span>
                         <div class="actions" style="display: inline-block;">
-                            <button class="btn btn-danger btn-rounded m-l-lg bulk-delete">@lang('views.admin.pages.users.index.delete')</button>
+                            <button class="btn btn-danger btn-rounded m-l-lg bulk-delete">@lang('views.admin.operation.delete')</button>
                         </div>
                     </div>
                 </div>

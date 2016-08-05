@@ -89,6 +89,20 @@ return [
                     'invitations' => '邀请码管理'
                 ]
             ],
+            'courses'   => [
+                'main' => '课程',
+                'sub'  => [
+                    'index'   => '课程管理',
+                    'profile' => '修改课程信息',
+                ]
+            ],
+            'posts'     => [
+                'main' => '文章',
+                'sub'  => [
+                    'index'   => '文章管理',
+                    'profile' => '修改文章信息',
+                ]
+            ],
             'data-center' => [
                 'main' => '数据中心',
                 'sub'  => [
@@ -137,6 +151,25 @@ return [
         ],
         'navigation'            => [
 
+        ],
+        'records' => [
+            'user'   => '用户',
+            'course' => '课程',
+            'post'   => '文章'
+        ],
+        'operation' => [
+            'search-heading'  => '查找:keyword的相关:record',
+            'search'          => '搜索:record',
+            'bulk-actions'    => '批量操作',
+            'delete'          => '删除',
+            'delete-messages' => [
+                'title'   => "确定要删除吗?",
+                'text'    => '删除后将无法恢复, 谨慎选择',
+                'cancel'  => "手贱了",
+                'confirm' => "确定删除",
+                'success' => '成功删除'
+            ],
+            'no-result'       => '暂无相关:record'
         ],
         'pages'                 => [
             'dashboard'   => [
@@ -210,6 +243,16 @@ return [
                         'date' => '生成时间'
                     ],
                     'generated'   => '已成功生成注册码'
+                ]
+            ],
+            'courses' => [
+                'index' => [
+                    'heading'        => '课程管理',
+                    'table'   => [
+                        'created_at' => '创建于',
+                        'count'      => '每页:perPage门课程, 累计共:total门课程'
+                    ],
+
                 ]
             ],
             'data-center' => [

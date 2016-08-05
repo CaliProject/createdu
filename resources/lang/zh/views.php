@@ -80,8 +80,8 @@ return [
     'admin'     => [
         'main-title'            => '后台管理',
         'titles'                => [
-            'dashboard' => '仪表盘',
-            'users'     => [
+            'dashboard'   => '仪表盘',
+            'users'       => [
                 'main' => '用户',
                 'sub'  => [
                     'index'       => '用户管理',
@@ -96,7 +96,7 @@ return [
                     'factory' => '模型工厂'
                 ]
             ],
-            'settings'  => [
+            'settings'    => [
                 'main' => '站点设置',
                 'sub'  => [
                     'general'  => '常规设置',
@@ -509,7 +509,7 @@ return [
     ],
 
     'nav' => [
-        'inbox' => [
+        'inbox'      => [
             'unread'  => '条未读通知',
             'see-all' => '查看全部',
             'empty'   => '暂无未读通知 :)'
@@ -522,6 +522,11 @@ return [
         'cancel'  => '取消',
         'empty'   => '起码输入点什么吧!',
         'retry'   => '请求出错, 请重试!'
+    ],
+
+    'chat' => [
+        'unread-message' => '条未读消息',
+        'new-message'    => '说点什么...'
     ],
 
     'datatable' => [

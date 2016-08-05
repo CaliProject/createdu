@@ -25,23 +25,66 @@
     </div>
 </footer>
 <div class="Conversations" v-if="Conversations.length">
-    <div class="Conversations__popover has-convo-opened">
+    <div class="Conversations__popover" :class="{'has-convo-opened':hasOpenedConvo}" v-cloak>
         <div class="Convo__popover">
             <div class="Convo__wrapper">
-                <div class="Convo--open Convo__message">
+                <div class="Convo__message" v-for="Conversation in Conversations" :class="{'Convo--open' : Conversation.open}" v-if="Conversation.open" transition="convo">
                     <header class="Convo__header">
-                        <div class="Convo__header__image" style="background-image: url('http://q.qlogo.cn/qqapp/101333825/CA0B5307F3C3AFE708FB04A1F3D036C4/100')"></div>
+                        <div class="Convo__header__image" :style="'background-image: url(\'' + Conversation.avatar + '\')'"></div>
                         <div class="Convo__header__main">
                             <div class="title">
-                                <a href="#" target="_blank">Cali Castle</a>
+                                <a :href="'/@' + Conversation.name" target="_blank" v-text="Conversation.name"></a>
                             </div>
                             <div class="controls">
-
+                                <a href="#" class="minimize-control" @click.prevent="Conversation.open = false"><i class="fa fa-compress"></i></a>
+                                <a href="#" class="close-control"><i class="fa fa-times"></i></a>
                             </div>
                         </div>
                     </header>
-                    <main class="Convo__main"></main>
-                    <footer class="Convo__composer"></footer>
+                    <main class="Convo__main">
+                        <div class="Convo__inner">
+                            <div class="SlimScroll">
+                                <div class="Convo__messages">
+                                    <div class="Convo--loader"></div>
+                                    <div class="message-header">
+                                        <div class="icebreaker">
+                                            <a class="avatar img-circle" :href="'/@' + Conversation.name" target="_blank">
+                                                <img :src="Conversation.avatar" :alt="Conversation.name">
+                                            </a>
+                                            <div class="name">
+                                                <a :href="'/@' + Conversation.name" target="_blank">@{{ Conversation.name }}</a>
+                                            </div>
+                                            <div class="description">
+                                                <p>@{{ Conversation.description }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="message-list"></div>
+                                    <div class="new-indicator" :class="{'has-new-message' : Conversation.unread}">
+                                        <button tabindex="-1" class="unread-button">
+                                            @{{ Conversation.unread }} @lang('views.chat.unread-message')
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                    <footer class="Convo__composer">
+                        <div class="message-addons-container">
+                            <button class="composer-addon">
+                                <i class="fa fa-plus-circle"></i>
+                            </button>
+                            <button class="composer-addon">
+                                <i class="fa fa-picture-o"></i>
+                            </button>
+                        </div>
+                        <div class="message-input-container">
+                            <textarea placeholder="@lang('views.chat.new-message')" class="text-field" id="message-text-field" rows="1" @keyup.enter="sendMessage" v-model="message"></textarea>
+                        </div>
+                        <div class="send-button">
+                            <button class="send" :class="{'disabled' : message == ''}" @click.prevent="sendMessage"><i class="fa fa-send-o"></i></button>
+                        </div>
+                    </footer>
                 </div>
             </div>
         </div>

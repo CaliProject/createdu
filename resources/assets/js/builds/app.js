@@ -10383,7 +10383,7 @@ var vm = new Vue({
         }
 
         this.Conversations[$index].open = true;
-    }), _methods),
+    }), _defineProperty(_methods, 'sendMessage', function sendMessage() {}), _methods),
     data: {
         displayBackTop: false,
         searchText: '',

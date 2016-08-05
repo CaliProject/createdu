@@ -182,6 +182,9 @@ const vm = new Vue({
             }
 
             this.Conversations[$index].open = true;
+        },
+        sendMessage() {
+
         }
     },
     data: {

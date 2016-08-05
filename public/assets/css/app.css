@@ -8025,6 +8025,17 @@ a:hover {
 button, input, textarea {
   outline: none !important; }
 
+button {
+  background: transparent;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 0;
+  padding: 0;
+  margin: 0; }
+
 input, textarea {
   line-height: normal; }
 
@@ -8570,7 +8581,11 @@ li.on:after {
 
 .Menu ul:nth-of-type(2) {
   right: 0;
-  bottom: 0; }
+  bottom: 0;
+  pointer-events: none; }
+
+.Menu.Menu--open ul:nth-of-type(2) {
+  pointer-events: all; }
 
 .Menu ul li,
 .Menu ul li a {
@@ -9013,7 +9028,7 @@ li.on:after {
     -o-transition: all 0.25s cubic-bezier(0.66, 0.05, 0.36, 1.13);
     z-index: 89;
     height: calc(100% - 88px);
-    min-height: 450px;
+    max-height: 450px;
     bottom: 0;
     right: 0; }
     .Conversations__popover.has-convo-opened {
@@ -9115,7 +9130,9 @@ li.on:after {
   flex-direction: column;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-  box-shadow: 0 5px 13px 0 rgba(0, 0, 0, 0.25); }
+  box-shadow: 0 5px 13px 0 rgba(0, 0, 0, 0.25);
+  transform-origin: 50% 50%;
+  height: 100%; }
   .Convo--open .Convo__header {
     position: relative;
     font-weight: 700;
@@ -9152,9 +9169,169 @@ li.on:after {
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap; }
+        .Convo--open .Convo__header .Convo__header__main .title a {
+          color: #fff !important; }
       .Convo--open .Convo__header .Convo__header__main .controls {
         display: -ms-flexbox;
         display: flex; }
+        .Convo--open .Convo__header .Convo__header__main .controls > a {
+          display: inline-block;
+          height: 16px;
+          line-height: 18px;
+          color: #fff;
+          padding: 5px;
+          margin: -5px;
+          margin-left: 10px; }
+  .Convo--open .Convo__main {
+    background: whitesmoke;
+    -ms-flex: 1;
+    flex: 1;
+    position: relative;
+    color: #444; }
+    .Convo--open .Convo__main .Convo__inner {
+      position: relative;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden; }
+    .Convo--open .Convo__main .Convo__messages {
+      height: 100%; }
+      .Convo--open .Convo__main .Convo__messages .icebreaker {
+        padding: 20px 30px 10px;
+        font-size: .9em;
+        line-height: 1.5;
+        text-align: center;
+        margin: 0; }
+        .Convo--open .Convo__main .Convo__messages .icebreaker .avatar {
+          display: block;
+          width: 40px;
+          height: 40px;
+          margin: 0 auto;
+          overflow: hidden; }
+          .Convo--open .Convo__main .Convo__messages .icebreaker .avatar img {
+            width: 100%;
+            height: 100%; }
+        .Convo--open .Convo__main .Convo__messages .icebreaker .name {
+          margin: 6px 0;
+          font-weight: bold;
+          font-size: 1.2em; }
+        .Convo--open .Convo__main .Convo__messages .icebreaker .description {
+          margin: 5px 0;
+          opacity: .6;
+          color: #555; }
+      .Convo--open .Convo__main .Convo__messages .message-list {
+        padding: 15px; }
+      .Convo--open .Convo__main .Convo__messages .new-indicator {
+        position: absolute;
+        z-index: 49;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0;
+        transform: translateY(60px);
+        -webkit-transform: translateY(60px);
+        -moz-transform: translateY(60px);
+        -ms-transform: translateY(60px);
+        -o-transform: translateY(60px);
+        transition: all 0.5s ease-in;
+        -webkit-transition: all 0.5s ease-in;
+        -moz-transition: all 0.5s ease-in;
+        -ms-transition: all 0.5s ease-in;
+        -o-transition: all 0.5s ease-in; }
+        .Convo--open .Convo__main .Convo__messages .new-indicator .unread-button {
+          width: 100%;
+          padding: 5px 10px;
+          font-weight: 600;
+          text-align: center;
+          background: #354e8e;
+          color: #f9f7f6; }
+          .Convo--open .Convo__main .Convo__messages .new-indicator .unread-button:after {
+            content: '\f107';
+            font-family: "FontAwesome";
+            font-style: normal;
+            font-size: inherit; }
+        .Convo--open .Convo__main .Convo__messages .new-indicator.has-new-message {
+          opacity: 1;
+          transform: translateY(0);
+          -webkit-transform: translateY(0);
+          -moz-transform: translateY(0);
+          -ms-transform: translateY(0);
+          -o-transform: translateY(0); }
+  .Convo--open .Convo__composer {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    background: #fff;
+    position: relative;
+    border-top: 1px solid rgba(0, 0, 0, 0.1); }
+    .Convo--open .Convo__composer .message-addons-container {
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-direction: row;
+      flex-direction: row;
+      -ms-flex-align: end;
+      align-items: flex-end;
+      padding-left: 5px; }
+      .Convo--open .Convo__composer .message-addons-container .composer-addon {
+        font-size: 20px;
+        width: 24px;
+        height: 24px;
+        color: #354f8f;
+        line-height: 35px;
+        margin-bottom: 14px;
+        margin-left: 6px; }
+    .Convo--open .Convo__composer .message-input-container {
+      -ms-flex: 1;
+      flex: 1;
+      font-size: 0;
+      line-height: 1em;
+      max-height: 150px; }
+      .Convo--open .Convo__composer .message-input-container .text-field {
+        overflow: hidden;
+        resize: none;
+        border: 0;
+        width: 100%;
+        outline: none;
+        max-height: 150px;
+        min-height: 44px;
+        line-height: 1.4;
+        font-size: 14px;
+        color: #444;
+        padding: 13px 0 12px 10px;
+        margin: 0; }
+    .Convo--open .Convo__composer .send-button {
+      display: -ms-flexbox;
+      display: flex;
+      width: 24px;
+      -ms-flex-direction: row;
+      flex-direction: row;
+      -ms-flex-align: end;
+      align-items: flex-end;
+      box-sizing: content-box;
+      padding: 9px 10px; }
+      .Convo--open .Convo__composer .send-button .send {
+        color: #354f8f;
+        opacity: 1;
+        width: 24px;
+        height: 24px;
+        font-size: 20px;
+        line-height: 35px;
+        position: relative;
+        margin-bottom: 4px;
+        top: -2px;
+        left: 0;
+        transition: opacity 0.3s ease-in;
+        -webkit-transition: opacity 0.3s ease-in;
+        -moz-transition: opacity 0.3s ease-in;
+        -ms-transition: opacity 0.3s ease-in;
+        -o-transition: opacity 0.3s ease-in; }
+        .Convo--open .Convo__composer .send-button .send.disabled {
+          cursor: not-allowed;
+          opacity: .45; }
 
 .Profile--settings {
   display: -ms-flexbox;

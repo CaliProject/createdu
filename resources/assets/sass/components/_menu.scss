@@ -119,6 +119,11 @@
 .Menu ul:nth-of-type(2) {
   right: 0;
   bottom: 0;
+  pointer-events: none;
+}
+
+.Menu.Menu--open ul:nth-of-type(2) {
+  pointer-events: all;
 }
 
 .Menu ul li,

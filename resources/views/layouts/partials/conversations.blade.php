@@ -74,7 +74,7 @@
                                                 </a>
                                                 <div class="message-bubble has-image">
                                                     <div class="message">
-                                                        <a href="#" @click.prevent>
+                                                        <a href="#" class="lightbox-trigger" @click.prevent>
                                                             <div class="image-thumbnail">
                                                                 <img src="https://ss0.bdstatic.com/-0U0bnSm1A5BphGlnYG/tam-ogel/f4b06def0e4c32d09d74cd7c8384f0c9_259_194.jpg" alt="">
                                                             </div>

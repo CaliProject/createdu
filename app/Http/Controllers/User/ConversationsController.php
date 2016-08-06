@@ -43,8 +43,14 @@ class ConversationsController extends Controller {
      */
     public function send(User $user)
     {
+        if ($user->id == $this->user()->id) {
+            abort(403);
+        }
+
         event(new NewMessage($user, $this->user(), $this->request->input('message')));
 
-        return $this->successResponse();
+        return $this->successResponse([
+            ''
+        ]);
     }
 }

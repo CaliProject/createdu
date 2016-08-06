@@ -197,16 +197,29 @@ class Router {
                 'prefix' => 'courses',
                 'as'     => 'courses.'
             ], function () {
-                Route::group(['prefix' => 'profile', 'as' => 'profile.'], function() {
-                    Route::get('/', 'CoursesController@showProfile')->name('index');
-                });
+                Route::get('search/{keyword}', 'CoursesController@searchCourses')->name('search');
+                Route::patch('bulk', 'CoursesController@bulkAction')->name('bulk');
+                Route::delete('{course?}', 'CoursesController@deleteCourse')->name('delete');
+
+                Route::get('add', 'CoursesController@showAddCourse')->name('add');
+                Route::get('{course}', 'CoursesController@showCourse')->name('index');
+                Route::post('add', 'CoursesController@addCourse');
+                Route::patch('{course}', 'CoursesController@updateCourse');
+                
             });
             Route::group([
                 'prefix' => 'posts',
                 'as'     => 'posts.'
             ], function () {
                 Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
-                    Route::get('/', 'PostsController@showProfile')->name('index');
+                    Route::get('search/{keyword}', 'PostsController@searchPosts')->name('search');
+                    Route::patch('bulk', 'PostsController@bulkAction')->name('bulk');
+                    Route::delete('{post?}', 'PostsController@deletePost')->name('delete');
+                    
+                    Route::get('add', 'PostsController@showAddPost')->name('add');
+                    Route::get('{post}', 'PostsController@showPost')->name('index');
+                    Route::post('add', 'PostsController@addPost');
+                    Route::patch('{post}', 'PostsController@updatePost');
                 });
             });
             Route::group([

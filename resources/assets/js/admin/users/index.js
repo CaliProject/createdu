@@ -10,10 +10,10 @@ $(() => {
     $("a[data-delete]").each(function () {
         $(this).click(function (e) {
             e.preventDefault();
-            const userID = $($(this).parents("tr")[0]).attr('user-id');
+            const ID = $($(this).parents("tr")[0]).attr('delete-id');
 
             Admin.showWarningAlert(deleteMessages, function () {
-                deleteUser(`${deleteUrl}/${userID}`, 'DELETE');
+                deleteID(`${deleteUrl}/${ID}`, 'DELETE');
             });
         }.bind(this));
     });
@@ -24,21 +24,21 @@ $(() => {
             if (total == 0)
                 return false;
 
-            var $ids = getTotalUserIDs();
+            var $ids = getTotalIDs();
 
             Admin.showWarningAlert(deleteMessages, function () {
-                deleteUser(bulkUrl, 'PATCH', $ids, 'delete');
+                deleteID(bulkUrl, 'PATCH', $ids, 'delete');
             });
         }.bind(this));
     });
 
-    function deleteUser(url, type, ids, action) {
+    function deleteID(url, type, ids, action) {
         $.ajax({
             url: url,
             type: type,
             data: ids ? {
                 _token: $("meta[name=_token]").attr('content'),
-                userIDs: ids,
+                IDs: ids,
                 action: action
             } : {_token: $("meta[name=_token]").attr('content')},
             dataType: 'json',
@@ -57,12 +57,12 @@ $(() => {
         });
     }
 
-    function getTotalUserIDs() {
+    function getTotalIDs() {
         var $ids = new Array();
 
         $("tbody input[type=checkbox]").each(function () {
             if (this.checked) {
-                $ids.push($($(this).parents("tr")[0]).attr('user-id'));
+                $ids.push($($(this).parents("tr")[0]).attr('delete-id'));
             }
         });
 

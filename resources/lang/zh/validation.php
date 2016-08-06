@@ -151,7 +151,9 @@ return [
         'experience'            => '经验',
         'credit'                => '积分',
         'model'                 => '生产模型',
-        'quantity'              => '数量'
+        'quantity'              => '数量',
+        'title'                 => '标题',
+        'description'           => '描述',
     ],
 
 ];

@@ -94,6 +94,7 @@ return [
                 'sub'  => [
                     'index'   => '课程管理',
                     'profile' => '修改课程信息',
+                    'add'     => '添加课程'
                 ]
             ],
             'posts'     => [
@@ -101,6 +102,7 @@ return [
                 'sub'  => [
                     'index'   => '文章管理',
                     'profile' => '修改文章信息',
+                    'add'     => '添加文章'
                 ]
             ],
             'data-center' => [
@@ -169,7 +171,13 @@ return [
                 'confirm' => "确定删除",
                 'success' => '成功删除'
             ],
-            'no-result'       => '暂无相关:record'
+            'no-result'       => '暂无相关:record',
+            'publish'         => '确认发布',
+            'published'       => '发布成功',
+            'published-error' => '发布失败,请重新尝试',
+            'update'          => '确认修改',
+            'updated'         => '修改成功',
+            'updated-error'   => '修改失败，请重新尝试',
         ],
         'pages'                 => [
             'dashboard'   => [
@@ -189,22 +197,10 @@ return [
             'users'       => [
                 'index'       => [
                     'heading'         => '用户管理',
-                    'search-heading'  => '查找:keyword的相关用户',
                     'table'           => [
                         'registered_at' => '注册于',
                         'count'         => '每页:perPage名用户, 累计共:total名用户'
                     ],
-                    'search'          => '搜索用户',
-                    'bulk-actions'    => '批量操作',
-                    'delete'          => '删除',
-                    'delete-messages' => [
-                        'title'   => "确定要删除用户吗?",
-                        'text'    => '用户删除后将无法恢复, 谨慎选择',
-                        'cancel'  => "手贱了",
-                        'confirm' => "确定删除",
-                        'success' => '成功删除用户'
-                    ],
-                    'no-result'       => '暂无相关用户'
                 ],
                 'profile'     => [
                     'basics'   => [
@@ -252,7 +248,12 @@ return [
                         'created_at' => '创建于',
                         'count'      => '每页:perPage门课程, 累计共:total门课程'
                     ],
-
+                    'add'     => '添加课程'
+                ],
+                'profile' => [
+                    'basics' => [
+                        'heading' => '课程信息'
+                    ],
                 ]
             ],
             'data-center' => [

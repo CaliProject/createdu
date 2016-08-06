@@ -36,16 +36,19 @@ class UsersController extends Controller {
      */
     public function saveProfile(ProfileSaveRequest $request)
     {
-        return User::where('id', Auth::user()->id)
-            ->update($request->except(['_token', '_method'])) ? $this->successResponse(
-            ['message' => trans('views.admin.pages.settings.updated', [
-                'setting' => trans('views.admin.pages.users.profile.basics.heading')
-            ])]
-        ) : $this->errorResponse([
-            'message' => trans('views.admin.pages.settings.updated-error', [
-                'setting' => trans('views.admin.pages.users.profile.basics.heading')
-            ])
-        ]);
+        $user = $request->user();
+        if($user->credit !== $request->input('credit')) {
+            $temp = $request->input('credit') - $user->credit;
+            $user->credit($temp);
+        }
+        if($user->experience !== $request->input('experience')) {
+            $temp = $request->input('experience') - $user->experience;
+            $user->exp($temp);
+        }
+
+        return $user->update($request->except(['_token', '_method','credit','experience'])) ?
+            $this->successResponse(trans('views.admin.pages.settings.updated', ['setting' => trans('views.admin.pages.users.profile.basics.heading')])) :
+            $this->errorResponse(trans('views.admin.pages.settings.updated-error', ['setting' => trans('views.admin.pages.users.profile.basics.heading')]));
     }
 
     /**
@@ -84,6 +87,41 @@ class UsersController extends Controller {
         ]);
     }
 
+    /**
+     * 删除一条用户记录
+     *
+     * @param User $user
+     * @return array
+     * @throws \Exception
+     */
+    public function deleteUser(User $user)
+    {
+        $user->delete();
+        
+        return $this->successResponse();
+    }
+
+    /**
+     * 批量操作用户记录
+     *
+     * @param Request $request
+     * @return array
+     */
+    public function bulkAction(Request $request)
+    {
+        $action = $request->action;
+
+        switch ($action) {
+            case 'delete':
+                foreach (explode(',', $request->input('IDs')) as $id) {
+                    $user = User::findOrFail($id);
+                    $user->delete();
+                }
+                break;
+        }
+
+        return $this->successResponse();
+    }
     /**
      * Bind/Unbind the user's OAuth service.
      *

@@ -126,7 +126,10 @@ elixir(function (mix) {
         ], assetsDir + 'js/builds/admin/pages/dashboard.js')
         .browserify([
             'admin/center/factory.js'
-        ], assetsDir + 'js/builds/admin/center/factory.js');
+        ], assetsDir + 'js/builds/admin/center/factory.js')
+        .browserify([
+            'admin/pages/delete.js'
+        ], assetsDir + 'js/builds/admin/pages/delete.js');
 
     mix.copy(assetsDir + 'js/builds/admin/users', publicDir + 'js/admin/users');
     mix.copy(assetsDir + 'js/builds/admin/pages', publicDir + 'js/admin/pages');

@@ -2,6 +2,7 @@
 
 namespace Createdu\Providers;
 
+use Createdu\Course;
 use Createdu\User;
 use Illuminate\Support\ServiceProvider;
 
@@ -15,6 +16,7 @@ class ViewComposerServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->bindAdminUsers();
+        $this->bindAdminCourses();
     }
 
     /**
@@ -38,6 +40,15 @@ class ViewComposerServiceProvider extends ServiceProvider
             $users = User::paginate();
 
             return $view->with(compact('users'));
+        });
+    }
+    
+    public function bindAdminCourses()
+    {
+        return view()->composer('admin.courses.index', function ($view) {
+            $courses = Course::paginate();
+            
+            return $view->with(compact('courses'));
         });
     }
 }

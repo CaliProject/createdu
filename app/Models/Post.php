@@ -9,5 +9,5 @@ class Post extends Model
 {
     use TimeSortable;
 
-    protected $guarded = ['id'];
+    protected $guarded = ['_token','_method'];
 }

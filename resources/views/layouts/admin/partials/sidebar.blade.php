@@ -43,7 +43,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li><a href="@route('admin.index', ['section' => 'courses'], false)" data-pjax>@lang('views.admin.titles.courses.sub.index')</a></li>
-                    <li><a href="@route('admin.courses.profile.index')" data-pjax>@lang('views.admin.titles.courses.sub.profile')</a></li>
+                    <li><a href="@route('admin.courses.add')" data-pjax>@lang('views.admin.titles.courses.sub.add')</a></li>
                 </ul>
             </li>
             <li class="droplink{{ request_is_route('admin.index', ['section' => 'posts'], true) ? ' active' : ''}}">

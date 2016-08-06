@@ -77,7 +77,7 @@
                     </tfoot>
                     <tbody>
                     @foreach($users as $user)
-                        <tr user-id="{{ $user->id }}">
+                        <tr delete-id="{{ $user->id }}">
                             <th scope="row">
                                 @if(Auth::id() !== $user->id)
                                 <div class="ios-switch switch-sm">
@@ -148,5 +148,5 @@
 @stop
 
 @push('scripts.footer')
-<script src="/assets/js/admin/users/index.js" pjax-script></script>
+<script src="/assets/js/admin/pages/delete.js" pjax-script></script>
 @endpush

@@ -9,5 +9,17 @@ class Course extends Model
 {
     use TimeSortable;
 
-    protected $guarded = ['id'];
+    /**
+     * 不允许注入属性
+     * 
+     * @var array
+     */
+    protected $guarded = ['_token','_method'];
+
+    /**
+     * 分页显示条数
+     * 
+     * @var int
+     */
+    protected $perPage = 35;
 }

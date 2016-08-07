@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>@yield('title') @site('title')</title>
 
     <!-- Fonts -->
@@ -42,7 +44,6 @@
     @yield('content')
 
     <div class="audio_files">
-        <audio src="/assets/audio/NewMessage.mp3" preload="auto" id="new-message-sound"></audio>
         <audio src="/assets/audio/Notification.mp3" preload="auto" id="notification-sound"></audio>
         <audio src="/assets/audio/Toastr.mp3" preload="auto" id="toastr-sound"></audio>
         <audio src="/assets/audio/Message_Received.mp3" preload="auto" id="message-received-sound"></audio>

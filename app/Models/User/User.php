@@ -406,6 +406,23 @@ class User extends Authenticatable {
     }
 
     /**
+     * Get the associated conversation messages with the given user.
+     *
+     * @param User $user
+     * @return mixed
+     */
+    public function messagesWith(User $user)
+    {
+        return Message::where([
+            ['from_user_id', $this->id],
+            ['to_user_id', $user->id]
+        ])->orWhere([
+            ['from_user_id', $user->id],
+            ['to_user_id', $this->id]
+        ])->latest();
+    }
+
+    /**
      * Get user's current conversations side list.
      *
      * @return mixed
@@ -423,7 +440,9 @@ class User extends Authenticatable {
                 'description' => $user->description,
                 // TODO:
                 'unread'      => 0,
-                'open'        => false
+                'open'        => false,
+                'messages'    => [],
+                'loading'     => false
             ];
         });
     }

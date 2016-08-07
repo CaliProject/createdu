@@ -23,24 +23,12 @@ class EventServiceProvider extends ServiceProvider {
         'Createdu\Events\User\Auth\UserHasReset'       => [
             'Createdu\Listeners\User\EmailPasswordResetConfirmation',
         ],
-        'Createdu\Events\User\Auth\PasswordHasChanged' => [
-
-        ],
-        'Createdu\Events\User\CreditHasChanged'        => [
-
-        ],
-        'Createdu\Events\User\ExperienceHasChanged'    => [
-
-        ],
-        'Createdu\Events\User\LeveledUp'               => [
-
-        ],
-        'Createdu\Events\AnnouncementHasMade'          => [
-
-        ],
-        'Createdu\Events\NewMessage'                   => [
-            'Createdu\Listeners\User\StoreMessage'
-        ]
+        'Createdu\Events\User\Auth\PasswordHasChanged' => [],
+        'Createdu\Events\User\CreditHasChanged'        => [],
+        'Createdu\Events\User\ExperienceHasChanged'    => [],
+        'Createdu\Events\User\LeveledUp'               => [],
+        'Createdu\Events\AnnouncementHasMade'          => [],
+        'Createdu\Events\NewMessage'                   => []
     ];
 
     /**

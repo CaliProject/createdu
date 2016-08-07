@@ -2,9 +2,10 @@
 
 namespace Createdu\Http\Controllers\User;
 
-use Createdu\Events\NewMessage;
 use Createdu\User;
+use Createdu\Message;
 use Illuminate\Http\Request;
+use Createdu\Events\User\NewMessage;
 use Createdu\Http\Controllers\Controller;
 
 class ConversationsController extends Controller {
@@ -41,16 +42,42 @@ class ConversationsController extends Controller {
      * @param User $user
      * @return array
      */
+    public function getConversations(User $user)
+    {
+        $this->preventSelf($user);
+
+        $messages = $this->user()->messagesWith($user)->take((new Message)->getPerPage())->get()->reverse()->flatten();
+
+        return $this->successResponse(compact('messages'));
+    }
+
+    /**
+     * Send a message to a user.
+     *
+     * @param User $user
+     * @return array
+     */
     public function send(User $user)
+    {
+        $this->preventSelf($user);
+
+        $message = $this->user()->sendMessageTo($user, $this->request->input('message'));
+        event(new NewMessage($message));
+
+        return $this->successResponse([
+            'm' => $message
+        ]);
+    }
+
+    /**
+     * Prevent from talking to self.
+     *
+     * @param User $user
+     */
+    protected function preventSelf(User $user)
     {
         if ($user->id == $this->user()->id) {
             abort(403);
         }
-
-        event(new NewMessage($user, $this->user(), $this->request->input('message')));
-
-        return $this->successResponse([
-            ''
-        ]);
     }
 }

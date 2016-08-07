@@ -19,7 +19,13 @@
                         <div class="Convo__inner">
                             <div class="SlimScroll">
                                 <div class="Convo__messages">
-                                    <div class="Convo--loader"></div>
+                                    <div class="Convo--loader" v-show="Conversation.loading">
+                                        <div class="loading-wrapper">
+                                            <div class="loading-bar"></div>
+                                            <div class="loading-bar"></div>
+                                            <div class="loading-bar"></div>
+                                        </div>
+                                    </div>
                                     <div class="message-header">
                                         <div class="icebreaker">
                                             <a class="avatar img-circle" :href="'/@' + Conversation.name" target="_blank">
@@ -34,58 +40,45 @@
                                         </div>
                                     </div>
                                     <div class="message-list">
-                                        <div class="message-bubble-container">
-                                            <div class="message-timestamp">
-                                                <time class="time">18:33</time>
+                                        <div class="message-bubble-container" v-for="message in Conversation.messages" :class="{'self': message.from_user_id==User.id, 'collapsed': shouldCollapse(message)}">
+                                            <div class="message-timestamp" v-if="shouldDisplayTime(message)">
+                                                <time class="time" v-text="message.time"></time>
                                             </div>
                                             <div class="message-container">
-                                                <a :href="'/@' + Conversation.name" class="avatar" target="_blank">
-                                                    <img :src="Conversation.avatar" :alt="Conversation.name">
-                                                </a>
+                                                <div v-if="message.from_user_id!=User.id">
+                                                    <a :href="'/@' + Conversation.name" class="avatar" target="_blank">
+                                                        <img :src="Conversation.avatar" :alt="Conversation.name">
+                                                    </a>
+                                                </div>
+                                                <div v-else>
+                                                    <a :href="'/@' + User.name" class="avatar" target="_blank">
+                                                        <img :src="User.avatarUrl" :alt="User.name">
+                                                    </a>
+                                                </div>
                                                 <div class="message-bubble">
-                                                    <div class="message">随便试试。。</div>
+                                                    <div class="message" v-text="message.content"></div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="message-bubble-container collapsed">
-                                            <div class="message-container">
-                                                <a :href="'/@' + Conversation.name" class="avatar" target="_blank">
-                                                    <img :src="Conversation.avatar" :alt="Conversation.name">
-                                                </a>
-                                                <div class="message-bubble">
-                                                    <div class="message">你在干嘛?</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="message-bubble-container self">
-                                            <div class="message-container">
-                                                <a :href="'/@' + User.name" class="avatar" target="_blank">
-                                                    <img :src="User.avatarUrl" :alt="User.name">
-                                                </a>
-                                                <div class="message-bubble">
-                                                    <div class="message">你猜。。很明显啊</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="message-bubble-container collapsed self">
-                                            <div class="message-container">
-                                                <a :href="'/@' + User.name" class="avatar" target="_blank">
-                                                    <img :src="User.avatarUrl" :alt="User.name">
-                                                </a>
-                                                <div class="message-bubble has-image">
-                                                    <div class="message">
-                                                        <a href="#" class="lightbox-trigger" @click.prevent>
-                                                            <div class="image-thumbnail">
-                                                                <img src="https://ss0.bdstatic.com/-0U0bnSm1A5BphGlnYG/tam-ogel/f4b06def0e4c32d09d74cd7c8384f0c9_259_194.jpg" alt="">
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        {{--<div class="message-bubble-container collapsed self">--}}
+                                            {{--<div class="message-container">--}}
+                                                {{--<a :href="'/@' + User.name" class="avatar" target="_blank">--}}
+                                                    {{--<img :src="User.avatarUrl" :alt="User.name">--}}
+                                                {{--</a>--}}
+                                                {{--<div class="message-bubble has-image">--}}
+                                                    {{--<div class="message">--}}
+                                                        {{--<a href="#" class="lightbox-trigger" @click.prevent>--}}
+                                                            {{--<div class="image-thumbnail">--}}
+                                                                {{--<img src="https://ss0.bdstatic.com/-0U0bnSm1A5BphGlnYG/tam-ogel/f4b06def0e4c32d09d74cd7c8384f0c9_259_194.jpg" alt="">--}}
+                                                            {{--</div>--}}
+                                                        {{--</a>--}}
+                                                    {{--</div>--}}
+                                                {{--</div>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
                                     </div>
                                     <div class="new-indicator" :class="{'has-new-message' : Conversation.unread}">
-                                        <button tabindex="-1" class="unread-button">
+                                        <button tabindex="-1" class="unread-button" @click.prevent="scrollToCurrentConversationBottom(true)">
                                             @{{ Conversation.unread }} @lang('views.chat.unread-message')
                                         </button>
                                     </div>

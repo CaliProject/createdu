@@ -6,7 +6,8 @@
     var pusher = new Pusher(PUSHER_KEY, {encrypted: true});
 
     var evChannel = pusher.subscribe('everyone'),
-            pvChannel = pusher.subscribe('user-' + vm.User.id);
+            pvChannel = pusher.subscribe('user-' + vm.User.id),
+            pmChannel = pusher.subscribe('pm-' + vm.User.id);
 
 {{--    @can('manage-users')--}}
 //        var adminChannel = pusher.subscribe('administrator');
@@ -18,6 +19,8 @@
     pvChannel.bind('{{ addslashes(\Createdu\Events\User\ExperienceHasChanged::class) }}', bindNotificationEvent);
     pvChannel.bind('{{ addslashes(\Createdu\Events\User\LeveledUp::class) }}', bindNotificationEvent);
     pvChannel.bind('{{ addslashes(\Createdu\Events\User\Auth\PasswordHasChanged::class) }}', bindNotificationEvent);
+
+    pmChannel.bind('{{ addslashes(\Createdu\Events\User\NewMessage::class) }}', bindMessageEvent);
 
     function bindNotificationEvent(data) {
         // Append to the top
@@ -35,6 +38,10 @@
         if (data.experience != undefined) {
             vm.User.experience += parseInt(data.experience);
         }
+    }
+
+    function bindMessageEvent(data) {
+        vm.receivedMessage(data.message);
     }
 </script>
 @endif

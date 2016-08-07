@@ -276,6 +276,7 @@
                 .message-bubble {
                   background: $bubble-self-color !important;
                   color: #fff !important;
+                  max-width: calc(100% - 40px);
                 }
               }
 
@@ -456,6 +457,42 @@
           &.disabled {
             cursor: not-allowed;
             opacity: .45;
+          }
+        }
+      }
+    }
+
+    .Convo--loader {
+      position: absolute;
+      background: rgba(250, 250, 250, .35);
+      left: 0;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .loading-wrapper {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+
+        .loading-bar {
+          width: 8px;
+          height: 30px;
+          background: rgba($qq-color, .75);
+          border-radius: 4px;
+          margin: 0 4px;
+          @include am(zoom .7s infinite backwards);
+
+          &:nth-of-type(2) {
+            animation-delay: .2s;
+          }
+
+          &:last-of-type {
+            animation-delay: .3s;
           }
         }
       }

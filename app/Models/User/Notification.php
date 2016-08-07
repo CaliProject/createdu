@@ -7,16 +7,34 @@ use Illuminate\Database\Eloquent\Model;
 
 class Notification extends Model {
 
+    /**
+     * Normal type of notification.
+     */
     const NORMAL_TYPE = 'normal';
 
+    /**
+     * Credit type of notification.
+     */
     const CREDIT_TYPE = 'credit';
 
+    /**
+     * Experience type of notification
+     */
     const EXP_TYPE = 'experience';
 
+    /**
+     * User related type of notification.
+     */
     const USER_TYPE = 'user';
 
+    /**
+     * Announcement type of notification.
+     */
     const ANNOUNCEMENT_TYPE = 'announcement';
 
+    /**
+     * Profile type of notification.
+     */
     const PROFILE_TYPE = 'profile';
 
     /**

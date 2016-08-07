@@ -86,16 +86,10 @@ const vm = new Vue({
             });
         },
         request(param) {
-            if (param.data == undefined) {
-                param.data = {_token: this.token};
-            } else {
-                param.data._token = this.token;
-            }
-
             $.ajax({
                 type: param.type,
                 url: param.url,
-                data: param.data,
+                data: param.data || {},
                 success(data) {
                     if (data.status != undefined) {
                         if (data.message != undefined)
@@ -118,14 +112,11 @@ const vm = new Vue({
         playNotificationSound() {
             document.getElementById("notification-sound").play();
         },
-        playMessageSound() {
-            document.getElementById("new-message-sound").play();
-        },
         playToastrSound() {
             document.getElementById("toastr-sound").play();
         },
         playMessageSound(sent:true) {
-            document.getElementById(`message-${sent ? 'sent' : 'received'}-sound`);
+            document.getElementById(`message-${sent ? 'sent' : 'received'}-sound`).play();
         },
         readInbox(e) {
             const inbox = e.target,
@@ -183,32 +174,139 @@ const vm = new Vue({
 
             this.Conversations[$index].open = true;
 
-            setTimeout(() => setupSlimScrolls(), 500);
+            if (this.Conversations[$index].messages.length == 0) {
+                this.getMessages(this.Conversations[$index]);
+            }
 
-            if (this.Conversations[$index].messages != undefined) {
+            if (this.Conversations[$index].unread)
+                this.Conversations[$index].unread = 0;
 
-            } else {
+            setTimeout(() => setupSlimScrolls(), 300);
+        },
+        getMessages(convo) {
+            convo.loading = true;
 
+            this.request({
+                url: `/get-chat/${convo.id}`,
+                type: 'POST',
+                callback(success, data) {
+                    convo.loading = false;
+                    if (success && !$.isEmptyObject(data.messages)) {
+                        for (let $i in data.messages) {
+                            convo.messages.push(data.messages[$i]);
+                        }
+                        setTimeout(() => setupSlimScrolls(), 300);
+                    }
+                }
+            });
+        },
+        getConvoIndex(convo) {
+            const conversation = this.getCurrentConversation();
+
+            for (let $i in conversation.messages) {
+                if (conversation.messages[$i].id == convo.id)
+                    return $i;
+            }
+        },
+        getCurrentConversation() {
+            for (let $i in this.Conversations) {
+                if (this.Conversations[$i].open)
+                    return this.Conversations[$i];
             }
         },
         sendMessage() {
             const $message = this.message,
-                id = parseInt($($(".Convo__message")[0]).attr('conversation-id'));
+                id = parseInt($($(".Convo__message")[0]).attr('conversation-id')),
+                $vm = this;
 
             this.message = '';
 
-            // this.request({
-            //     url: `/chat/${id}`,
-            //     type: 'POST',
-            //     data: {
-            //         message: $message
-            //     },
-            //     callback(success) {
-            //         if (success) {
-            //
-            //         }
-            //     }
-            // });
+            this.request({
+                url: `/chat/${id}`,
+                type: 'POST',
+                data: {
+                    message: $message
+                },
+                callback(success, data) {
+                    if (success) {
+                        $vm.playMessageSound(true);
+
+                        let $convo;
+                        for (let $i in $vm.Conversations) {
+                            if ($vm.Conversations[$i].id == id)
+                                $convo = $vm.Conversations[$i];
+                        }
+
+                        if ($convo.messages == undefined) {
+                            $convo.messages = [];
+                        }
+                        $convo.messages.push(data.m);
+
+                        $vm.scrollToCurrentConversationBottom();
+                    }
+                }
+            });
+        },
+        shouldDisplayTime(convo) {
+            const conversation = this.getCurrentConversation(),
+                $index = this.getConvoIndex(convo),
+                currentConvoTime = Date.parse(convo.created_at);
+
+            if ($index == 0) {
+                return true;
+            }
+
+            const lastConvoTime = Date.parse(conversation.messages[$index-1].created_at),
+                comparisonInMinutes = Math.abs(currentConvoTime - lastConvoTime) / 1000 / 60;
+
+            return comparisonInMinutes >= 5;
+        },
+        shouldCollapse(convo) {
+            const conversation = this.getCurrentConversation(),
+                $index = this.getConvoIndex(convo);
+
+            if ($index == 0) {
+                return false;
+            }
+
+            return !this.shouldDisplayTime(convo) && (conversation.messages[$index-1].from_user_id == convo.from_user_id);
+        },
+        receivedMessage(message) {
+            this.playMessageSound(false);
+
+            let conversation;
+            for (let $i in this.Conversations) {
+                if (this.Conversations[$i].id == message.from_user_id)
+                    conversation = this.Conversations[$i];
+            }
+
+            if (conversation) {
+                // If we already have it on the right side list.
+                conversation.unread++;
+                conversation.messages.push(message);
+                // this.scrollToCurrentConversationBottom();
+            } else {
+                // If we don't
+            }
+        },
+        scrollToCurrentConversationBottom(animate: false) {
+            const $sel = '.Convo__main .SlimScroll',
+                height = $($($sel).find(".Convo__messages")[0]).height(),
+                $this = this;
+
+            if (animate) {
+                $($sel).animate({
+                    scrollTop: height
+                }, 250);
+            }
+
+            setTimeout(() => {
+                $($sel).slimScroll({
+                    scrollTo: height
+                });
+
+                $this.getCurrentConversation().unread = 0;
+            }, 265);
         }
     },
     data: {
@@ -237,6 +335,12 @@ const vm = new Vue({
     }
 });
 
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
 $(window).scroll(() => {
     vm.displayBackTop = $(window).scrollTop() >= 500;
 });
@@ -260,6 +364,11 @@ window.onresize = stageAndContentHeight;
 
 function setupSlimScrolls() {
     $('.SlimScroll').slimscroll();
+
+    const $sel = `.Convo__main .SlimScroll`;
+    $($sel).slimScroll({
+        scrollTo: $($($sel).find(".Convo__messages")[0]).height()
+    });
 }
 
 $(() => {

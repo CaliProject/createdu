@@ -69,7 +69,7 @@ class ViewComposerServiceProvider extends ServiceProvider
         return view()->composer('admin.posts.index', function ($view) {
             $posts = Post::paginate();
 
-            return $view->with(compact('posts')));
+            return $view->with(compact('posts'));
         });
     }
 }

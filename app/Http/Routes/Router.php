@@ -202,8 +202,8 @@ class Router {
                 Route::patch('bulk', 'CoursesController@bulkAction')->name('bulk');
                 Route::delete('{course?}', 'CoursesController@deleteCourse')->name('delete');
 
-                Route::get('/', 'CoursesController@showCourse')->name('index');
                 Route::get('add', 'CoursesController@showAddCourse')->name('add');
+                Route::get('{course}', 'CoursesController@showCourse')->name('index');
                 Route::post('add', 'CoursesController@addCourse');
                 Route::patch('{course}', 'CoursesController@updateCourse');
                 
@@ -216,8 +216,8 @@ class Router {
                 Route::patch('bulk', 'PostsController@bulkAction')->name('bulk');
                 Route::delete('{post?}', 'PostsController@deletePost')->name('delete');
 
-                Route::get('/', 'PostsController@showPost')->name('index');
                 Route::get('add', 'PostsController@showAddPost')->name('add');
+                Route::get('{post}', 'PostsController@showPost')->name('index');
                 Route::post('add', 'PostsController@addPost');
                 Route::patch('{post}', 'PostsController@updatePost');
             });

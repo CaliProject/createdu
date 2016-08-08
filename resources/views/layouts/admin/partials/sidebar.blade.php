@@ -52,7 +52,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li><a href="@route('admin.index', ['section' => 'posts'], false)" data-pjax>@lang('views.admin.titles.posts.sub.index')</a></li>
-                    <li><a href="@route('admin.posts.index')" data-pjax>@lang('views.admin.titles.posts.sub.add')</a></li>
+                    <li><a href="@route('admin.posts.add')" data-pjax>@lang('views.admin.titles.posts.sub.add')</a></li>
                 </ul>
             </li>
             <li class="droplink{{ request_is_route('admin.index', ['section' => 'centers' ], true) ? ' active' : '' }}">

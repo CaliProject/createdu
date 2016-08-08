@@ -81,7 +81,7 @@
                                 </td>
                                 <td>
                                     <a href="@route('admin.courses.index', ['course' => $course->id])"><i class="icon-pencil icon-lg"></i></a>
-                                    <a href="#" class="m-l-sm text-danger btn-naker" data-delete><i class="icon-close icon-lg"></i></a>
+                                    <a href="#" class="m-l-sm text-danger btn-naked" data-delete><i class="icon-close icon-lg"></i></a>
                                 </td>
                             </tr>
                         @endforeach

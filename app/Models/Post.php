@@ -10,4 +10,6 @@ class Post extends Model
     use TimeSortable;
 
     protected $guarded = ['_token','_method'];
+
+    protected $perPage = 35;
 }

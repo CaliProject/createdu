@@ -1,10 +1,10 @@
 @extends('layouts.admin.app')
 
-@section('title', trans('views.admin.pages.courses.profile.basics.heading'))
+@section('title', trans('views.admin.titles.courses.sub.edit'))
 
 @section('breadcrumb')
     <li><a href="@route('admin.index', ['section' => 'courses'], false)"><i class="icon-book-open"></i>@lang('views.admin.titles.courses.sub.index')</a></li>
-    <li class="active"><i class="icon-pencil"></i>@lang('views.admin.titles.courses.sub.profile')</li>
+    <li class="active"><i class="icon-pencil"></i>@lang('views.admin.titles.courses.sub.edit')</li>
 @endsection
 
 @section('app.content')
@@ -13,7 +13,7 @@
             <div class="panel panel-white">
                 <div class="panel-heading">
                     <div class="panel-title">
-                        <h4>@lang('views.admin.titles.courses.sub.profile')</h4>
+                        <h4>@lang('views.admin.titles.courses.sub.edit')</h4>
                     </div>
                 </div>
                 <div class="panel-body">

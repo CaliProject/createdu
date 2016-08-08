@@ -18,7 +18,7 @@ class CoursesController extends Controller
      */
     public function showCourse(Course $course)
     {
-        return view('admin.courses.profile',compact('course'));
+        return view('admin.courses.edit',compact('course'));
     }
 
     /**

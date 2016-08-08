@@ -93,7 +93,7 @@ return [
                 'main' => '课程',
                 'sub'  => [
                     'index'   => '课程管理',
-                    'profile' => '修改课程信息',
+                    'edit' => '修改课程信息',
                     'add'     => '添加课程'
                 ]
             ],
@@ -101,7 +101,7 @@ return [
                 'main' => '文章',
                 'sub'  => [
                     'index'   => '文章管理',
-                    'profile' => '修改文章信息',
+                    'edit' => '修改文章信息',
                     'add'     => '添加文章'
                 ]
             ],
@@ -250,10 +250,15 @@ return [
                     ],
                     'add'     => '添加课程'
                 ],
-                'profile' => [
-                    'basics' => [
-                        'heading' => '课程信息'
+            ],
+            'posts' => [
+                'index' => [
+                    'heading' => '文章管理',
+                    'table' => [
+                        'created_at' => '创建于',
+                        'count' => '每页:perPage帖子, 累计共:total帖子'
                     ],
+                    'add' => '添加文章',
                 ]
             ],
             'data-center' => [

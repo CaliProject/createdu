@@ -18,11 +18,13 @@ class CreateCoursesTable extends Migration
 
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('category_id');
             $table->string('title', 191)->index();
             $table->longText('description');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+//            $table->foreign('category_id')->reference('id')->on('categories')->onDelete('cascade');
         });
     }
 

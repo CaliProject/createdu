@@ -104,7 +104,17 @@ class Message extends Model {
         if (! $days) {
             return $this->created_at->format('H:i');
         } elseif ($days >= 1 && $days <= 30) {
-            return $this->created_at->format('m-d H:i');
+            switch ($days) {
+                case 1:
+                    return $this->created_at->format(trans('locales.dates.yesterday') . " H:i");
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                    return $this->created_at->format(trans('locales.dates.days-ago', compact('days')) . ' H:i');
+                default:
+                    return $this->created_at->format('m-d H:i');
+            }
         } else {
             return $this->created_at->format('Y-m-d H:i');
         }

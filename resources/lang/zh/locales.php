@@ -30,6 +30,8 @@ return [
     ],
 
     'dates' => [
-        'today' => '今天'
+        'today'     => '今天',
+        'yesterday' => '昨天',
+        'days-ago'  => ':days天前'
     ]
 ];

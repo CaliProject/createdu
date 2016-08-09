@@ -14932,7 +14932,10 @@ var vm = new Vue({
                 this.getMessages(this.Conversations[$index]);
             }
 
-            if (this.Conversations[$index].unread) this.Conversations[$index].unread = 0;
+            if (this.Conversations[$index].unread) {
+                this.Conversations[$index].unread = 0;
+                this.request({});
+            }
 
             setTimeout(function () {
                 return setupSlimScrolls();
@@ -15041,6 +15044,14 @@ var vm = new Vue({
             } else {
                     // If we don't
                 }
+        },
+        enteredMessage: function enteredMessage(ev) {
+            if (ev.key != "Enter") {
+                var $sel = '.Convo__main .SlimScroll',
+                    height = $($($sel).find(".Convo__messages")[0]).height();
+
+                if ($($sel).scrollTop() < height) this.scrollToCurrentConversationBottom();
+            }
         },
         scrollToCurrentConversationBottom: function scrollToCurrentConversationBottom(animate) {
             var $sel = '.Convo__main .SlimScroll',

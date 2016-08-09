@@ -96,7 +96,7 @@
                             </button>
                         </div>
                         <div class="message-input-container">
-                            <textarea placeholder="@lang('views.chat.new-message')" class="text-field" id="message-text-field" rows="1" @keyup.enter.prevent="sendMessage" v-model="message"></textarea>
+                            <textarea placeholder="@lang('views.chat.new-message')" class="text-field" id="message-text-field" rows="1" @keydown.enter.prevent="sendMessage" @keydown="enteredMessage" v-model="message"></textarea>
                         </div>
                         <div class="send-button">
                             <button class="send" :class="{'disabled' : message == ''}" @click.prevent="sendMessage"><i class="fa fa-send-o"></i></button>

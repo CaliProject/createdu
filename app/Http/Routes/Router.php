@@ -106,6 +106,7 @@ class Router {
 
             Route::post('get-chat/{user}', 'ConversationsController@getConversations');
             Route::post('chat/{user}', 'ConversationsController@send');
+            Route::patch('chat/{user}', 'ConversationsController@readMessages');
 
             Route::group([
                 'prefix' => 'profile',

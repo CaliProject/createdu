@@ -438,8 +438,7 @@ class User extends Authenticatable {
                 'avatar'      => $user->avatarUrl,
                 'name'        => $user->name,
                 'description' => $user->description,
-                // TODO:
-                'unread'      => 0,
+                'unread'      => $this->unreadMessagesCount($user),
                 'open'        => false,
                 'messages'    => [],
                 'loading'     => false
@@ -459,5 +458,39 @@ class User extends Authenticatable {
         $m = new Message;
 
         return $m->from($this)->to($user)->said(compact('content'));
+    }
+
+    /**
+     * Get unread messages count of the conversation.
+     *
+     * @param User $user
+     * @return int|string
+     */
+    public function unreadMessagesCount(User $user)
+    {
+        $count = Message::where([
+            ['from_user_id', $user->id],
+            ['to_user_id', $this->id],
+            ['read', false]
+        ])->count();
+
+        return $count > 99 ? '99+' : $count;
+    }
+
+    /**
+     * Read all messages of the current conversation.
+     *
+     * @param User $user
+     * @return mixed
+     */
+    public function readAllMessages(User $user)
+    {
+        return Message::where([
+            ['from_user_id', $user->id],
+            ['to_user_id', $this->id],
+            ['read', false]
+        ])->update([
+            'read' => true
+        ]);
     }
 }

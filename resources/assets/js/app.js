@@ -95,12 +95,15 @@ const vm = new Vue({
                         if (data.message != undefined)
                             toastr[data.status](data.message);
 
-                        param.callback((data.status != 'error'), data);
+                        if (param.callback != undefined)
+                            param.callback((data.status != 'error'), data);
                     }
                 },
                 error(er) {
                     toastr.error(er.responseText);
-                    param.callback(false);
+
+                    if (param.callback != undefined)
+                        param.callback(false);
                 },
                 complete(ev) {
                     if (param.complete != undefined) {
@@ -179,9 +182,12 @@ const vm = new Vue({
             }
 
             if (this.Conversations[$index].unread) {
+                const $id = this.Conversations[$index].id;
                 this.Conversations[$index].unread = 0;
-                this.request({
 
+                this.request({
+                    url: `/chat/${$id}`,
+                    type: 'PATCH'
                 });
             }
 
@@ -318,7 +324,14 @@ const vm = new Vue({
                     scrollTo: height
                 });
 
-                $this.getCurrentConversation().unread = 0;
+                const convo = $this.getCurrentConversation();
+                if (convo.unread) {
+                    convo.unread = 0;
+                    $this.request({
+                        url: `/chat/${convo.id}`,
+                        type: 'PATCH'
+                    });
+                }
             }, 265);
         }
     },

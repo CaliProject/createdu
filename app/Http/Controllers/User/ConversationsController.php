@@ -70,6 +70,17 @@ class ConversationsController extends Controller {
     }
 
     /**
+     * @param User $user
+     * @return array
+     */
+    public function readMessages(User $user)
+    {
+        $this->user()->readAllMessages($user);
+
+        return $this->successResponse();
+    }
+
+    /**
      * Prevent from talking to self.
      *
      * @param User $user

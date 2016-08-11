@@ -178,6 +178,7 @@ return [
             'update'          => '确认修改',
             'updated'         => '修改成功',
             'updated-error'   => '修改失败，请重新尝试',
+            'return'          => '返回',
         ],
         'pages'                 => [
             'dashboard'   => [

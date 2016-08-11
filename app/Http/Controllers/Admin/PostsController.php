@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use Createdu\Http\Requests;
 use Createdu\Http\Controllers\Controller;
+use Createdu\Http\Requests\Admin\AddOrUpdatePostRequest;
 
 class PostsController extends Controller
 {
@@ -42,8 +43,8 @@ class PostsController extends Controller
         return $this->successResponse();
     }
 
-    public function addPost()
+    public function addPost(AddOrUpdatePostRequest $request)
     {
-
+        dd($request->except(['_method','_token']));
     }
 }

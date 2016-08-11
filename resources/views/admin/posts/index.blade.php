@@ -11,22 +11,24 @@
     <div class="row">
         <div class="panel panel-white">
             <div class="panel-body">
-                <div class="col-sm-4">
-                    <b>
-                        @lang('views.admin.pages.posts.index.table.count',[
-                            'perPage' => $posts->perPage(),
-                            'total'   => $posts->total()
-                        ])
-                    </b>
-                </div>
-                <div class="col-sm-4 pull-right">
-                    <form :action="'@route('admin.posts.search', ['keyword' => ''], false)/'+keyword" method="GET" class="pjax no-ajax">
-                        <input type="text" class="form-control input-rounded search-input" placeholder="@lang('views.admin.operation.search', ['record' => trans('views.admin.records.post')])" v-model="keyword" value="{{ $keyword or '' }}">
-                        <i class="fa fa-search"></i>
-                    </form>
-                </div>
-                <div class="col-sm-4 text-right">
-                    <a href="@route('admin.posts.add')" class="btn btn-info"><i class="fa fa-plus"></i>@lang('views.admin.titles.posts.sub.add')</a>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <b>
+                            @lang('views.admin.pages.posts.index.table.count',[
+                                'perPage' => $posts->perPage(),
+                                'total'   => $posts->total()
+                            ])
+                        </b>
+                    </div>
+                    <div class="col-sm-4 pull-right">
+                        <form :action="'@route('admin.posts.search', ['keyword' => ''], false)/'+keyword" method="GET" class="pjax no-ajax">
+                            <input type="text" class="form-control input-rounded search-input" placeholder="@lang('views.admin.operation.search', ['record' => trans('views.admin.records.post')])" v-model="keyword" value="{{ $keyword or '' }}">
+                            <i class="fa fa-search"></i>
+                        </form>
+                    </div>
+                    <div class="col-sm-4 text-right">
+                        <a href="@route('admin.posts.add')" class="btn btn-info"><i class="fa fa-plus"></i>@lang('views.admin.titles.posts.sub.add')</a>
+                    </div>
                 </div>
                 @if($posts->count())
                     <div class="row">

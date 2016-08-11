@@ -59,12 +59,16 @@ class Message extends Model {
      * Insert message and metas.
      *
      * @param array $attr
+     * @param null  $metas
      * @return $this
      */
-    public function said($attr = [])
+    public function said($attr = [], $metas = null)
     {
         $this->save();
         $this->update($attr);
+
+        if ($metas)
+            $this->metas = $metas;
 
         return $this;
     }
@@ -77,6 +81,27 @@ class Message extends Model {
     public function jsonSerialize()
     {
         return array_merge($this->attributesToArray(), $this->extraSerializeAttributes());
+    }
+
+    /**
+     * Getter for `metas` attribute.
+     *
+     * @return mixed
+     */
+    public function getMetasAttribute()
+    {
+        return isset($this->attributes['metas']) && !is_null($this->attributes['metas']) ? unserialize($this->attributes['metas']) : null;
+    }
+
+    /**
+     * Setter for `metas` attribute.
+     *
+     * @param $value
+     */
+    public function setMetasAttribute($value)
+    {
+        $this->attributes['metas'] = serialize($value);
+        $this->save();
     }
 
     /**

@@ -89,20 +89,20 @@ return [
                     'invitations' => '邀请码管理'
                 ]
             ],
-            'courses'   => [
+            'courses'     => [
                 'main' => '课程',
                 'sub'  => [
-                    'index'   => '课程管理',
-                    'edit' => '修改课程信息',
-                    'add'     => '添加课程'
+                    'index' => '课程管理',
+                    'edit'  => '修改课程信息',
+                    'add'   => '添加课程'
                 ]
             ],
-            'posts'     => [
+            'posts'       => [
                 'main' => '文章',
                 'sub'  => [
-                    'index'   => '文章管理',
-                    'edit' => '修改文章信息',
-                    'add'     => '添加文章'
+                    'index' => '文章管理',
+                    'edit'  => '修改文章信息',
+                    'add'   => '添加文章'
                 ]
             ],
             'data-center' => [
@@ -154,12 +154,12 @@ return [
         'navigation'            => [
 
         ],
-        'records' => [
+        'records'               => [
             'user'   => '用户',
             'course' => '课程',
             'post'   => '文章'
         ],
-        'operation' => [
+        'operation'             => [
             'search-heading'  => '查找:keyword的相关:record',
             'search'          => '搜索:record',
             'bulk-actions'    => '批量操作',
@@ -196,8 +196,8 @@ return [
             ],
             'users'       => [
                 'index'       => [
-                    'heading'         => '用户管理',
-                    'table'           => [
+                    'heading' => '用户管理',
+                    'table'   => [
                         'registered_at' => '注册于',
                         'count'         => '每页:perPage名用户, 累计共:total名用户'
                     ],
@@ -241,9 +241,9 @@ return [
                     'generated'   => '已成功生成注册码'
                 ]
             ],
-            'courses' => [
+            'courses'     => [
                 'index' => [
-                    'heading'        => '课程管理',
+                    'heading' => '课程管理',
                     'table'   => [
                         'created_at' => '创建于',
                         'count'      => '每页:perPage门课程, 累计共:total门课程'
@@ -251,20 +251,20 @@ return [
                     'add'     => '添加课程'
                 ],
             ],
-            'posts' => [
+            'posts'       => [
                 'index' => [
-                    'heading' => '文章管理',
-                    'table' => [
+                    'heading'   => '文章管理',
+                    'table'     => [
                         'created_at' => '创建于',
-                        'count' => '每页:perPage帖子, 累计共:total帖子'
+                        'count'      => '每页:perPage帖子, 累计共:total帖子'
                     ],
-                    'add' => '添加文章',
-                    'status' => [
+                    'add'       => '添加文章',
+                    'status'    => [
                         '0' => '草稿',
                         '1' => '未发布',
                         '2' => '已发布'
                     ],
-                    'sticky' => [
+                    'sticky'    => [
                         '0' => '非精品',
                         '1' => '精品',
                     ],
@@ -588,7 +588,8 @@ return [
 
     'chat' => [
         'unread-message' => '条未读消息',
-        'new-message'    => '说点什么...'
+        'new-message'    => '说点什么...',
+        'image-message'  => '图片'
     ],
 
     'datatable' => [

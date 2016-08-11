@@ -21,6 +21,7 @@ class Router {
     public static function home()
     {
         Route::get('/', 'HomeController@index')->name('home');
+        Route::get('media/{year}/{month}/{user}/{path}', 'HomeController@getMedia');
 
         return new static;
     }

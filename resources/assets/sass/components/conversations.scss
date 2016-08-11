@@ -265,6 +265,12 @@
               }
             }
 
+            &:not(.self) {
+              .message-bubble.has-image {
+                margin-left: 10px;
+              }
+            }
+
             &.self {
               .message-container {
                 flex-flow: row-reverse !important;
@@ -384,6 +390,26 @@
             @include tY(0);
           }
         }
+
+        .sending-indicator {
+          position: absolute;
+          z-index: 50;
+          left: 0;
+          right: 0;
+          bottom: -3px;
+          opacity: 0;
+          width: 100%;
+          height: 3px;
+          background: linear-gradient(110deg, $facebook-color, $qq-color, $themewhite, $qq-color, $facebook-color);
+          background-size: 450%;
+          @include ts(all .35s ease-in-out);
+
+          &.sending {
+            opacity: .85;
+            bottom: 0;
+            @include am(bg-gradient 4.35s ease-out infinite);
+          }
+        }
       }
     }
 
@@ -472,6 +498,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      z-index: 999;
 
       .loading-wrapper {
         display: flex;

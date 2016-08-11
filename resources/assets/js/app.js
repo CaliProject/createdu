@@ -193,19 +193,44 @@ const vm = new Vue({
 
             setTimeout(() => setupSlimScrolls(), 300);
         },
+        /**
+         * Get conversation messages from server.
+         *
+         * @param convo
+         */
         getMessages(convo) {
+            if (convo.hasMore == undefined) {
+                convo.hasMore = true;
+            }
+
+            if (!convo.hasMore)
+                return false;
+
             convo.loading = true;
+
+            let $data = {};
+
+            if (this.getCurrentConversation().messages.length) {
+                $data.lastId = this.getCurrentConversation().messages[0].id;
+            }
 
             this.request({
                 url: `/get-chat/${convo.id}`,
                 type: 'POST',
+                data: $data,
                 callback(success, data) {
                     convo.loading = false;
                     if (success && !$.isEmptyObject(data.messages)) {
-                        for (let $i in data.messages) {
-                            convo.messages.push(data.messages[$i]);
+                        if ($data.lastId == undefined) {
+                            for (let $i in data.messages) {
+                                convo.messages.push(data.messages[$i]);
+                            }
+                            setTimeout(() => setupSlimScrolls(), 300);
+                        } else {
+                            convo.messages = data.messages.concat(convo.messages);
                         }
-                        setTimeout(() => setupSlimScrolls(), 300);
+                    } else if ($.isEmptyObject(data.messages)) {
+                        convo.hasMore = false;
                     }
                 }
             });
@@ -226,10 +251,15 @@ const vm = new Vue({
         },
         sendMessage() {
             const $message = this.message,
-                id = parseInt($($(".Convo__message")[0]).attr('conversation-id')),
+                convo = this.getCurrentConversation(),
+                id = convo.id,
                 $vm = this;
 
+            if (convo.sending)
+                return false;
+
             this.message = '';
+            convo.sending = true;
 
             this.request({
                 url: `/chat/${id}`,
@@ -238,24 +268,25 @@ const vm = new Vue({
                     message: $message
                 },
                 callback(success, data) {
-                    if (success) {
-                        $vm.playMessageSound(true);
-
-                        let $convo;
-                        for (let $i in $vm.Conversations) {
-                            if ($vm.Conversations[$i].id == id)
-                                $convo = $vm.Conversations[$i];
-                        }
-
-                        if ($convo.messages == undefined) {
-                            $convo.messages = [];
-                        }
-                        $convo.messages.push(data.m);
-
-                        $vm.scrollToCurrentConversationBottom();
-                    }
+                    $vm.messageSentCallback(success, data);
                 }
             });
+        },
+        messageSentCallback(success, data) {
+            const $convo = this.getCurrentConversation();
+
+            $convo.sending = false;
+
+            if (success) {
+                this.playMessageSound(true);
+
+                if ($convo.messages == undefined) {
+                    $convo.messages = [];
+                }
+                $convo.messages.push(data.m);
+
+                this.scrollToCurrentConversationBottom();
+            }
         },
         shouldDisplayTime(convo) {
             const conversation = this.getCurrentConversation(),
@@ -316,7 +347,7 @@ const vm = new Vue({
             if (animate) {
                 $($sel).animate({
                     scrollTop: height
-                }, 250);
+                }, 280);
             }
 
             setTimeout(() => {
@@ -332,7 +363,44 @@ const vm = new Vue({
                         type: 'PATCH'
                     });
                 }
-            }, 265);
+            }, 300);
+        },
+        scrollingConvoScreen(ev) {
+            const convo = this.getCurrentConversation();
+
+            if ($(ev.target).scrollTop() <= 15 && !convo.loading) {
+                this.getMessages(convo);
+            }
+        },
+        selectImage() {
+            $("input#message-image-selector").click();
+        },
+        sendImage() {
+            const convo = this.getCurrentConversation(),
+                id = convo.id,
+                $this = this;
+
+            if (convo.sending)
+                return false;
+
+            this.message = '';
+            convo.sending = true;
+
+            $.ajaxFileUpload({
+                url: `/chat/${id}`,
+                dataType: 'json',
+                data: {_token: $this.token},
+                fileElementId: 'message-image-selector',
+                success(data) {
+                    $this.messageSentCallback(true, data);
+
+                    const file = $("input#message-image-selector");
+                    file.after(file.clone().val(""));
+                    file.remove();
+
+                    setupImageInput();
+                }
+            });
         }
     },
     data: {
@@ -392,8 +460,16 @@ function setupSlimScrolls() {
     $('.SlimScroll').slimscroll();
 
     const $sel = `.Convo__main .SlimScroll`;
-    $($sel).slimScroll({
-        scrollTo: $($($sel).find(".Convo__messages")[0]).height()
+    setTimeout(() => {
+        $($sel).slimScroll({
+            scrollTo: $($($sel).find(".Convo__messages")[0]).height()
+        });
+    }, 300);
+}
+
+function setupImageInput() {
+    $("input#message-image-selector").on('change', () => {
+        vm.sendImage();
     });
 }
 

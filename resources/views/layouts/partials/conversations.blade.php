@@ -17,7 +17,7 @@
                     </header>
                     <main class="Convo__main">
                         <div class="Convo__inner">
-                            <div class="SlimScroll">
+                            <div class="SlimScroll" @scroll="scrollingConvoScreen">
                                 <div class="Convo__messages">
                                     <div class="Convo--loader" v-show="Conversation.loading">
                                         <div class="loading-wrapper">
@@ -55,33 +55,28 @@
                                                         <img :src="User.avatarUrl" :alt="User.name">
                                                     </a>
                                                 </div>
-                                                <div class="message-bubble">
+                                                <div class="message-bubble" v-if="!message.metas">
                                                     <div class="message" v-text="message.content"></div>
+                                                </div>
+                                                {{-- TODO: Link or other content --}}
+                                                <div class="message-bubble" v-else :class="{'has-image': message.metas}">
+                                                    <div class="message">
+                                                        <a href="#" class="lightbox-trigger" @click.prevent>
+                                                            <div class="image-thumbnail">
+                                                                <img :src="message.metas.src" :alt="message.metas.title">
+                                                            </div>
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        {{--<div class="message-bubble-container collapsed self">--}}
-                                            {{--<div class="message-container">--}}
-                                                {{--<a :href="'/@' + User.name" class="avatar" target="_blank">--}}
-                                                    {{--<img :src="User.avatarUrl" :alt="User.name">--}}
-                                                {{--</a>--}}
-                                                {{--<div class="message-bubble has-image">--}}
-                                                    {{--<div class="message">--}}
-                                                        {{--<a href="#" class="lightbox-trigger" @click.prevent>--}}
-                                                            {{--<div class="image-thumbnail">--}}
-                                                                {{--<img src="https://ss0.bdstatic.com/-0U0bnSm1A5BphGlnYG/tam-ogel/f4b06def0e4c32d09d74cd7c8384f0c9_259_194.jpg" alt="">--}}
-                                                            {{--</div>--}}
-                                                        {{--</a>--}}
-                                                    {{--</div>--}}
-                                                {{--</div>--}}
-                                            {{--</div>--}}
-                                        {{--</div>--}}
                                     </div>
                                     <div class="new-indicator" :class="{'has-new-message' : Conversation.unread}">
                                         <button tabindex="-1" class="unread-button" @click.prevent="scrollToCurrentConversationBottom(true)">
                                             @{{ Conversation.unread }} @lang('views.chat.unread-message')
                                         </button>
                                     </div>
+                                    <div class="sending-indicator" :class="{'sending' : Conversation.sending}"></div>
                                 </div>
                             </div>
                         </div>
@@ -91,9 +86,10 @@
                             <button class="composer-addon">
                                 <i class="fa fa-plus-circle"></i>
                             </button>
-                            <button class="composer-addon">
+                            <button class="composer-addon" @click="selectImage">
                                 <i class="fa fa-picture-o"></i>
                             </button>
+                            <input type="file" accept="image/png,image/jpeg,image/gif" id="message-image-selector" name="image" @change.prevent="sendImage" class="hidden">
                         </div>
                         <div class="message-input-container">
                             <textarea placeholder="@lang('views.chat.new-message')" class="text-field" id="message-text-field" rows="1" @keydown.enter.prevent="sendMessage" @keydown="enteredMessage" v-model="message"></textarea>

@@ -2,6 +2,7 @@
 
 namespace Createdu\Http\Controllers\User;
 
+use Createdu\Media;
 use Createdu\User;
 use Createdu\Message;
 use Illuminate\Http\Request;
@@ -39,6 +40,8 @@ class ConversationsController extends Controller {
     }
 
     /**
+     * Get conversations with user.
+     *
      * @param User $user
      * @return array
      */
@@ -46,7 +49,12 @@ class ConversationsController extends Controller {
     {
         $this->preventSelf($user);
 
-        $messages = $this->user()->messagesWith($user)->take((new Message)->getPerPage())->get()->reverse()->flatten();
+        $messages = $this->user()
+            ->messagesWith($user, $this->request->has('lastId') ? intval($this->request->input('lastId')) : null)
+            ->take((new Message)->getPerPage())
+            ->get()
+            ->reverse()
+            ->flatten();
 
         return $this->successResponse(compact('messages'));
     }
@@ -61,15 +69,21 @@ class ConversationsController extends Controller {
     {
         $this->preventSelf($user);
 
-        $message = $this->user()->sendMessageTo($user, $this->request->input('message'));
+        $message = $this->makeMessage($user);
         event(new NewMessage($message));
 
-        return $this->successResponse([
+        return $message->metas ? response(json_encode([
+            'm' => $message
+        ]), 200, [
+            'Content-type' => 'text/html'
+        ]) : $this->successResponse([
             'm' => $message
         ]);
     }
 
     /**
+     * User read the messages of the conversation.
+     *
      * @param User $user
      * @return array
      */
@@ -90,5 +104,23 @@ class ConversationsController extends Controller {
         if ($user->id == $this->user()->id) {
             abort(403);
         }
+    }
+
+    /**
+     * Create the message.
+     *
+     * @param User $user
+     * @return Message
+     */
+    protected function makeMessage(User $user)
+    {
+        if ($this->request->hasFile('image')) {
+            $media = Media::move($this->request->file('image'), $this->user());
+            $message = $this->user()->sendMessageTo($user, '[' . trans('views.chat.image-message') . ']', $media);
+        } else {
+            $message = $this->user()->sendMessageTo($user, $this->request->input('message'));
+        }
+
+        return $message;
     }
 }

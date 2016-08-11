@@ -1493,24 +1493,24 @@ pre {
   max-height: 340px;
   overflow-y: scroll; }
 
-.container, .Stage, .Footer__container {
+.container, .Footer__container {
   margin-right: auto;
   margin-left: auto;
   padding-left: 15px;
   padding-right: 15px; }
-  .container:before, .Stage:before, .Footer__container:before, .container:after, .Stage:after, .Footer__container:after {
+  .container:before, .Footer__container:before, .container:after, .Footer__container:after {
     content: " ";
     display: table; }
-  .container:after, .Stage:after, .Footer__container:after {
+  .container:after, .Footer__container:after {
     clear: both; }
   @media (min-width: 768px) {
-    .container, .Stage, .Footer__container {
+    .container, .Footer__container {
       width: 750px; } }
   @media (min-width: 992px) {
-    .container, .Stage, .Footer__container {
+    .container, .Footer__container {
       width: 970px; } }
   @media (min-width: 1200px) {
-    .container, .Stage, .Footer__container {
+    .container, .Footer__container {
       width: 1170px; } }
 
 .container-fluid {
@@ -3691,15 +3691,15 @@ tbody.collapse.in {
     .navbar-fixed-bottom .navbar-collapse {
       max-height: 200px; } }
 
-.container > .navbar-header, .Stage > .navbar-header, .Footer__container > .navbar-header,
-.container > .navbar-collapse, .Stage > .navbar-collapse, .Footer__container > .navbar-collapse,
+.container > .navbar-header, .Footer__container > .navbar-header,
+.container > .navbar-collapse, .Footer__container > .navbar-collapse,
 .container-fluid > .navbar-header,
 .container-fluid > .navbar-collapse {
   margin-right: -15px;
   margin-left: -15px; }
   @media (min-width: 768px) {
-    .container > .navbar-header, .Stage > .navbar-header, .Footer__container > .navbar-header,
-    .container > .navbar-collapse, .Stage > .navbar-collapse, .Footer__container > .navbar-collapse,
+    .container > .navbar-header, .Footer__container > .navbar-header,
+    .container > .navbar-collapse, .Footer__container > .navbar-collapse,
     .container-fluid > .navbar-header,
     .container-fluid > .navbar-collapse {
       margin-right: 0;
@@ -3743,7 +3743,7 @@ tbody.collapse.in {
   .navbar-brand > img {
     display: block; }
   @media (min-width: 768px) {
-    .navbar > .container .navbar-brand, .navbar > .Stage .navbar-brand, .navbar > .Footer__container .navbar-brand,
+    .navbar > .container .navbar-brand, .navbar > .Footer__container .navbar-brand,
     .navbar > .container-fluid .navbar-brand {
       margin-left: -15px; } }
 
@@ -4268,18 +4268,18 @@ a.badge:hover, a.badge:focus {
     font-weight: 200; }
   .jumbotron > hr {
     border-top-color: #d5d5d5; }
-  .container .jumbotron, .Stage .jumbotron, .Footer__container .jumbotron,
+  .container .jumbotron, .Footer__container .jumbotron,
   .container-fluid .jumbotron {
     border-radius: 6px;
     padding-left: 15px;
     padding-right: 15px; }
-  .jumbotron .container, .jumbotron .Stage, .jumbotron .Footer__container {
+  .jumbotron .container, .jumbotron .Footer__container {
     max-width: 100%; }
   @media screen and (min-width: 768px) {
     .jumbotron {
       padding-top: 48px;
       padding-bottom: 48px; }
-      .container .jumbotron, .Stage .jumbotron, .Footer__container .jumbotron,
+      .container .jumbotron, .Footer__container .jumbotron,
       .container-fluid .jumbotron {
         padding-left: 60px;
         padding-right: 60px; }
@@ -7911,6 +7911,216 @@ div.uploader.disabled span.filename, div.uploader.disabled.active span.filename 
 input.uniform-input, input.uniform-input:focus {
   background-color: #fff; }
 
+.boxgallery,
+.boxgallery div {
+  position: absolute; }
+
+.boxgallery,
+.bg-tile,
+.bg-img {
+  overflow: hidden; }
+
+.boxgallery,
+.gallery-panel {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; }
+
+.gallery-panel {
+  z-index: 0;
+  perspective: 1200px; }
+
+.bg-tile {
+  width: 50%;
+  height: 50%; }
+
+.bg-tile:nth-child(2),
+.bg-tile:nth-child(4) {
+  left: 50%; }
+
+.bg-tile:nth-child(3),
+.bg-tile:nth-child(4) {
+  top: 50%; }
+
+.bg-img {
+  width: 100%;
+  height: 100%;
+  background: #999; }
+
+.bg-img img {
+  position: absolute;
+  display: block;
+  height: 200%; }
+
+@media screen and (min-aspect-ratio: 1280 / 850) {
+  .bg-img img {
+    width: 200%;
+    height: auto; } }
+
+.bg-tile:nth-child(2) .bg-img img,
+.bg-tile:nth-child(4) .bg-img img {
+  left: -100%; }
+
+.bg-tile:nth-child(3) .bg-img img,
+.bg-tile:nth-child(4) .bg-img img {
+  top: -100%; }
+
+/* Navigation Arrow */
+.boxgallery > nav span {
+  position: absolute;
+  top: 50%;
+  z-index: 1000;
+  display: block;
+  width: 100px;
+  height: 100px;
+  outline: none;
+  text-align: left;
+  cursor: pointer;
+  transform: translateY(-50%); }
+
+.boxgallery > nav span.prev {
+  left: 0; }
+
+.boxgallery > nav span.next {
+  right: 0; }
+
+.boxgallery > nav i {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%; }
+
+.boxgallery > nav span::before,
+.boxgallery > nav span::after,
+.boxgallery > nav i::before,
+.boxgallery > nav i::after {
+  position: absolute;
+  left: 50%;
+  width: 3px;
+  height: 50%;
+  outline: 1px solid transparent;
+  background: #dbccd0;
+  content: '';
+  transition: transform 0.3s;
+  backface-visibility: hidden; }
+
+.boxgallery > nav i::before,
+.boxgallery > nav i::after {
+  z-index: 100;
+  height: 0;
+  background: #fff;
+  transition: height 0.3s, transform 0.3s; }
+
+.boxgallery > nav span::before,
+.boxgallery > nav i::before {
+  top: 50%;
+  transform: translateX(-50%) rotate(-135deg);
+  transform-origin: 50% 0%; }
+
+.boxgallery > nav span.next::before,
+.boxgallery > nav span.next i::before {
+  transform: translateX(-50%) rotate(135deg);
+  transform-origin: 50% 0%; }
+
+.boxgallery > nav span::after,
+.boxgallery > nav i::after {
+  top: 50%;
+  transform: translateX(-50%) rotate(-45deg);
+  transform-origin: 0 0; }
+
+.boxgallery > nav span.next::after,
+.boxgallery > nav span.next i::after {
+  transform: translateX(-50%) rotate(45deg);
+  transform-origin: 100% 0%; }
+
+.boxgallery > nav span:hover i::before,
+.boxgallery > nav span:hover i::after {
+  height: 50%; }
+
+.boxgallery > nav span:hover::before,
+.boxgallery > nav span:hover i::before {
+  transform: translateX(-50%) rotate(-125deg); }
+
+.boxgallery > nav span.next:hover::before,
+.boxgallery > nav span.next:hover i::before {
+  transform: translateX(-50%) rotate(125deg); }
+
+.boxgallery > nav span:hover::after,
+.boxgallery > nav span:hover i::after {
+  transform: translateX(-50%) rotate(-55deg); }
+
+.boxgallery > nav span.next:hover::after,
+.boxgallery > nav span.next:hover i::after {
+  transform: translateX(-50%) rotate(55deg); }
+
+/* Transitions and individual delays/effects */
+/* The "active" class is given to the panel that is coming */
+.gallery-panel.current {
+  z-index: 2; }
+
+.gallery-panel.active {
+  z-index: 1; }
+
+.gallery-panel.current .bg-img {
+  transition: transform 1.1s ease-in-out; }
+
+.boxgallery[data-effect="effect-1"] .gallery-panel.active .bg-tile,
+.boxgallery[data-effect="effect-2"] .gallery-panel.active .bg-tile {
+  animation: scaleDown 1.1s ease-in-out; }
+
+@keyframes scaleDown {
+  from {
+    transform: translate3d(0, 0, 380px); }
+  to {
+    transform: translate3d(0, 0, 0); } }
+
+/* Variation 2 */
+.boxgallery[data-effect="effect-2"] .gallery-panel.current .bg-img {
+  transition: transform 0.9s cubic-bezier(0.7, 0, 0.3, 1); }
+
+.boxgallery[data-effect="effect-2"] .gallery-panel.current .bg-tile:nth-child(2) .bg-img {
+  transition-delay: 0.15s; }
+
+.boxgallery[data-effect="effect-2"] .gallery-panel.current .bg-tile:nth-child(3) .bg-img {
+  transition-delay: 0.3s; }
+
+.boxgallery[data-effect="effect-2"] .gallery-panel.current .bg-tile:nth-child(4) .bg-img {
+  transition-delay: 0.45s; }
+
+/* Variation 3 */
+.boxgallery[data-effect="effect-3"] .gallery-panel::after {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  content: '';
+  transition: opacity 1.1s ease-in-out; }
+
+.boxgallery[data-effect="effect-3"] .gallery-panel.current::after,
+.boxgallery[data-effect="effect-3"] .gallery-panel.active::after {
+  opacity: 0; }
+
+.boxgallery[data-effect="effect-3"] .gallery-panel.current::after {
+  transition: none; }
+
+.boxgallery[data-effect="effect-3"] .gallery-panel.current .bg-img {
+  transition: transform 1.1s cubic-bezier(0.7, 0, 0.3, 1); }
+
+.boxgallery[data-effect="effect-3"] .gallery-panel.current .bg-tile:nth-child(2) .bg-img {
+  transition-delay: 0.15s; }
+
+.boxgallery[data-effect="effect-3"] .gallery-panel.current .bg-tile:nth-child(3) .bg-img {
+  transition-delay: 0.3s; }
+
+.boxgallery[data-effect="effect-3"] .gallery-panel.current .bg-tile:nth-child(4) .bg-img {
+  transition-delay: 0.45s; }
+
+@media screen and (max-width: 380px) {
+  .boxgallery > nav span {
+    width: 50px;
+    height: 50px; } }
+
 /*
 * Color definition
 */
@@ -9049,16 +9259,6 @@ li.on:after {
     -moz-transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1.05);
     -ms-transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1.05);
     -o-transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1.05); }
-    .Conversations__list:before {
-      content: '';
-      display: block;
-      background: linear-gradient(to bottom, #fff, rgba(255, 255, 255, 0.05));
-      width: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 70px;
-      z-index: 100; }
   .Conversations__container {
     display: -ms-flexbox;
     display: flex;
@@ -9476,6 +9676,31 @@ li.on:after {
           animation-delay: .2s; }
         .Convo--open .Convo--loader .loading-wrapper .loading-bar:last-of-type {
           animation-delay: .3s; }
+
+.Hero-Banner {
+  padding: 50px 0 75px;
+  margin-top: -40px;
+  position: relative;
+  background: url("/assets/images/home/hero-banner.jpg") top center no-repeat;
+  background-size: cover; }
+  .Hero-Banner .oblique {
+    width: 100%;
+    height: 210px;
+    bottom: -1px;
+    left: 0;
+    position: absolute;
+    z-index: 29; }
+    .Hero-Banner .oblique polygon {
+      fill: #f6f3f1;
+      stroke: #f6f3f1; }
+  .Hero-Banner .boxgallery {
+    box-shadow: 0 1px 35px 2px rgba(0, 0, 0, 0.35);
+    position: relative;
+    z-index: 30; }
+
+.Section1 {
+  min-height: 300px;
+  background: #f6f3f1; }
 
 .Profile--settings {
   display: -ms-flexbox;

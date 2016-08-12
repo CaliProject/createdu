@@ -93,7 +93,7 @@ return [
     |
     */
 
-    'localhost_testing' => true,
+    'localhost_testing' => env('LOCATION_LOCALHOST', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -105,7 +105,7 @@ return [
     |
     */
 
-    'localhost_forget_location' => true,
+    'localhost_forget_location' => env('LOCATION_FORGET', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -118,7 +118,7 @@ return [
     |
     */
 
-    'localhost_testing_ip' => '59.40.40.241',
+    'localhost_testing_ip' => env('LOCATION_TESTING_IP', '59.40.40.241'),
 
     /*
     |--------------------------------------------------------------------------

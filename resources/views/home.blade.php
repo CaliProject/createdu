@@ -68,7 +68,9 @@
         </div>
     </section>
     <section class="Join">
+        <div class="container">
 
+        </div>
     </section>
 @endsection
 

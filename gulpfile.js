@@ -39,6 +39,9 @@ elixir(function (mix) {
             'plugins/jquery/timeago.js',
             'plugins/selectFx.js',
             'plugins/boxesFx.js',
+            'plugins/dynamics.min.js',
+            'plugins/imagesloaded.pkgd.min.js',
+            'plugins/masonry.pkgd.min.js',
             'plugins/jquery/jquery.uniform.min.js',
             'plugins/jquery/jquery.slimscroll.min.js',
             'plugins/toastr.min.js',
@@ -148,4 +151,16 @@ elixir(function (mix) {
         .browserify([
             'pages/auth.js'
         ], publicDir + 'js/pages/auth.js');
+
+    /*
+     |------------------------------------------------------------
+     | Home Assets
+     |------------------------------------------------------------
+     |
+     | @author Cali
+     |
+     */
+    mix.scripts([
+        'pages/home.js'
+    ], publicDir + 'js/pages/home.js');
 });

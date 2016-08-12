@@ -12,6 +12,6 @@ class VerifyCsrfToken extends BaseVerifier
      * @var array
      */
     protected $except = [
-        'users/profile/avatar'
+        'users/profile/avatar', 'profile/avatar'
     ];
 }

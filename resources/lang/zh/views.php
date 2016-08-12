@@ -70,6 +70,7 @@ return [
             ]
         ],
     ],
+
     'dashboard' => [
         'home' => [
             'title' => '主页'

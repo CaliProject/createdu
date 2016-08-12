@@ -1,5 +1,7 @@
 @extends('layouts.full')
 
+@section('title', trans('views.dashboard.home.title'))
+
 @section('app.content')
     <section class="Hero-Banner">
         <div class="container">

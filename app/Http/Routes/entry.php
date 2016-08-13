@@ -12,7 +12,7 @@
 */
 
 Route::group([
-    'domain' => str_replace('http://', '', config('app.url'))
+    'domain' => str_replace('https://', '', str_replace('http://', '', config('app.url')))
 ], function () {
     Router::auth()
         ->language()

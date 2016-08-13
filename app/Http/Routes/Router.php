@@ -163,7 +163,7 @@ class Router {
         Route::group([
             'namespace' => 'Admin',
             'as'        => 'admin.',
-            'domain'    => 'admin.' . str_replace('http://', '', str_replace('https://', '', config('app.url')))
+            'domain'    => 'admin.' . root_domain()
         ], function () {
             Route::get('{section?}', 'AdminController@show')->name('index');
             Route::patch('save/settings', 'AdminController@changeSetting')->name('change-settings');

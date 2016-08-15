@@ -2,6 +2,7 @@
 
 namespace Createdu\Http\Controllers\Admin;
 
+use Createdu\Library\Features\Users\Invitation;
 use Createdu\User;
 use Createdu\Avatar;
 use Illuminate\Http\Request;
@@ -143,5 +144,34 @@ class UsersController extends Controller {
         $fromAdmin = $request->has('admin');
 
         return $this->successResponse(['redirectUrl' => route('users.profile.oauth', compact('service', 'fromAdmin'))]);
+    }
+
+    /**
+     * 显示邀请码页面
+     * 
+     * @return mixed
+     */
+    public function showInvitations()
+    {
+        return Invitation::hasCodes() ? 
+            view('admin.users.invitation',['codes' => Invitation::getCodes()]) :
+            view('admin.users.invitation');
+    }
+
+    /**
+     * 生成$quantity个邀请码
+     *
+     * @param Request $request
+     * @return array
+     */
+    public function generateInvitationCode(Request $request)
+    {
+        $this->validate($request,[
+            'quantity' => 'required'
+        ]);
+        
+        Invitation::generateCodes($request->input('quantity'));
+        
+        return $this->successResponse(trans('views.admin.pages.users.invitations.generated'));
     }
 }

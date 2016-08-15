@@ -12,9 +12,7 @@
         <div class="col-sm-10 col-sm-offset-1">
             <div class="panel panel-white">
                 <div class="panel-heading">
-                    <div class="panel-title">
-                        <h4>@lang('views.admin.titles.courses.sub.add')</h4>
-                    </div>
+                    <h4 class="panel-title">@lang('views.admin.titles.courses.sub.add')</h4>
                 </div>
                 <div class="panel-body">
                     @include('admin.courses.partials.form', ['method' => 'POST'])

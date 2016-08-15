@@ -240,7 +240,8 @@ return [
                         'code' => '注册码',
                         'date' => '生成时间'
                     ],
-                    'generated'   => '已成功生成注册码'
+                    'generated'   => '已成功生成注册码',
+                    'no-result'   => '目前没有注册码'  
                 ]
             ],
             'courses'     => [

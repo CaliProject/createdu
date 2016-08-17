@@ -335,6 +335,3 @@ const pjaxReEvaluate = (manual = false) => {
     })();
 }
 
-$(document).ready(function () {
-    $(".summernote").summernote();
-})

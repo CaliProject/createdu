@@ -30,3 +30,7 @@
         </button>
     </div>
 </form>
+
+@push('scripts.footer')
+<script src="assets/js/admin/pages/summernote.js" pjax-script></script>
+@endpush

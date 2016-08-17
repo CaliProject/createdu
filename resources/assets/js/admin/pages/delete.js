@@ -13,7 +13,7 @@ $("thead input[type=checkbox], tfoot input[type=checkbox]").each(function () {
 $("a[data-delete]").each(function () {
     $(this).click(function (e) {
         e.preventDefault();
-        const ID = $($(this).parents("tr")[0]).attr('delete-id');
+        const ID = $($(this).parents("tr")[0]).attr('action-id');
 
         Admin.showWarningAlert(deleteMessages, function () {
             deleteID(`${deleteUrl}/${ID}`, 'DELETE');
@@ -65,7 +65,7 @@ function getTotalIDs() {
 
     $("tbody input[type=checkbox]").each(function () {
         if (this.checked) {
-            $ids.push($($(this).parents("tr")[0]).attr('delete-id'));
+            $ids.push($($(this).parents("tr")[0]).attr('action-id'));
         }
     });
 

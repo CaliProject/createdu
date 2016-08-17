@@ -3,7 +3,7 @@
 @section('title', trans('views.admin.titles.courses.sub.index'))
 
 @section('breadcrumb')
-    <li class="active"><i class="icon-book-open"></i>@lang('views.admin.titles.courses.sub.index')</li>
+    <li class="active"><i class="icon-book-open"></i>&nbsp;@lang('views.admin.titles.courses.sub.index')</li>
 @endsection
 
 @section('app.content')
@@ -27,7 +27,7 @@
                         </form>
                     </div>
                     <div class="col-sm-4 pull-right text-right">
-                        <a href="@route('admin.courses.add', [], false)" class="btn btn-info"><i class="fa fa-plus"></i>@lang('views.admin.pages.courses.index.add')</a>
+                        <a href="@route('admin.courses.add', [], false)" class="btn btn-info" data-pjax><i class="fa fa-plus"></i>@lang('views.admin.pages.courses.index.add')</a>
                     </div>
                 </div>
                 @if($courses->count())
@@ -48,6 +48,7 @@
                                 </div>
                             </th>
                             <th>@lang('validation.attributes.title')</th>
+                            <th>@lang('views.admin.pages.courses.index.table.author')</th>
                             <th>@lang('views.admin.pages.courses.index.table.created_at')</th>
                             <th>&nbsp;</th>
                         </tr>
@@ -60,13 +61,14 @@
                                 </div>
                             </th>
                             <th>@lang('validation.attributes.title')</th>
+                            <th>@lang('views.admin.pages.courses.index.table.author')</th>
                             <th>@lang('views.admin.pages.courses.index.table.created_at')</th>
                             <th>&nbsp;</th>
                         </tr>
                         </tfoot>
                         <tbody>
                         @foreach($courses as $course)
-                            <tr delete-id="{{ $course->id }}">
+                            <tr action-id="{{ $course->id }}">
                                 <th scope="row">
                                     <div class="ios-switch switch-sm">
                                         <input type="checkbox" class="js-switch">
@@ -74,13 +76,14 @@
                                     </div>
                                 </th>
                                 <td>{{ str_limit($course->title, 30) }}</td>
+                                <td>{{ $course->user->name }}</td>
                                 <td>
                                     <time datetime="{{ $course->created_at->format('Y-m-d H:i:s') }}">
                                         {{ $course->created_at->diffForHumans() }}
                                     </time>
                                 </td>
                                 <td>
-                                    <a href="@route('admin.courses.index', ['course' => $course->id])"><i class="icon-pencil icon-lg"></i></a>
+                                    <a href="@route('admin.courses.index', ['course' => $course->id])" data-pjax><i class="icon-pencil icon-lg"></i></a>
                                     <a href="#" class="m-l-sm text-danger btn-naked" data-delete><i class="icon-close icon-lg"></i></a>
                                 </td>
                             </tr>

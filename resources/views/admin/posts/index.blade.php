@@ -3,11 +3,17 @@
 @section('title', trans('views.admin.titles.posts.sub.index'))
 
 @section('breadcrumb')
-    <li class="active"><i class="icon-note"></i>@lang('views.admin.titles.posts.sub.index')</li>
+    <li class="active"><i class="icon-note"></i>&nbsp;@lang('views.admin.titles.posts.sub.index')</li>
 @endsection
 
 @section('app.content')
     @include('admin.partials.delete', ['record' => 'posts'])
+    <script>
+        var stickMessages = JSON.parse("{!! addslashes(json_encode(trans('views.admin.operation.stick-messages'))) !!}");
+        var essencifyMessages = JSON.parse("{!! addslashes(json_encode(trans('views.admin.operation.essencify-messages'))) !!}");
+        var stickUrl = "@route('admin.posts.stick')";
+        var essencifyUrl = "@route('admin.posts.essencify')";
+    </script>
     <div class="row">
         <div class="panel panel-white">
             <div class="panel-body">
@@ -27,7 +33,7 @@
                         </form>
                     </div>
                     <div class="col-sm-4 text-right">
-                        <a href="@route('admin.posts.add')" class="btn btn-info"><i class="fa fa-plus"></i>@lang('views.admin.titles.posts.sub.add')</a>
+                        <a href="@route('admin.posts.add')" class="btn btn-info" data-pjax><i class="fa fa-plus"></i>@lang('views.admin.titles.posts.sub.add')</a>
                     </div>
                 </div>
                 @if($posts->count())
@@ -68,7 +74,7 @@
                         </tfoot>
                         <tbody>
                         @foreach($posts as $post)
-                            <tr delete-id="{{ $post->id }}">
+                            <tr action-id="{{ $post->id }}">
                                 <th scope="row">
                                     <div class="ios-switch switch-sm">
                                         <input type="checkbox" class="js-switch">
@@ -77,27 +83,13 @@
                                 </th>
                                 <td>{{ str_limit($post->title,30) }}</td>
                                 <td>
-                                    @if(!$post->status)
-                                        @lang('views.admin.pages.posts.index.status.0')
-                                    @elseif($post->status == 1)
-                                        @lang('views.admin.pages.posts.index.status.1')
-                                    @else
-                                        @lang('views.admin.pages.posts.index.status.2')
-                                    @endif
+                                    @lang('views.admin.pages.posts.index.status.' . $post->status)
                                 </td>
                                 <td>
-                                    @if(!$post->sticky)
-                                        @lang('views.admin.pages.posts.index.sticky.0')
-                                    @else
-                                        @lang('views.admin.pages.posts.index.sticky.1')
-                                    @endif
+                                    @lang('views.admin.pages.posts.index.sticky.' . $post->sticky)
                                 </td>
                                 <td>
-                                    @if(!$post->essential)
-                                        @lang('views.admin.pages.posts.index.essential.0')
-                                    @else
-                                        @lang('views.admin.pages.posts.index.essential.1')
-                                    @endif
+                                    @lang('views.admin.pages.posts.index.essential.' . $post->essential)
                                 </td>
                                 <td>
                                     <time data-time="{{ $post->created_at->format('Y-m-d H:i:s') }}">
@@ -105,8 +97,10 @@
                                     </time>
                                 </td>
                                 <td>
-                                    <a href="@route('admin.posts.index', ['post' => $post->id], false)"><i class="icon-pencil icon-lg"></i></a>
+                                    <a href="@route('admin.posts.index', ['post' => $post->id], false)" data-pjax><i class="icon-pencil icon-lg"></i></a>
                                     <a href="#" class="m-l-sm text-danger btn-naked" data-delete><i class="icon-close icon-lg"></i></a>
+                                    <a href="#" class="m-l-sm text-success btn-naked" data-stick><i class="icon-like icon-lg"></i></a>
+                                    <a href="#" class="m-l-sm text-info btn-naked" data-essencify><i class="icon-fire icon-lg"></i></a>
                                 </td>
                             </tr>
                         @endforeach
@@ -148,4 +142,5 @@
 
 @push('scripts.footer')
 <script src="/assets/js/admin/pages/delete.js" pjax-script></script>
+<script src="/assets/js/admin/posts/index.js" pjax-script></script>
 @endpush

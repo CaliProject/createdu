@@ -3,7 +3,7 @@
 @section('title', trans('views.admin.titles.data-center.sub.factory'))
 
 @section('breadcrumb')
-    <li><a href="@route('admin.index', ['section' => 'centers'], false)"><i class="icon-support"></i>@lang('views.admin.titles.data-center.main')</a></li>
+    <li><a href="@route('admin.index', ['section' => 'centers'], false)" data-pjax><i class="icon-support"></i>@lang('views.admin.titles.data-center.main')</a></li>
     <li class="active">@lang('views.admin.titles.data-center.sub.factory')</li>
 @endsection
 

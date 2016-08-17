@@ -127,14 +127,21 @@ elixir(function (mix) {
             'admin/pages/dashboard.js'
         ], assetsDir + 'js/builds/admin/pages/dashboard.js')
         .browserify([
+            'admin/pages/summernote.js'
+        ], assetsDir + 'js/builds/admin/pages/summernote.js')
+        .browserify([
             'admin/center/factory.js'
         ], assetsDir + 'js/builds/admin/center/factory.js')
         .browserify([
             'admin/pages/delete.js'
-        ], assetsDir + 'js/builds/admin/pages/delete.js');
+        ], assetsDir + 'js/builds/admin/pages/delete.js')
+        .browserify([
+            'admin/posts/index.js'
+        ], assetsDir + 'js/builds/admin/posts/index.js');
 
     mix.copy(assetsDir + 'js/builds/admin/users', publicDir + 'js/admin/users');
     mix.copy(assetsDir + 'js/builds/admin/pages', publicDir + 'js/admin/pages');
+    mix.copy(assetsDir + 'js/builds/admin/posts', publicDir + 'js/admin/posts');
     mix.copy(assetsDir + 'js/builds/admin/center', publicDir + 'js/admin/center');
 
     /*

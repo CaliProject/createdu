@@ -3,8 +3,8 @@
 @section('title', trans('views.admin.titles.posts.sub.add'))
 
 @section('breadcrumb')
-    <li><a href="@route('admin.index', ['section' => 'posts'], false)"><i class="icon-note"></i>@lang('views.admin.titles.posts.sub.index')</a></li>
-    <li class="active">@lang('views.admin.titles.posts.sub.add')</li>
+    <li><a href="@route('admin.index', ['section' => 'posts'], false)" data-pjax><i class="icon-note"></i>&nbsp;@lang('views.admin.titles.posts.sub.index')</a></li>
+    <li class="active"><i class="icon-pencil"></i>&nbsp;@lang('views.admin.titles.posts.sub.add')</li>
 @endsection
 
 @section('app.content')

@@ -67,7 +67,7 @@ class ViewComposerServiceProvider extends ServiceProvider
     public function bindAdminPosts()
     {
         return view()->composer('admin.posts.index', function ($view) {
-            $posts = Post::paginate();
+            $posts = Post::orderBy('sticky','desc')->orderBy('essential','desc')->paginate();
 
             return $view->with(compact('posts'));
         });

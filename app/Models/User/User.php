@@ -394,4 +394,14 @@ class User extends Authenticatable {
 
         return $this;
     }
+
+    /**
+     * 一个user对应多个course
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
+    }
 }

@@ -216,6 +216,8 @@ class Router {
             ], function () {
                 Route::get('search/{keyword}', 'PostsController@searchPosts')->name('search');
                 Route::patch('bulk', 'PostsController@bulkAction')->name('bulk');
+                Route::patch('stick/{post?}', 'PostsController@stickPost')->name('stick');
+                Route::patch('essencify/{post?}', 'PostsController@essencifyPost')->name('essencify');
                 Route::delete('{post?}', 'PostsController@deletePost')->name('delete');
 
                 Route::get('add', 'PostsController@showAddPost')->name('add');

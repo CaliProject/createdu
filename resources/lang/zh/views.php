@@ -172,6 +172,20 @@ return [
                 'confirm' => "确定删除",
                 'success' => '成功删除'
             ],
+            'stick-messages' => [
+                'title'   => '确定要加精吗?',
+                'text'    => '加精后随便恢复, 随意加精',
+                'cancel'  => '手抽筋了',
+                'confirm' => '确定加精',
+                'success' => '已成功设置为精品'
+            ],
+            'essencify-messages' => [
+                'title'   => '确定要置顶吗?',
+                'text'    => '置顶后随便恢复, 随意置顶',
+                'cancel'  => '按错了',
+                'confirm' => '确定置顶',
+                'success' => '已成功置顶'
+            ],
             'no-result'       => '暂无相关:record',
             'publish'         => '确认发布',
             'published'       => '发布成功',
@@ -248,24 +262,33 @@ return [
                 'index' => [
                     'heading' => '课程管理',
                     'table'   => [
+                        'author'     => '作者',
                         'created_at' => '创建于',
                         'count'      => '每页:perPage门课程, 累计共:total门课程'
                     ],
-                    'add'     => '添加课程'
+                    'add'     => '添加课程',
+                    'status' => [
+                        '0' => '草稿',
+                        '1' => '等待审核',
+                        '2' => '已发布',
+                        '3' => '回收站'
+                    ]
                 ],
             ],
             'posts'       => [
                 'index' => [
                     'heading'   => '文章管理',
                     'table'     => [
+                        'author'     => '作者',
                         'created_at' => '创建于',
                         'count'      => '每页:perPage帖子, 累计共:total帖子'
                     ],
                     'add'       => '添加文章',
                     'status'    => [
                         '0' => '草稿',
-                        '1' => '未发布',
-                        '2' => '已发布'
+                        '1' => '等待审核',
+                        '2' => '已发布',
+                        '3' => '回收站'
                     ],
                     'sticky'    => [
                         '0' => '非精品',

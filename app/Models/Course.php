@@ -22,4 +22,14 @@ class Course extends Model
      * @var int
      */
     protected $perPage = 35;
+
+    /**
+     * 一个sell只属于一个user
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

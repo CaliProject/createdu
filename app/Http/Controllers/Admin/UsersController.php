@@ -2,12 +2,12 @@
 
 namespace Createdu\Http\Controllers\Admin;
 
-use Createdu\Library\Features\Users\Invitation;
 use Createdu\User;
 use Createdu\Avatar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Createdu\Http\Controllers\Controller;
+use Createdu\Library\Features\Users\Invitation;
 use Createdu\Http\Requests\Admin\ProfileSaveRequest;
 use Createdu\Http\Requests\Admin\UpdateUserPasswordRequest;
 

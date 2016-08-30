@@ -10,13 +10,31 @@ use Createdu\Http\Requests\Admin\AddOrUpdateCourseRequest;
 
 class CoursesController extends Controller
 {
+    
+    public function showCourse($status)
+    {
+        switch ($status) {
+            case 'all':
+                $courses = Course::paginate();
+                return view('admin.courses.index',compact('courses'));
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+                $courses = Course::where('status',"$status")->paginate();
+                return view('admin.courses.index',compact('courses'));
+            default:
+                $courses = Course::paginate();
+                return view('admin.courses.index',compact('courses'));
+        }
+    }
 
     /**
      * 显示课程详情页面
      *
      * @return mixed
      */
-    public function showCourse(Course $course)
+    public function showEditCourse(Course $course)
     {
         return view('admin.courses.edit',compact('course'));
     }
@@ -61,6 +79,17 @@ class CoursesController extends Controller
                     Course::findOrFail($id)->delete();
                 }
                 break;
+            case 'trash':
+                foreach(explode(',', $request->input('IDs')) as $id) {
+                    Course::findOrFail($id)->update(['status' => 3]);
+                }
+                break;
+            case 'revert':
+                foreach(explode(',', $request->input('IDs')) as $id) {
+                    $course = Course::findOrFail($id);
+                    $course->update(['status' => $course->history_status]);
+                }
+                break;
         }
 
         return $this->successResponse();
@@ -91,5 +120,31 @@ class CoursesController extends Controller
         return $course->update($request->except(['_token','_method'])) ?
             $this->successResponse(trans('views.admin.operation.updated')) :
             $this->errorResponse(trans('views.admin.operation.updated-error'));
+    }
+
+    /**
+     * 将一条课程记录放入回收站
+     * 
+     * @param Course $course
+     * @return array
+     */
+    public function trashCourse(Course $course)
+    {
+        $course->update(['status' => 3]);
+
+        return $this->successResponse();
+    }
+
+    /**
+     * 将一条课程记录还原回原来的状态
+     * 
+     * @param Course $course
+     * @return array
+     */
+    public function revertCourse(Course $course)
+    {
+        $course->update(['status' => $course->history_status]);
+        
+        return $this->successResponse();
     }
 }

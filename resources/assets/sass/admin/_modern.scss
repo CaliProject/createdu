@@ -2639,6 +2639,38 @@ tr.group:hover {
   background-color: #ddd !important;
 }
 
+@mixin button-anim($content: 1s fadeInDown) {
+  -webkit-animation: $content;
+  -o-animation: $content;
+  animation: $content;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+td {
+  div.button-group {
+    display: none;
+  }
+
+  &:hover {
+    div.button-group {
+      display: block;
+      @include button-anim(1s fadeInDown backwards);
+    }
+  }
+}
+
+
+
 
 /* Wysiwyg */
 

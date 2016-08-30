@@ -3,7 +3,7 @@
 @section('title', trans('views.admin.titles.courses.sub.edit'))
 
 @section('breadcrumb')
-    <li><a href="@route('admin.index', ['section' => 'courses'], false)" data-pjax><i class="icon-book-open"></i>&nbsp;@lang('views.admin.titles.courses.sub.index')</a></li>
+    <li><a href="@route('admin.courses.index', ['status' => 'all'], false)" data-pjax><i class="icon-book-open"></i>&nbsp;@lang('views.admin.titles.courses.sub.index')</a></li>
     <li class="active"><i class="icon-pencil"></i>&nbsp;@lang('views.admin.titles.courses.sub.edit')</li>
 @endsection
 

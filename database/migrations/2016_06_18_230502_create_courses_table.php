@@ -22,6 +22,7 @@ class CreateCoursesTable extends Migration
             $table->string('title', 191)->index();
             $table->longText('description');
             $table->unsignedTinyInteger('status');
+            $table->unsignedTinyInteger('history_status');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

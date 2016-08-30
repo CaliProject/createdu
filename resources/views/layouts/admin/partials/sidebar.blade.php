@@ -42,7 +42,7 @@
                     <span class="menu-icon icon-book-open"></span><p>@lang('views.admin.titles.courses.main')</p><span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
-                    <li><a href="@route('admin.index', ['section' => 'courses'], false)" data-pjax>@lang('views.admin.titles.courses.sub.index')</a></li>
+                    <li><a href="@route('admin.courses.index',['status' => 'all'],false)" data-pjax>@lang('views.admin.titles.courses.sub.index')</a></li>
                     <li><a href="@route('admin.courses.add')" data-pjax>@lang('views.admin.titles.courses.sub.add')</a></li>
                 </ul>
             </li>

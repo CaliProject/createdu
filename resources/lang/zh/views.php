@@ -164,7 +164,12 @@ return [
             'search-heading'  => '查找:keyword的相关:record',
             'search'          => '搜索:record',
             'bulk-actions'    => '批量操作',
+            'view'            => '查看',
+            'edit'            => '编辑',
             'delete'          => '删除',
+            'trash'           => '回收站',
+            'revert'          => '还原',
+            'quick-edit'      => '快速编辑',
             'delete-messages' => [
                 'title'   => "确定要删除吗?",
                 'text'    => '删除后将无法恢复, 谨慎选择',
@@ -185,6 +190,20 @@ return [
                 'cancel'  => '按错了',
                 'confirm' => '确定置顶',
                 'success' => '已成功置顶'
+            ],
+            'trash-message' => [
+                'title'   => '确认要放入回收站吗?',
+                'text'    => '放入回收站后, 可以恢复',
+                'cancel'  => '按错了',
+                'confirm' => '确定放入回收站',
+                'success' => '已成功放入回收站'
+            ],
+            'revert-message' => [
+                'title'   => '确认要还原吗?',
+                'text'    => '还原后重新恢复原有状态',
+                'cancel'  => '手贱了',
+                'confirm' => '确定还原',
+                'success' => '还原成功'
             ],
             'no-result'       => '暂无相关:record',
             'publish'         => '确认发布',
@@ -262,17 +281,23 @@ return [
                 'index' => [
                     'heading' => '课程管理',
                     'table'   => [
+                        'category'   => '分类目录',
                         'author'     => '作者',
                         'created_at' => '创建于',
                         'count'      => '每页:perPage门课程, 累计共:total门课程'
                     ],
-                    'add'     => '添加课程',
+                    'add'     => [
+                        'index'   => '添加课程',
+                        'publish' => '发布',
+                        'category' => '分类目录'
+                    ],
                     'status' => [
                         '0' => '草稿',
                         '1' => '等待审核',
                         '2' => '已发布',
                         '3' => '回收站'
-                    ]
+                    ],
+                    ''
                 ],
             ],
             'posts'       => [

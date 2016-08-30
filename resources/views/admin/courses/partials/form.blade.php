@@ -2,7 +2,7 @@
     {{ csrf_field() }}
     {{ method_field($method) }}
     <div class="form-group">
-        <div class="col-sm-2">
+        <div class="col-sm-1">
             <label for="title" class="control-label" required>@lang('validation.attributes.title')</label>
         </div>
         <div class="col-sm-10">
@@ -10,7 +10,7 @@
         </div>
     </div>
     <div class="form-group">
-        <div class="col-sm-2">
+        <div class="col-sm-1">
             <label for="description" class="control-label" required>@lang('validation.attributes.description')</label>
         </div>
         <div class="col-sm-10">

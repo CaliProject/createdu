@@ -202,12 +202,22 @@ class Router {
             ], function () {
                 Route::get('search/{keyword}', 'CoursesController@searchCourses')->name('search');
                 Route::patch('bulk', 'CoursesController@bulkAction')->name('bulk');
+                Route::patch('trash/{course?}', 'CoursesController@trashCourse')->name('trash');
+                Route::patch('revert/{course?}', 'CoursesController@revertCourse')->name('revert');
                 Route::delete('{course?}', 'CoursesController@deleteCourse')->name('delete');
 
                 Route::get('add', 'CoursesController@showAddCourse')->name('add');
-                Route::get('{course}', 'CoursesController@showCourse')->name('index');
+                Route::get('{status?}', 'CoursesController@showCourse')->name('index');
+                Route::get('edit/{course}', 'CoursesController@showEditCourse')->name('edit');
                 Route::post('add', 'CoursesController@addCourse');
-                Route::patch('{course}', 'CoursesController@updateCourse');
+                Route::patch('edit/{course}', 'CoursesController@updateCourse');
+                
+                Route::group([
+                    'prefix' => 'api',
+                    'as'     => 'api.',
+                ], function () {
+                    Route::get('{course}', 'CoursesController@getOneCourse')->name('get');
+                });
                 
             });
             Route::group([

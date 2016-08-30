@@ -130,6 +130,7 @@ return [
         'credit'                => '积分',
         'content'               => '内容',
         'country'               => '国家',
+        'category'              => '分类目录',
         'day'                   => '天',
         'date'                  => '日期',
         'description'           => '介绍',

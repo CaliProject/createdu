@@ -53,9 +53,12 @@ class ViewComposerServiceProvider extends ServiceProvider
     public function bindAdminCourses()
     {
         return view()->composer('admin.courses.index', function ($view) {
-            $courses = Course::paginate();
+//            $courses = Course::paginate();
+            for($i = 0;$i<4;$i++){
+                $status[$i] = Course::where('status',"$i")->count();  
+            }
             
-            return $view->with(compact('courses'));
+            return $view->with(compact('status'));
         });
     }
 

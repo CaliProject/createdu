@@ -30,6 +30,8 @@ $(function () {
             User: CurrentUser,
             Site: SiteSettings,
             keyword: '',
+            courses: [],
+            currentItemId: 0
         },
         computed: {
             _token() {

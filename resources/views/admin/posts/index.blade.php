@@ -11,8 +11,8 @@
     <script>
         var stickMessages = JSON.parse("{!! addslashes(json_encode(trans('views.admin.operation.stick-messages'))) !!}");
         var essencifyMessages = JSON.parse("{!! addslashes(json_encode(trans('views.admin.operation.essencify-messages'))) !!}");
-        var stickUrl = "@route('admin.posts.stick')";
-        var essencifyUrl = "@route('admin.posts.essencify')";
+        var stickUrl = "@route('admin.posts.stick', [], false)";
+        var essencifyUrl = "@route('admin.posts.essencify', [], false)";
     </script>
     <div class="row">
         <div class="panel panel-white">
@@ -33,7 +33,7 @@
                         </form>
                     </div>
                     <div class="col-sm-4 text-right">
-                        <a href="@route('admin.posts.add')" class="btn btn-info" data-pjax><i class="fa fa-plus"></i>@lang('views.admin.titles.posts.sub.add')</a>
+                        <a href="@route('admin.posts.add', [], false)" class="btn btn-info" data-pjax><i class="fa fa-plus"></i>@lang('views.admin.titles.posts.sub.add')</a>
                     </div>
                 </div>
                 @if($posts->count())
@@ -141,6 +141,5 @@
 @endsection
 
 @push('scripts.footer')
-<script src="/assets/js/admin/pages/delete.js" pjax-script></script>
 <script src="/assets/js/admin/posts/index.js" pjax-script></script>
 @endpush

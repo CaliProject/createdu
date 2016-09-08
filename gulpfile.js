@@ -140,13 +140,17 @@ elixir(function (mix) {
         ], assetsDir + 'js/builds/admin/posts/index.js')
         .browserify([
             'admin/courses/index.js'
-        ], assetsDir + 'js/builds/admin/courses/index.js');
+        ], assetsDir + 'js/builds/admin/courses/index.js')
+        .browserify([
+            'admin/settings/general.js'
+        ], assetsDir + 'js/builds/admin/settings/general.js');
 
     mix.copy(assetsDir + 'js/builds/admin/users', publicDir + 'js/admin/users');
     mix.copy(assetsDir + 'js/builds/admin/pages', publicDir + 'js/admin/pages');
     mix.copy(assetsDir + 'js/builds/admin/posts', publicDir + 'js/admin/posts');
     mix.copy(assetsDir + 'js/builds/admin/center', publicDir + 'js/admin/center');
     mix.copy(assetsDir + 'js/builds/admin/courses', publicDir + 'js/admin/courses');
+    mix.copy(assetsDir + 'js/builds/admin/settings', publicDir + 'js/admin/settings');
 
     /*
      |------------------------------------------------------------

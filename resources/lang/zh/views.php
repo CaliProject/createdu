@@ -376,7 +376,8 @@ return [
                         'registration-on-no'  => '仅注册码邀请',
                         'admin-email'         => '管理邮箱',
                         'admin-email-help'    => '将以该邮箱发邮件给网站用户',
-                        'admin-email-setting' => '前往邮件设置'
+                        'admin-email-setting' => '前往邮件设置',
+                        'icp'                 => '备案号',
                     ],
                     'seo'    => [
                         'heading'          => 'SEO设置',
@@ -400,7 +401,6 @@ return [
                     ],
                     'extra'  => [
                         'heading'         => '额外设置',
-                        'icp'             => '备案号',
                         'ssl'             => '安全协议',
                         'ssl-on'          => '强制SSL',
                         'ssl-help'        => 'SSL协议(https)使网站访问更安全, 自动重定向用户, 请确保已安装证书并正确配置',

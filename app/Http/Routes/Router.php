@@ -216,7 +216,7 @@ class Router {
                     'prefix' => 'api',
                     'as'     => 'api.',
                 ], function () {
-                    Route::get('{course}', 'CoursesController@getOneCourse')->name('get');
+                    Route::get('{course?}', 'CoursesController@getCourse')->name('get');
                 });
                 
             });
@@ -241,6 +241,13 @@ class Router {
             ], function () {
                 Route::get('factory', 'CenterController@showFactory')->name('factory');
                 Route::post('factory', 'CenterController@createFactory');
+            });
+            Route::group([
+                'prefix' => 'settings',
+                'as'     => 'settings.'
+            ], function () {
+                Route::get('general', 'SettingController@showGeneral')->name('general');
+                Route::post('general/{type}', 'SettingController@saveGeneralSetting')->name('save-general');
             });
         });
 

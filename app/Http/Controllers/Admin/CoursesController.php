@@ -147,4 +147,9 @@ class CoursesController extends Controller
         
         return $this->successResponse();
     }
+
+    public function getCourse(Course $course)
+    {
+        return $course;
+    }
 }

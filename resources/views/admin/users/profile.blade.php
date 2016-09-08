@@ -3,7 +3,7 @@
 @section("title", trans('views.admin.titles.users.sub.profile'))
 
 @section('breadcrumb')
-    <li><a href="@route('admin.index',['section' => 'users'],false)" data-pjax><i
+    <li><a href="@route('admin.index', ['section' => 'users'], false)" data-pjax><i
                     class="icon-user"></i>@lang('views.admin.titles.users.sub.index')</a></li>
     <li class="active"><i class="icon-pencil"></i>@lang('views.admin.titles.users.sub.profile')</li>
 @stop

@@ -247,7 +247,8 @@ class Router {
                 'as'     => 'settings.'
             ], function () {
                 Route::get('general', 'SettingController@showGeneral')->name('general');
-                Route::post('general/{type}', 'SettingController@saveGeneralSetting')->name('save-general');
+                Route::post('general/basics', 'SettingController@saveGeneralBasicsSetting')->name('save-general-basics');
+                Route::post('general/SEO', 'SettingController@saveGeneralSEOSetting')->name('save-general-SEO');
             });
         });
 

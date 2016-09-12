@@ -37,6 +37,7 @@ $factory->define(Createdu\Course::class, function (Faker\Generator $faker) {
         'user_id'     => 1,
         'title'       => $faker->sentence,
         'description' => $faker->paragraph(5),
+        'category_id' => 1,
         'created_at'  => \Carbon\Carbon::now()->toDateTimeString(),
         'updated_at'  => \Carbon\Carbon::now()->toDateTimeString(),
     ];

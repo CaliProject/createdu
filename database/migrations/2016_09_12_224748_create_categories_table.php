@@ -13,11 +13,13 @@ class CreateCategoriesTable extends Migration
     public function up()
     {
         Schema::create('categories', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('name')->index();
             $table->unsignedInteger('parent_id');
             $table->timestamps();
         });
+        
+        \Createdu\Models\Category::create(['name' => '基础目录', 'parent_id' => 1]);
     }
 
     /**

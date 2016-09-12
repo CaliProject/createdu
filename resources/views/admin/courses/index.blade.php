@@ -114,7 +114,7 @@
                                     </div>
                                 </td>
                                 <td>{{ $course->user->name }}</td>
-                                <td></td>
+                                <td>{{ $course->category->name }}</td>
                                 <td>
                                     <time datetime="{{ $course->created_at->format('Y-m-d H:i:s') }}">
                                         {{ $course->created_at->diffForHumans() }}

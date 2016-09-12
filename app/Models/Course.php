@@ -2,6 +2,7 @@
 
 namespace Createdu;
 
+use Createdu\Models\Category;
 use Illuminate\Database\Eloquent\Model;
 use Createdu\Library\Traits\Model\TimeSortable;
 
@@ -31,5 +32,10 @@ class Course extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }

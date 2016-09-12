@@ -15,7 +15,7 @@
                     <h4 class="panel-title">@lang('views.admin.pages.settings.general.basics.heading')</h4>
                 </div>
                 <div class="panel-body">
-                    <form action="@route('admin.settings.save-general', ['type' => 'basics'], false)" class="form-horizontal" method="post">
+                    <form action="@route('admin.settings.save-general-basics', [], false)" class="form-horizontal" method="post">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label for="site_title" class="control-label col-sm-2">@lang('views.admin.pages.settings.general.basics.site-title')</label>
@@ -67,7 +67,7 @@
                     <h4 class="panel-title">@lang('views.admin.pages.settings.general.seo.heading')</h4>
                 </div>
                 <div class="panel-body">
-                    <form action="@route('admin.settings.save-general', ['type' => 'seo'], false)" class="form-horizontal" method="post">
+                    <form action="@route('admin.settings.save-general-SEO', [], false)" class="form-horizontal" method="post">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label for="site_separator" class="control-label col-sm-2">@lang('views.admin.pages.settings.general.seo.separator')</label>

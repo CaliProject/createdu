@@ -142,6 +142,55 @@ class SiteConfiguration extends Configuration {
     }
 
     /**
+     * Update general basics settings.
+     *
+     * @param Request $request
+     * @author Cali
+     */
+    public static function saveGeneralBasicsSettings($request)
+    {
+        if ((! ! site('registrationOn')) ^ $on = ($request->input('registration') === 'yes')) {
+            static::registrationOn($on ? '1' : '0');
+        }
+
+        static::massiveUpdate($request->except(['_token', 'registration']));
+        env_put('ADMIN_EMAIL', $request->input('admin_email'));
+    }
+
+    /**
+     * Update general seo settings.
+     *
+     * @param Request $request
+     * @author Cali
+     */
+    public static function saveGeneralSeoSettings($request)
+    {
+        if (($keywords = implode(',', $request->input('site_keywords'))) != site('keywords')) {
+            static::keywords($keywords);
+        }
+        if (($ignoreUris = implode(',', $request->input('site_robot_ignores'))) != site('siteRobotIgnores')) {
+            static::siteRobotIgnores($ignoreUris);
+        }
+
+        static::massiveUpdate($request->only(['site_separator', 'site_description']));
+    }
+
+    /**
+     * Assign massive attributes at the same time.
+     *
+     * @param array $attributes
+     * @author Cali
+     */
+    public static function massiveUpdate(array $attributes)
+    {
+        foreach ($attributes as $key => $value) {
+            if ($value !== site(camel_case($key))) {
+                static::__callStatic(camel_case($key), [$value]);
+            }
+        }
+    }
+
+    /**
      * Initial setup for migration.
      * 
      * @author Cali

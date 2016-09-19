@@ -10,7 +10,12 @@ use Createdu\Http\Requests\Admin\AddOrUpdateCourseRequest;
 
 class CoursesController extends Controller
 {
-    
+    /**
+     * 显示课程页面
+     * 
+     * @param $status
+     * @return mixed
+     */
     public function showCourse($status)
     {
         switch ($status) {

@@ -10,11 +10,22 @@ use Createdu\Http\Requests\Admin\CreateFactoryRequest;
 
 class CenterController extends Controller
 {
+    /**
+     * 显示数据工厂页面
+     * 
+     * @return mixed
+     */
     public function showFactory()
     {
         return view('admin.centers.factory');
     }
 
+    /**
+     * 创建工厂数据
+     * 
+     * @param CreateFactoryRequest $request
+     * @return array
+     */
     public function createFactory(CreateFactoryRequest $request)
     {
         try {
@@ -23,12 +34,20 @@ class CenterController extends Controller
             return $this->errorResponse(trans('views.admin.pages.data-center.factory.half-created'));
         }
 
-        return $this->successResponse(trans('views.admin.pages.data-center.factory.created', [
+        return $this->successResponse(
+            trans('views.admin.pages.data-center.factory.created', [
                 'q' => $request->input('quantity'),
                 'model' => trans('views.admin.pages.data-center.factory.models.' . $request->input('model'))
             ]));
     }
 
+    /**
+     * 生成相应的工厂模型
+     * 
+     * @param $model
+     * @param $quantity
+     * @return mixed
+     */
     protected function generateFactoryModel($model, $quantity)
     {
         switch ($model){

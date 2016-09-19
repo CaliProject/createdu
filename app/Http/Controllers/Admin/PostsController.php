@@ -77,6 +77,12 @@ class PostsController extends Controller
         dd($request->except(['_method','_token']));
     }
 
+    /**
+     * 置顶一条文章记录
+     * 
+     * @param Post $post
+     * @return array
+     */
     public function stickPost(Post $post)
     {
         $post->update(['sticky' => !$post->sticky]);
@@ -84,6 +90,12 @@ class PostsController extends Controller
         return $this->successResponse();
     }
 
+    /**
+     * 加精一条文章记录
+     * 
+     * @param Post $post
+     * @return array
+     */
     public function essencifyPost(Post $post)
     {
         $post->update(['essential' => !$post->essential]);

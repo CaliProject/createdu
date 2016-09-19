@@ -19,17 +19,41 @@ class SettingController extends Controller
     {
         return view('admin.settings.general');
     }
+    
+    public function showServices()
+    {
+        return view('admin.settings.services');
+    }
 
+    /**
+     * 保存basics常规设置
+     * 
+     * @param GeneralBasicsRequest $request
+     * @return array
+     */
     public function saveGeneralBasicsSetting(GeneralBasicsRequest $request)
     {
         return $this->saveGeneralSettings('basics',$request);
     }
-    
+
+    /**
+     * 保存SEO常规设置
+     * 
+     * @param GeneralSEORequest $request
+     * @return array
+     */
     public function saveGeneralSEOSetting(GeneralSEORequest $request)
     {
         return $this->saveGeneralSettings('seo',$request);
     }
-    
+
+    /**
+     * 保存常规设置
+     * 
+     * @param $type
+     * @param $request
+     * @return array
+     */
     public function saveGeneralSettings($type,$request)
     {
         Site::__callStatic(camel_case("save_general_{$type}_settings"), [$request]);
@@ -40,4 +64,5 @@ class SettingController extends Controller
             ])
         );
     }
+    
 }

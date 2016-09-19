@@ -34,6 +34,11 @@ class Course extends Model
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * 一个course只属于一个category
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function category()
     {
         return $this->belongsTo(Category::class);

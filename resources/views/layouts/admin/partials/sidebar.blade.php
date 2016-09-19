@@ -83,7 +83,7 @@
                         {{--</ul>--}}
                     </li>
                     {{--<li><a href="@route('admin.settings.display.index', [], false)" data-pjax>@lang('views.admin.titles.settings.sub.display')</a></li>--}}
-                    {{--<li><a href="@route('admin.settings.services', [], false)" data-pjax>@lang('views.admin.titles.settings.sub.services')</a></li>--}}
+                    <li><a href="@route('admin.settings.services', [], false)" data-pjax>@lang('views.admin.titles.settings.sub.services')</a></li>
                     {{--<li>--}}
                         {{--<a href="@route('admin.settings.upgrade', [], false)" data-pjax>--}}
                             {{--<i class="icon-present"></i>&nbsp;@lang('views.admin.titles.settings.sub.upgrade')--}}

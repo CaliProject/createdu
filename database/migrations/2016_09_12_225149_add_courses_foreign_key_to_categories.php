@@ -26,7 +26,7 @@ class AddCoursesForeignKeyToCategories extends Migration
     public function down()
     {
         Schema::table('courses', function (Blueprint $table) {
-            $table->dropForeign('category_id');
+            $table->dropForeign('courses_category_id_foreign');
             $table->dropColumn('category_id');
         });
     }

@@ -1,1 +1,197 @@
-!function t(e,n,r){function i(o,s){if(!n[o]){if(!e[o]){var c="function"==typeof require&&require;if(!s&&c)return c(o,!0);if(a)return a(o,!0);var u=new Error("Cannot find module '"+o+"'");throw u.code="MODULE_NOT_FOUND",u}var h=n[o]={exports:{}};e[o][0].call(h.exports,function(t){var n=e[o][1][t];return i(n?n:t)},h,h.exports,t,e,n,r)}return n[o].exports}for(var a="function"==typeof require&&require,o=0;o<r.length;o++)i(r[o]);return i}({1:[function(t,e,n){"use strict";$(function(){function t(t,e,n,r){$.ajax({url:t,type:e,data:n?{_token:$("meta[name=_token]").attr("content"),IDs:n,action:r}:{_token:$("meta[name=_token]").attr("content")},dataType:"json",success:function(){swal({title:deleteMessages.success,timer:1350,type:"success",showConfirmButton:!1}),setTimeout(function(){return $.pjax.reload(pjaxContainer)},1e3)},error:function(t){toastr.error(t.responseText)}})}function e(t,e,n,r){$.ajax({url:t,type:e,data:n?{_token:$("meta[name=_token]").attr("content"),IDs:n,action:r}:{_token:$("meta[name=_token]").attr("content")},dataType:"json",success:function(){swal({title:trashMessages.success,timer:1350,type:"success",showConfirmButton:!1}),setTimeout(function(){return $.pjax.reload(pjaxContainer)},1e3)},error:function(t){toastr.error(t.responseText)}})}function n(t,e,n,r){$.ajax({url:t,type:e,data:n?{_token:$("meta[name=_token]").attr("content"),IDs:n,action:r}:{_token:$("meta[name=_token]").attr("content")},dataType:"json",success:function(){swal({title:revertMessages.success,timer:1350,type:"success",showConfirmButton:!1}),setTimeout(function(){return $.pjax.reload(pjaxContainer)},1e3)},error:function(t){toastr.error(t.responseText)}})}function r(){var t=new Array;return $("tbody input[type=checkbox]").each(function(){this.checked&&t.push($($(this).parents("tr")[0]).attr("action-id"))}),t.join(",")}function i(){var t=0;return $("tbody input[type=checkbox]").each(function(){this.checked&&t++}),t}function a(t){$(o).each(function(){this.checked!=t&&$(this).click()})}var o=$("th input[type=checkbox]");$("thead input[type=checkbox], tfoot input[type=checkbox]").each(function(){$(this).on("change",function(){a(this.checked)}.bind(this))}),$("a[data-delete]").each(function(){$(this).click(function(e){e.preventDefault();var n=$($(this).parents("tr")[0]).attr("action-id");Admin.showWarningAlert(deleteMessages,function(){t(deleteUrl+"/"+n,"DELETE")})}.bind(this))}),$(".bulk-delete").each(function(){$(this).on("click",function(){var e=i();if(0==e)return!1;var n=r();Admin.showWarningAlert(deleteMessages,function(){t(bulkUrl,"PATCH",n,"delete")})}.bind(this))}),$("a[data-trash]").each(function(){$(this).click(function(t){t.preventDefault();var n=$($(this).parents("tr")[0]).attr("action-id");Admin.showWarningAlert(trashMessages,function(){e(trashUrl+"/"+n,"PATCH")})}.bind(this))}),$("a[data-revert]").each(function(){$(this).click(function(t){t.preventDefault();var e=$($(this).parents("tr")[0]).attr("action-id");Admin.showWarningAlert(revertMessages,function(){n(revertUrl+"/"+e,"PATCH")})}.bind(this))}),$(".bulk-trash").each(function(){$(this).click(function(){var t=i();if(0==t)return!1;var n=r();Admin.showWarningAlert(trashMessages,function(){e(bulkUrl,"PATCH",n,"trash")})}.bind(this))}),$(".bulk-revert").each(function(){$(this).click(function(){var t=i();if(0==t)return!1;var e=r();Admin.showWarningAlert(revertMessages,function(){n(bulkUrl,"PATCH",e,"revert")})}.bind(this))})})},{}]},{},[1]);
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+"use strict";
+
+$(function () {
+
+    var allSwitches = $("th input[type=checkbox]");
+
+    $("thead input[type=checkbox], tfoot input[type=checkbox]").each(function () {
+        $(this).on('change', function () {
+            toggleGlobally(this.checked);
+        }.bind(this));
+    });
+
+    $("a[data-delete]").each(function () {
+        $(this).click(function (e) {
+            e.preventDefault();
+            var ID = $($(this).parents("tr")[0]).attr('action-id');
+
+            Admin.showWarningAlert(deleteMessages, function () {
+                deleteID(deleteUrl + "/" + ID, 'DELETE');
+            });
+        }.bind(this));
+    });
+
+    $(".bulk-delete").each(function () {
+        $(this).on('click', function () {
+            var total = getTotalBulkCount();
+            if (total == 0) return false;
+
+            var $ids = getTotalIDs();
+
+            Admin.showWarningAlert(deleteMessages, function () {
+                deleteID(bulkUrl, 'PATCH', $ids, 'delete');
+            });
+        }.bind(this));
+    });
+
+    function deleteID(url, type, ids, action) {
+        $.ajax({
+            url: url,
+            type: type,
+            data: ids ? {
+                _token: $("meta[name=_token]").attr('content'),
+                IDs: ids,
+                action: action
+            } : { _token: $("meta[name=_token]").attr('content') },
+            dataType: 'json',
+            success: function success() {
+                swal({
+                    title: deleteMessages.success,
+                    timer: 1350,
+                    type: 'success',
+                    showConfirmButton: false
+                });
+                setTimeout(function () {
+                    return $.pjax.reload(pjaxContainer);
+                }, 1000);
+            },
+            error: function error(err) {
+                toastr.error(err.responseText);
+            }
+        });
+    }
+
+    $("a[data-trash]").each(function () {
+        $(this).click(function (e) {
+            e.preventDefault();
+            var ID = $($(this).parents("tr")[0]).attr("action-id");
+
+            Admin.showWarningAlert(trashMessages, function () {
+                trashID(trashUrl + "/" + ID, 'PATCH');
+            });
+        }.bind(this));
+    });
+
+    $("a[data-revert]").each(function () {
+        $(this).click(function (e) {
+            e.preventDefault();
+            var ID = $($(this).parents("tr")[0]).attr("action-id");
+
+            Admin.showWarningAlert(revertMessages, function () {
+                revertID(revertUrl + "/" + ID, 'PATCH');
+            });
+        }.bind(this));
+    });
+
+    $(".bulk-trash").each(function () {
+        $(this).click(function () {
+            var total = getTotalBulkCount();
+            if (total == 0) return false;
+
+            var $ids = getTotalIDs();
+            Admin.showWarningAlert(trashMessages, function () {
+                trashID(bulkUrl, 'PATCH', $ids, 'trash');
+            });
+        }.bind(this));
+    });
+
+    $(".bulk-revert").each(function () {
+        $(this).click(function () {
+            var total = getTotalBulkCount();
+            if (total == 0) return false;
+
+            var $ids = getTotalIDs();
+            Admin.showWarningAlert(revertMessages, function () {
+                revertID(bulkUrl, 'PATCH', $ids, 'revert');
+            });
+        }.bind(this));
+    });
+
+    function trashID(url, type, ids, action) {
+        $.ajax({
+            url: url,
+            type: type,
+            data: ids ? {
+                _token: $("meta[name=_token]").attr('content'),
+                IDs: ids,
+                action: action
+            } : { _token: $("meta[name=_token]").attr('content') },
+            dataType: 'json',
+            success: function success() {
+                swal({
+                    title: trashMessages.success,
+                    timer: 1350,
+                    type: 'success',
+                    showConfirmButton: false
+                });
+                setTimeout(function () {
+                    return $.pjax.reload(pjaxContainer);
+                }, 1000);
+            },
+            error: function error(err) {
+                toastr.error(err.responseText);
+            }
+        });
+    }
+
+    function revertID(url, type, ids, action) {
+        $.ajax({
+            url: url,
+            type: type,
+            data: ids ? {
+                _token: $("meta[name=_token]").attr('content'),
+                IDs: ids,
+                action: action
+            } : { _token: $("meta[name=_token]").attr('content') },
+            dataType: 'json',
+            success: function success() {
+                swal({
+                    title: revertMessages.success,
+                    timer: 1350,
+                    type: 'success',
+                    showConfirmButton: false
+                });
+                setTimeout(function () {
+                    return $.pjax.reload(pjaxContainer);
+                }, 1000);
+            },
+            error: function error(err) {
+                toastr.error(err.responseText);
+            }
+        });
+    }
+
+    function getTotalIDs() {
+        var $ids = new Array();
+
+        $("tbody input[type=checkbox]").each(function () {
+            if (this.checked) {
+                $ids.push($($(this).parents("tr")[0]).attr('action-id'));
+            }
+        });
+
+        return $ids.join(',');
+    }
+
+    function getTotalBulkCount() {
+        var count = 0;
+        $("tbody input[type=checkbox]").each(function () {
+            if (this.checked) {
+                count++;
+            }
+        });
+
+        return count;
+    }
+
+    function toggleGlobally($on) {
+        $(allSwitches).each(function () {
+            if (this.checked != $on) {
+                $(this).click();
+            }
+        });
+    }
+});
+
+},{}]},{},[1]);

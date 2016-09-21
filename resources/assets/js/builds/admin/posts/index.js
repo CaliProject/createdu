@@ -1,1 +1,142 @@
-!function t(e,n,i){function r(s,o){if(!n[s]){if(!e[s]){var a="function"==typeof require&&require;if(!o&&a)return a(s,!0);if(c)return c(s,!0);var u=new Error("Cannot find module '"+s+"'");throw u.code="MODULE_NOT_FOUND",u}var f=n[s]={exports:{}};e[s][0].call(f.exports,function(t){var n=e[s][1][t];return r(n?n:t)},f,f.exports,t,e,n,i)}return n[s].exports}for(var c="function"==typeof require&&require,s=0;s<i.length;s++)r(i[s]);return r}({1:[function(t,e,n){"use strict";$(function(){function t(t,e,n,i){$.ajax({url:t,type:e,data:n?{_token:$("meta[name=_token]").attr("content"),IDs:n,action:i}:{_token:$("meta[name=_token]").attr("content")},dataType:"json",success:function(){swal({title:deleteMessages.success,timer:1350,type:"success",showConfirmButton:!1}),setTimeout(function(){return $.pjax.reload(pjaxContainer)},1e3)},error:function(t){toastr.error(t.responseText)}})}function e(){var t=new Array;return $("tbody input[type=checkbox]").each(function(){this.checked&&t.push($($(this).parents("tr")[0]).attr("action-id"))}),t.join(",")}function n(){var t=0;return $("tbody input[type=checkbox]").each(function(){this.checked&&t++}),t}function i(t){$(c).each(function(){this.checked!=t&&$(this).click()})}function r(t,e,n){$.ajax({url:t,type:e,data:{_token:$("meta[name=_token]").attr("content")},dataType:"json",success:function(){swal({title:n.success,timer:1350,type:"success",showConfirmButton:!1}),setTimeout(function(){return $.pjax.reload(pjaxContainer)},1e3)},error:function(t){toastr.error(t.responseText)}})}var c=$("th input[type=checkbox]");$("thead input[type=checkbox], tfoot input[type=checkbox]").each(function(){$(this).on("change",function(){i(this.checked)}.bind(this))}),$("a[data-delete]").each(function(){$(this).click(function(e){e.preventDefault();var n=$($(this).parents("tr")[0]).attr("action-id");Admin.showWarningAlert(deleteMessages,function(){t(deleteUrl+"/"+n,"DELETE")})}.bind(this))}),$(".bulk-delete").each(function(){$(this).on("click",function(){var i=n();if(0==i)return!1;var r=e();Admin.showWarningAlert(deleteMessages,function(){t(bulkUrl,"PATCH",r,"delete")})}.bind(this))}),$("a[data-essencify]").each(function(){$(this).click(function(t){t.preventDefault();var e=$($(this).parents("tr")[0]).attr("action-id");Admin.showWarningAlert(essencifyMessages,function(){r(essencifyUrl+"/"+e,"PATCH",essencifyMessages)})}.bind(this))}),$("a[data-stick]").each(function(){$(this).click(function(t){t.preventDefault();var e=$($(this).parents("tr")[0]).attr("action-id");Admin.showWarningAlert(stickMessages,function(){r(stickUrl+"/"+e,"PATCH",stickMessages)})}.bind(this))})})},{}]},{},[1]);
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+"use strict";
+
+$(function () {
+
+    var allSwitches = $("th input[type=checkbox]");
+
+    $("thead input[type=checkbox], tfoot input[type=checkbox]").each(function () {
+        $(this).on('change', function () {
+            toggleGlobally(this.checked);
+        }.bind(this));
+    });
+
+    $("a[data-delete]").each(function () {
+        $(this).click(function (e) {
+            e.preventDefault();
+            var ID = $($(this).parents("tr")[0]).attr('action-id');
+
+            Admin.showWarningAlert(deleteMessages, function () {
+                deleteID(deleteUrl + "/" + ID, 'DELETE');
+            });
+        }.bind(this));
+    });
+
+    $(".bulk-delete").each(function () {
+        $(this).on('click', function () {
+            var total = getTotalBulkCount();
+            if (total == 0) return false;
+
+            var $ids = getTotalIDs();
+
+            Admin.showWarningAlert(deleteMessages, function () {
+                deleteID(bulkUrl, 'PATCH', $ids, 'delete');
+            });
+        }.bind(this));
+    });
+
+    function deleteID(url, type, ids, action) {
+        $.ajax({
+            url: url,
+            type: type,
+            data: ids ? {
+                _token: $("meta[name=_token]").attr('content'),
+                IDs: ids,
+                action: action
+            } : { _token: $("meta[name=_token]").attr('content') },
+            dataType: 'json',
+            success: function success() {
+                swal({
+                    title: deleteMessages.success,
+                    timer: 1350,
+                    type: 'success',
+                    showConfirmButton: false
+                });
+                setTimeout(function () {
+                    return $.pjax.reload(pjaxContainer);
+                }, 1000);
+            },
+            error: function error(err) {
+                toastr.error(err.responseText);
+            }
+        });
+    }
+
+    function getTotalIDs() {
+        var $ids = new Array();
+
+        $("tbody input[type=checkbox]").each(function () {
+            if (this.checked) {
+                $ids.push($($(this).parents("tr")[0]).attr('action-id'));
+            }
+        });
+
+        return $ids.join(',');
+    }
+
+    function getTotalBulkCount() {
+        var count = 0;
+        $("tbody input[type=checkbox]").each(function () {
+            if (this.checked) {
+                count++;
+            }
+        });
+
+        return count;
+    }
+
+    function toggleGlobally($on) {
+        $(allSwitches).each(function () {
+            if (this.checked != $on) {
+                $(this).click();
+            }
+        });
+    }
+
+    $("a[data-essencify]").each(function () {
+        $(this).click(function (e) {
+            e.preventDefault();
+            var essencifyID = $($(this).parents("tr")[0]).attr('action-id');
+
+            Admin.showWarningAlert(essencifyMessages, function () {
+                stickOrEssencifyID(essencifyUrl + "/" + essencifyID, 'PATCH', essencifyMessages);
+            });
+        }.bind(this));
+    });
+
+    $("a[data-stick]").each(function () {
+        $(this).click(function (e) {
+            e.preventDefault();
+            var stickID = $($(this).parents("tr")[0]).attr('action-id');
+
+            Admin.showWarningAlert(stickMessages, function () {
+                stickOrEssencifyID(stickUrl + "/" + stickID, 'PATCH', stickMessages);
+            });
+        }.bind(this));
+    });
+
+    function stickOrEssencifyID(url, type, Messages) {
+        $.ajax({
+            url: url,
+            type: type,
+            data: { _token: $("meta[name=_token]").attr('content') },
+            dataType: 'json',
+            success: function success() {
+                swal({
+                    title: Messages.success,
+                    timer: 1350,
+                    type: 'success',
+                    showConfirmButton: false
+                });
+                setTimeout(function () {
+                    return $.pjax.reload(pjaxContainer);
+                }, 1000);
+            },
+            error: function error(err) {
+                toastr.error(err.responseText);
+            }
+        });
+    }
+});
+
+},{}]},{},[1]);

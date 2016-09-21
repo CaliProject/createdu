@@ -54,20 +54,7 @@
             <h2>名师出高徒</h2>
             <p>一句话描述... 此处放教师精选</p>
         </div>
-        <div class="isolayer isolayer--tutors isolayer--shadow">
-            <ul class="grid">
-                @for($i = 1; $i <= 11; $i++)
-                    <li class="grid__item">
-                        <a class="grid__link" href="#">
-                            <div class="layer"></div>
-                            <div class="layer"></div>
-                            <div class="layer"></div>
-                            <img class="grid__img layer" src="/assets/images/home/tutors/{{ random_int(1, 10) }}.png" alt="{{ $i }}" />
-                        </a>
-                    </li>
-                @endfor
-            </ul>
-        </div>
+
     </section>
     <section class="Join">
         <div class="container">
@@ -108,26 +95,6 @@
         }
 
         init();
-
-        new IsoGrid(document.querySelector('.isolayer--tutors'), {
-            transform : 'translateX(-3vw) translateY(50px) rotateX(45deg) rotateZ(45deg)',
-            stackItemsAnimation : {
-                properties : function(pos) {
-                    return {
-                        translateZ: (pos+1) * 30,
-                        rotateZ: getRandomInt(-4, 4)
-                    };
-                },
-                options : function(pos, itemstotal) {
-                    return {
-                        type: dynamics.bezier,
-                        duration: 500,
-                        points: [{"x":0,"y":0,"cp":[{"x":0.2,"y":1}]},{"x":1,"y":1,"cp":[{"x":0.3,"y":1}]}],
-                        delay: (itemstotal-pos-1)*40
-                    };
-                }
-            }
-        });
     })();
 </script>
 @endpush

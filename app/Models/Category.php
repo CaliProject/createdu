@@ -11,13 +11,9 @@ class Category extends Model
      * 守卫变量
      * @var array
      */
-    protected $guarded = [];
+    protected $guarded = [
 
-    /**
-     * 绑定表
-     * @var string
-     */
-    protected $table = 'categories';
+    ];
 
     /**
      * 一个category可以有多个course

@@ -48,11 +48,11 @@ class Router {
         // Email Confirmation...
         Route::get('auth/confirm', 'User\ProfileController@confirmRegistration')->name('confirm-email');
 
-        if (site('registrationOn')) {
-            // Registration Routes...
-            Route::get('signup', 'Auth\AuthController@showRegistrationForm')->name('sign-up');
-            Route::post('signup', 'Auth\AuthController@register');
+        // Registration Routes...
+        Route::get('signup', 'Auth\AuthController@showRegistrationForm')->name('sign-up');
+        Route::post('signup', 'Auth\AuthController@register');
 
+        if (site('registrationOn')) {
             // Third Party Authentications...
             Route::get('auth/{service}', 'Auth\AuthController@socialLogin')->name('social');
             Route::post('auth', 'Auth\AuthController@connect')->name('social-connect');

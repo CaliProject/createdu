@@ -38,17 +38,21 @@
                         <button class="Auth__submit" type="submit"></button>
                     </div>
                 </form>
+                @if(site('registrationOn'))
                 <div class="Auth__oauth">
                     @foreach(explode(",", Site::supportedOAuths()) as $service)
                         <a class="Auth__oauth__service {{ $service }}" href="@route('social', compact('service'))"></a>
                     @endforeach
                 </div>
+                @endif
                 <div class="Auth__separator"></div>
                 <div class="Auth__extra">
                     @lang('views.auth.login.no_account')&nbsp;<a href="@route('sign-up')">@lang('views.auth.login.register')</a>
+                    @if(site('registrationOn'))
                     <div class="pull-right">
                         <a href="@route('reset')">@lang('views.auth.login.forgot_password')</a>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>

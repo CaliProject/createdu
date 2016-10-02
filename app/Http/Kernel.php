@@ -14,8 +14,7 @@ class Kernel extends HttpKernel {
      * @var array
      */
     protected $middleware = [
-        \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
-        \Createdu\Http\Middleware\CheckForInvitation::class,
+        \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class
     ];
 
     /**
@@ -32,6 +31,7 @@ class Kernel extends HttpKernel {
             \Createdu\Http\Middleware\VerifyCsrfToken::class,
             \Createdu\Http\Middleware\PjaxMiddleware::class,
             \Createdu\Http\Middleware\RecordStatistics::class,
+            \Createdu\Http\Middleware\CheckForInvitation::class,
         ],
 
         'api' => [

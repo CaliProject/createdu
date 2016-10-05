@@ -61,6 +61,16 @@
                 ])
             </div>
         </div>
+        <div class="tab-pane active fade in" role="tabpanel" id="email-tab">
+            @include('admin.settings.partials.smtp')
+        </div>
+        <div class="tab-pane active fade in" role="tabpanel" id="push-tab">
+            @include('admin.settings.partials.push')
+        </div>
     </div>
 </div>
 @endsection
+
+@push('scripts.footer')
+<script src="/assets/js/admin/setting/services.js" pjax-script></script>
+@endpush

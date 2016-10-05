@@ -5,7 +5,7 @@
             </h4>
         </div>
         <div class="panel-body">
-            <form action="@route('admin.settings.save-oauth', ['service' => strtolower($service)])"
+            <form action="@route('admin.settings.save-oauth', ['service' => strtolower($service)], false)"
                   class="form-horizontal" method="POST" id="{{ strtolower($service) }}-oauth">
                 {!! csrf_field() !!}
                 <div class="form-group">

@@ -143,9 +143,10 @@ class SiteConfiguration extends Configuration {
 
     /**
      * Update general basics settings.
-     *
-     * @param Request $request
-     * @author Cali
+     * 更新常规设置中的基础设置
+     * 
+     * @param Request $request 经过基础设置验证&过滤的数据表单
+     * @author Cali & Tim
      */
     public static function saveGeneralBasicsSettings($request)
     {
@@ -159,9 +160,10 @@ class SiteConfiguration extends Configuration {
 
     /**
      * Update general seo settings.
+     * 更新常规设置中的seo设置
      *
-     * @param Request $request
-     * @author Cali
+     * @param Request $request 经过seo表单验证的数据
+     * @author Cali & Tim
      */
     public static function saveGeneralSeoSettings($request)
     {
@@ -173,6 +175,62 @@ class SiteConfiguration extends Configuration {
         }
 
         static::massiveUpdate($request->only(['site_separator', 'site_description']));
+    }
+
+    /**
+     * Save oAuth settings.
+     *
+     * @param         $service
+     * @param Request $request
+     * @author Cali
+     */
+    public static function saveServicesOAuthSettings($service, Request $request)
+    {
+        if (($on = $request->input('on', 'off') == 'on' ? 1 : 0) != site("{$service}On")) {
+            static::__callStatic("{$service}On", [$on]);
+        }
+
+        $service = strtoupper($service);
+
+        env_put("{$service}_ID", trim($request->input('app_id')), true);
+        env_put("{$service}_SECRET", trim($request->input('app_secret')));
+        env_put("{$service}_REDIRECT", trim($request->input('redirect')));
+    }
+
+    /**
+     * Save email settings.
+     *
+     * @param Request $request
+     * @author Cali
+     */
+    public static function saveServicesSMTPSettings(Request $request)
+    {
+        $attributes = $request->except(['_token', 'on']);
+
+        if (($on = $request->input('on', 'off') == 'on' ? 1 : 0) != site('smtpEmailOn')) {
+            static::__callStatic("smtpEmailOn", [$on]);
+        }
+
+        foreach ($attributes as $attribute => $value) {
+            env_put(strtoupper($attribute), trim($value));
+        }
+    }
+
+    /**
+     * Save pusher settings.
+     *
+     * @param Request $request
+     * @author Cali
+     */
+    public static function saveServicesPushSettings(Request $request)
+    {
+        if (($on = $request->input('on', 'off') == 'on' ? 1 : 0) != site('pusherOn')) {
+            static::__callStatic("pusherOn", [$on]);
+        }
+
+        env_put("PUSHER_APP_ID", trim($request->input('app_id')), true);
+        env_put("PUSHER_KEY", trim($request->input('key')));
+        env_put("PUSHER_SECRET", trim($request->input('secret')));
     }
 
     /**

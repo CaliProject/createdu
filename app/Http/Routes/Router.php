@@ -250,7 +250,10 @@ class Router {
                 Route::post('general/basics', 'SettingController@saveGeneralBasicsSetting')->name('save-general-basics');
                 Route::post('general/SEO', 'SettingController@saveGeneralSEOSetting')->name('save-general-SEO');
                 Route::get('services', 'SettingController@showServices')->name('services');
-                Route::post('services/{service?}', 'SettingController@saveOauth')->name('save-oauth');
+                Route::post('oauth/{service?}', 'SettingController@saveOauth')->name('save-oauth');
+                Route::post('smtp', 'SettingController@saveSMTP')->name('save-smtp');
+                Route::post('smtp/test', 'SettingController@sendTestSMTP')->name('send-test');
+                Route::post('push', 'SettingController@savePush')->name('save-push');
             });
         });
 

@@ -235,6 +235,7 @@ return [
         'Stat'      => Createdu\Library\Facades\Stat::class,
         'Mailer'    => Createdu\Library\Facades\Mailer::class,
         'Location'  => Createdu\Library\Facades\Location::class,
+        'Createdu'  => Createdu\Library\Facades\Createdu::class,
 
         /**
          * Vendor facades

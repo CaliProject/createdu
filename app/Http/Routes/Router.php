@@ -254,6 +254,14 @@ class Router {
                 Route::post('smtp', 'SettingController@saveSMTP')->name('save-smtp');
                 Route::post('smtp/test', 'SettingController@sendTestSMTP')->name('send-test');
                 Route::post('push', 'SettingController@savePush')->name('save-push');
+
+                Route::group([
+                    'prefix' => 'advanced',
+                    'as'     => 'advanced.'
+                ], function () {
+                    Route::get('index', 'SettingController@showAdvancedIndex')->name('index');
+                    Route::post('develop', 'SettingController@saveDevelop')->name('save-develop');
+                });
             });
         });
 

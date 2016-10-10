@@ -2,9 +2,10 @@
 
 namespace Createdu\Providers;
 
-use Createdu\Course;
+use Createdu;
 use Createdu\Post;
 use Createdu\User;
+use Createdu\Course;
 use Illuminate\Support\ServiceProvider;
 
 class ViewComposerServiceProvider extends ServiceProvider
@@ -19,6 +20,7 @@ class ViewComposerServiceProvider extends ServiceProvider
         $this->bindAdminUsers();
         $this->bindAdminCourses();
         $this->bindAdminPosts();
+        $this->bindAdminServerInfo();
     }
 
     /**
@@ -73,6 +75,13 @@ class ViewComposerServiceProvider extends ServiceProvider
             $posts = Post::orderBy('sticky','desc')->orderBy('essential','desc')->paginate();
 
             return $view->with(compact('posts'));
+        });
+    }
+    
+    public function bindAdminServerInfo()
+    {
+        return view()->composer('admin.settings.advanced-server-info', function($view) {
+            return $view->with(Createdu::advancedServerInfo());
         });
     }
 }

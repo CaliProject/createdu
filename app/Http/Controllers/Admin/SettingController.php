@@ -22,12 +22,27 @@ class SettingController extends Controller
     {
         return view('admin.settings.general');
     }
-    
+
+    /**
+     * 显示第三方服务设置页面
+     * 
+     * @return mixed
+     */
     public function showServices()
     {
         return view('admin.settings.services');
     }
 
+    /**
+     * 显示开发设置页面
+     * 
+     * @return mixed
+     */
+    public function showAdvancedIndex()
+    {
+        return view('admin.settings.advanced');    
+    }
+    
     /**
      * 保存basics常规设置
      * 

@@ -75,12 +75,12 @@
                             <p>@lang('views.admin.titles.settings.sub.advanced.main')</p>
                             <span class="arrow"></span>
                         </a>
-                        {{--<ul class="sub-menu">--}}
-                            {{--<li><a href="@route('admin.settings.advanced.index', [], false)" data-pjax>@lang('views.admin.titles.settings.sub.advanced.develop')</a></li>--}}
+                        <ul class="sub-menu">
+                            <li><a href="@route('admin.settings.advanced.index', [], false)" data-pjax>@lang('views.admin.titles.settings.sub.advanced.develop')</a></li>
                             {{--<li><a href="@route('admin.settings.advanced.database', [], false)" data-pjax>@lang('views.admin.titles.settings.sub.advanced.database')</a></li>--}}
                             {{--<li><a href="@route('admin.settings.advanced.cache', [], false)" data-pjax>@lang('views.admin.titles.settings.sub.advanced.cache')</a></li>--}}
                             {{--<li><a href="@route('admin.settings.advanced.sub-domains', [], false)" data-pjax>@lang('views.admin.titles.settings.sub.advanced.sub-domains')</a></li>--}}
-                        {{--</ul>--}}
+                        </ul>
                     </li>
                     {{--<li><a href="@route('admin.settings.display.index', [], false)" data-pjax>@lang('views.admin.titles.settings.sub.display')</a></li>--}}
                     <li><a href="@route('admin.settings.services', [], false)" data-pjax>@lang('views.admin.titles.settings.sub.services')</a></li>
